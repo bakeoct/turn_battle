@@ -1,53 +1,72 @@
 package Calc;
 
+import Monsters.Metal_slime;
+import Monsters.Monster2;
+
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Person2 {
-    public int position;
+    public int[] position = new int[2];
     public ArrayList<Monster2> monsters2;
     public String name;
     public String seibetu;
-    public Monster2 has_monster1;
-    public Monster2 has_monster2;
 
-    public Person2(String namae,String seibetu2,ArrayList<Monster2> monsters2,Monster2 hasmonster1,Monster2 hasmonster2){
-        this.position=0;
-        this.name=namae;
-        this.monsters2=monsters2;
-        this.seibetu=seibetu2;
-        this.has_monster1=hasmonster1;
-        this.has_monster2=hasmonster2;
-        if (this.seibetu.equals("dannsei")){
-            System.out.print(namae+"くんのモンスター("+this.has_monster1.name+","+this.has_monster2.name+")が戦っているのは");
+    public Person2(String namae, String seibetu2, ArrayList<Monster2> monsters2) {
+        this.name = namae;
+        this.monsters2 = monsters2;
+        this.seibetu = seibetu2;
+        if (this.seibetu.equals("dannsei")) {
+            System.out.print(namae + "くんが持っているはモンスターは(モンスター");
+            for (Monster2 mons : monsters2) {
+                System.out.print("," + mons.name);
+            }
+            System.out.println(")です");
         }
-        if (this.seibetu.equals("josei")){
-            System.out.print(namae+"さんのモンスターが("+this.has_monster1.name+","+this.has_monster2.name+")戦っているのは");
+        if (this.seibetu.equals("josei")) {
+            System.out.print(namae + "さんが持っているはモンスターは(モンスター");
+            for (Monster2 mons : monsters2) {
+                System.out.print("," + mons.name);
+            }
+            System.out.println(")です");
         }
-        if (!(this.seibetu.equals("dannsei") || this.seibetu.equals("josei"))){
+        if(!(this.seibetu.equals("dannsei") || this.seibetu.equals("josei"))) {
             System.out.println("(josei)または(dannsei)を入力してください。");
         }
     }
-    public int walk(){
-        this.position++;
+    public int[] walk(){
+        int x=0;
+        int y=0;
+        x=Ramdomwalk(x);
+        y=Ramdomwalk(y);
+        this.position[0]=x;
+        this.position[1]=y;
         return this.position;
+    }
+    public int Ramdomwalk(int ramdomposition){
+        Random random =new Random();
+        if (random.nextInt(2)==0){
+            ramdomposition++;
+        }else {
+            ramdomposition--;
+        }
+        return ramdomposition;
     }
     public void battle(Monster2 enemeymonster){
         int[] enemey_hp0_mp1 = new int[2];
         enemey_hp0_mp1[0]=enemeymonster.HP;
         int i=0;
-        while (enemey_hp0_mp1[0]>0 && i<3) {
-            if (i == 0) {
-                enemey_hp0_mp1 = this.has_monster1.battle(enemeymonster);
+        for (Monster2 mons : this.monsters2) {
+                enemey_hp0_mp1 = Monster2.battle(enemeymonster,mons);
                 enemeymonster.HP = enemey_hp0_mp1[0];
                 enemeymonster.MP = enemey_hp0_mp1[1];
+            if (enemeymonster.HP<=0){
+                System.out.println("勝利した");
+                break;
             }
-            if (i == 1) {
-                enemey_hp0_mp1 = this.has_monster2.battle(enemeymonster);
-            }
-            if (i == 2) {
-                System.out.println("負けてしまった");
-            }
-            i++;
+        }
+        if (enemeymonster.HP>0){
+            System.out.println("負けてしまった");
         }
     }
 }

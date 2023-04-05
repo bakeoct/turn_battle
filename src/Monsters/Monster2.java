@@ -1,8 +1,9 @@
-package Calc;
+package Monsters;
 
 import java.util.Random;
 
-public class Monster2 {
+public abstract class Monster2 {
+    public int[] position =new int[2];
     public int HP;
     public int MP;
     public int Attack;
@@ -11,17 +12,8 @@ public class Monster2 {
     public int leberu;
     public boolean isalive;
     public int judgeSente;
+    public Boolean fellow;
 
-    public Monster2(String name, String sei, int lv, int hp, int attack, int mp, int judgeSente) {
-        this.name = name;
-        this.seibetu = sei;
-        this.leberu = lv;
-        this.HP = hp;
-        this.Attack = attack;
-        this.MP = mp;
-        this.isalive = true;
-        this.judgeSente = judgeSente;
-    }
 
     public String Name() {
         return this.name;
@@ -35,7 +27,7 @@ public class Monster2 {
         return this.leberu;
     }
 
-    public String look(Monster2 monster) {
+    public static String look(Monster2 monster) {
         return monster.name;
     }
 
@@ -53,7 +45,6 @@ public class Monster2 {
             return monster.MP;
         }
         if (monster.MP >= 10) {
-
             this.HP = monster.attack(this);
             monster.MP = monster.MP - 10;
             System.out.println(monster.name + "の攻撃　　ドーン！！　" + this.name + "の体力が" + this.HP + "になった。　　" + monster.name + "のMPが10下がって" + monster.MP + "になった");
@@ -66,34 +57,40 @@ public class Monster2 {
         }
         return monster.MP;
     }
-
-    public int[] battle(Monster2 enemiy_monster) {
-        int[] enemiy_monster_hp0_mp1=new int[2];
-        if (enemiy_monster.HP > 0) {
-            System.out.println(this.name+"と"+enemiy_monster.name+"の戦い");
-            while (enemiy_monster.isalive && this.isalive) {
-                boolean sente = judgeSente(this.judgeSente, enemiy_monster.judgeSente);
-                if (sente) {
-                    this.MP = enemiy_monster.turn(enemiy_monster);
-                    enemiy_monster.MP = this.turn(enemiy_monster);
-                    enemiy_monster.alive();
-                } else {
-                    enemiy_monster.MP = this.turn(enemiy_monster);
-                    this.MP = enemiy_monster.turn(this);
-                    enemiy_monster.alive();
+    public static int[] battle(Monster2 monster1,Monster2 monster2) {
+        int[] monster1_hp0_mp1=new int[2];
+        if (monster1.isalive) {
+            System.out.println(monster2.name+"と"+monster1.name+"の戦い");
+            if (monster2.isalive) {
+                while (monster1.isalive && monster2.isalive) {
+                    boolean sente = judgeSente(monster2.judgeSente, monster1.judgeSente);
+                    if (sente) {
+                        monster2.MP = monster1.turn(monster1);
+                        monster1.MP = monster2.turn(monster1);
+                        monster1.alive();
+                    } else {
+                        monster1.MP = monster2.turn(monster1);
+                        monster2.MP = monster1.turn(monster2);
+                        monster1.alive();
+                    }
                 }
+                monster1_hp0_mp1[0] = monster1.HP;
+                monster1_hp0_mp1[1] = monster1.MP;
+                return monster1_hp0_mp1;
+            }else {
+                System.out.println("しかし、"+monster2.name+"はすでに死んでいる");
+                monster1_hp0_mp1[0] = monster1.HP;
+                monster1_hp0_mp1[1] = monster1.MP;
+                return monster1_hp0_mp1;
             }
-            enemiy_monster_hp0_mp1[0] = enemiy_monster.HP;
-            enemiy_monster_hp0_mp1[1] = enemiy_monster.MP;
-            return enemiy_monster_hp0_mp1;
         }else {
-            enemiy_monster_hp0_mp1[0] = enemiy_monster.HP;
-            enemiy_monster_hp0_mp1[1] = enemiy_monster.MP;
-            return enemiy_monster_hp0_mp1;
+            monster1_hp0_mp1[0] = monster1.HP;
+            monster1_hp0_mp1[1] = monster1.MP;
+            return monster1_hp0_mp1;
         }
     }
 
-    public boolean judgeSente(int judgeSenteFirst, int judgeSenteSecond) {
+    public static boolean judgeSente(int judgeSenteFirst, int judgeSenteSecond) {
         Random random = new Random(2);
         boolean sente = true;
         if (judgeSenteFirst < judgeSenteSecond) {
