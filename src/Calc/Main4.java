@@ -47,6 +47,5 @@ public class Main4 {
             monsters2.add(dragon_king);
             System.out.println(dragon_king.name + "(性別." + dragon_king.seibetu + ")" + "  レベルは" + dragon_king.leberu + "です");
         }
-        p.battle(dragon_king);
     }
 }
