@@ -1,9 +1,11 @@
 package Monsters;
 
+import Calc.Position;
+
 import java.util.Random;
 
 public abstract class Monster2 {
-    public int[] position =new int[2];
+    Position position;
     public int HP;
     public int MP;
     public int Attack;

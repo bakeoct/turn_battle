@@ -5,13 +5,15 @@ import Monsters.Monster2;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Person2 {
-    public int[] position = new int[2];
     public ArrayList<Monster2> monsters2;
     public String name;
     public String seibetu;
-
+    public int x=0;
+    public int y=0;
+    public Position position =new Position(x,y);
     public Person2(String namae, String seibetu2, ArrayList<Monster2> monsters2) {
         this.name = namae;
         this.monsters2 = monsters2;
@@ -34,21 +36,23 @@ public class Person2 {
             System.out.println("(josei)または(dannsei)を入力してください。");
         }
     }
-    public int[] walk(){
-        int x=0;
-        int y=0;
-        x=Ramdomwalk(x);
-        y=Ramdomwalk(y);
-        this.position[0]=x;
-        this.position[1]=y;
-        return this.position;
-    }
-    public int Ramdomwalk(int ramdomposition){
-        Random random =new Random();
-        if (random.nextInt(2)==0){
+    public int walkx(int ramdomposition,String plice){
+        if (plice.equals("d")){
             ramdomposition++;
         }else {
-            ramdomposition--;
+            if (plice.equals("a")) {
+                ramdomposition--;
+            }
+        }
+        return ramdomposition;
+    }
+    public int walky(int ramdomposition,String plice){
+        if (plice.equals("w")){
+            ramdomposition++;
+        }else {
+            if (plice.equals("s")) {
+                ramdomposition--;
+            }
         }
         return ramdomposition;
     }

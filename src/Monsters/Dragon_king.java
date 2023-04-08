@@ -1,10 +1,14 @@
 package Monsters;
 
 import Calc.Person2;
+import Calc.Position;
 
 import java.util.Random;
 
 public class Dragon_king extends Monster2{
+    public int x=0;
+    public int y=2;
+    public Position position =new Position(x,y);
     public Dragon_king() {
         this.HP=200000000;
         this.MP=200;
@@ -16,18 +20,9 @@ public class Dragon_king extends Monster2{
         this.isalive=true;
         this.fellow=false;
     }
-    public int[] walk(){
-        int x=0;
-        int y=0;
-        x=Ramdomwalk(x);
-        y=Ramdomwalk(y);
-        this.position[0]=x;
-        this.position[1]=y;
-        return this.position;
-    }
-    public int Ramdomwalk(int ramdomposition){
+    public int walk(int ramdomposition){
         Random random =new Random();
-        if (random.nextInt(2)<=0){
+        if (random.nextBoolean()){
             ramdomposition++;
         }else {
             ramdomposition--;
