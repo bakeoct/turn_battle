@@ -13,4 +13,14 @@ public class Notgo {
         this.oceanx.add(0);
         this.oceany.add(1);
     }
+    public Boolean notpoint(ArrayList<Integer> notgolist,int point){
+        Boolean nogo=false;
+        for (int j : notgolist){
+            if (j==point) {
+                nogo=true;
+                break;
+            }
+        }
+        return nogo;
+    }
 }

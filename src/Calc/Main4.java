@@ -48,7 +48,6 @@ public class Main4 {
             int i=0;
             while (i==0) {
             String plice = scanner.next();
-            //これをgitに挙げる、ｗを押した後で船のやつで戻ってきてからa押したら二つ進んでしまう
             if (plice.equals("a") || plice.equals("d")) {
                 p.position.x = p.walkx(p.position.x, plice);
                 i++;
@@ -60,9 +59,13 @@ public class Main4 {
                     System.out.println("a,w,s,dのどれかを選んでください");
                 }
             }
-                if (notgo.oceanx.get(0) == p.position.x && notgo.oceany.get(0) == p.position.y){
+                //これをnotgoに送って二つメソッド動かす
+                Boolean notgox=notgo.notpoint(notgo.oceanx,p.position.x);
+                Boolean notgoy=notgo.notpoint(notgo.oceany,p.position.y);
+            //notgo.oceanxそれかyの中の数字に該当する数字だった場合tureを返す
+                if (notgox && notgoy){
                     System.out.print("ここには海があります。　");
-                    while (items.get(1).have && endflg==0){
+                    while (ship.have && endflg==0){
                         System.out.println("船を使いますか？ 使う「ture」 使わない「false」");
                         if (scanner.next().equals("ture")){
                             System.out.println("船を使った！");
