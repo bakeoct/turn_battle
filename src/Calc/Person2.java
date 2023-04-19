@@ -1,5 +1,8 @@
 package Calc;
 
+import Calc.Item.Item;
+import Calc.Item.Ladder;
+import Calc.Item.Ship;
 import Monsters.Metal_slime;
 import Monsters.Monster2;
 
@@ -9,14 +12,18 @@ import java.util.Scanner;
 
 public class Person2 {
     public ArrayList<Monster2> monsters2;
+    public ArrayList<Item> items;
     public String name;
     public String seibetu;
     public int x=0;
     public int y=0;
     public Position position =new Position(x,y);
-    public Person2(String namae, String seibetu2, ArrayList<Monster2> monsters2) {
+    public Ladder ladder =new Ladder();
+    public Ship ship =new Ship();
+    public Person2(String namae, String seibetu2, ArrayList<Monster2> monsters2,ArrayList<Item> items) {
         this.name = namae;
         this.monsters2 = monsters2;
+        this.items = items;
         this.seibetu = seibetu2;
         if (this.seibetu.equals("dannsei")) {
             System.out.print(namae + "くんが持っているはモンスターは(モンスター");
@@ -24,6 +31,9 @@ public class Person2 {
                 System.out.print("," + mons.name);
             }
             System.out.println(")です");
+            for (Item item : items){
+                System.out.println("そして、"+namae+"君は"+item.name+"を持っています");
+            }
         }
         if (this.seibetu.equals("josei")) {
             System.out.print(namae + "さんが持っているはモンスターは(モンスター");
@@ -31,6 +41,11 @@ public class Person2 {
                 System.out.print("," + mons.name);
             }
             System.out.println(")です");
+            if (ladder.have){
+                System.out.println("そして、"+namae+"君は"+ladder.name+"を持っています");
+            }else {
+                System.out.println("そして、"+namae+"君は梯子を持っていません");
+            }
         }
         if(!(this.seibetu.equals("dannsei") || this.seibetu.equals("josei"))) {
             System.out.println("(josei)または(dannsei)を入力してください。");
