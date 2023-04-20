@@ -65,6 +65,7 @@ public class Main4 {
             //notgo.oceanxそれかyの中の数字に該当する数字だった場合tureを返す
                 if (notgox && notgoy){
                     System.out.print("ここには海があります。　");
+                    endflg=0;
                     while (ship.have && endflg==0){
                         System.out.println("船を使いますか？ 使う「ture」 使わない「false」");
                         if (scanner.next().equals("ture")){
