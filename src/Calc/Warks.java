@@ -13,7 +13,7 @@ public class Warks {
     public Position position;
     public Position monsterposition;
     public Scanner scanner;
-    public Notgo notgo;
+    public Map map;
     public Dragon_king dragon_king;
     public Person2 p;
     public String point;
@@ -23,17 +23,17 @@ public class Warks {
     public int monsterservex = 6;
     public int monsterservey = 1;
     public String itembox = "宝箱";
-    public Warks(Position position, Position monsterposition, Scanner scanner, Notgo notgo, Dragon_king dragon_king,Person2 person2){
+    public Warks(Position position, Position monsterposition, Scanner scanner, Map map, Dragon_king dragon_king,Person2 person2){
         this.position = position;
         this.monsterposition = monsterposition;
         this.scanner = scanner;
-        this.notgo =notgo;
+        this.map =map;
         this.dragon_king = dragon_king;
         this.p = person2;
     }
 
     public void turnwalk() {
-        Warks warks =new Warks(position,monsterposition,scanner,notgo,dragon_king,p);
+        Warks warks =new Warks(position,monsterposition,scanner,map,dragon_king,p);
         Random random = new Random();
         Ship ship = new Ship();
         Ladder ladder = new Ladder();
@@ -44,7 +44,7 @@ public class Warks {
         while (!(p.position.x == monsterposition.x) || !(p.position.y == monsterposition.y)) {
             int i = 0;
             while (i == 0) {
-                int servenogo = notgo.notpoint(p.position.x, p.position.y);
+                int servenogo = map.notpoint(p.position.x, p.position.y);
                 String plice = scanner.next();
                 if (plice.equals("a") || plice.equals("d")) {
                     p.position.x = p.walkx(p.position.x, plice);
@@ -57,8 +57,8 @@ public class Warks {
                         System.out.println("a,w,s,dのどれかを選んでください");
                     }
                 }
-                //これをnotgoに送って二つメソッド動かす
-                int nogo = notgo.notpoint(p.position.x, p.position.y);
+                //これをmapに送って二つメソッド動かす
+                int nogo = map.notpoint(p.position.x, p.position.y);
                 if (nogo == 1 && !(nogo == servenogo)) {
                     point = "崖";
                     item = "梯子";
@@ -104,7 +104,7 @@ public class Warks {
                     dragon_king.position.y = dragon_king.walk(monsterposition.y);
                     monsteri++;
                 }
-                int monsternogo = notgo.notpoint(dragon_king.position.x, dragon_king.position.y);
+                int monsternogo = map.notpoint(dragon_king.position.x, dragon_king.position.y);
                 if (monsternogo == -1) {
                     monsteri--;
                     dragon_king.position.x = monsterservex;
@@ -122,7 +122,7 @@ public class Warks {
         }
     }
     public int notpoint(Item items,int servex,int servey,int i,String point,String item){
-        //notgo.oceanxそれかyの中の数字に該当する数字だった場合tureを返す
+        //map.oceanxそれかyの中の数字に該当する数字だった場合tureを返す
         System.out.print("ここには"+point+"があります。　");
         int endflg = 0;
         while (items.have && endflg == 0) {

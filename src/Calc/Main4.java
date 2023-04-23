@@ -28,8 +28,8 @@ public class Main4 {
         Person2 p = new Person2("takumi","dannsei",monsters2,items);
         Position position =new Position(p.position.x,p.position.y);
         Position monsterposition =new Position(dragon_king.position.x,dragon_king.position.y);
-        Notgo notgo =new Notgo();
-        Warks warks =new Warks(position,monsterposition,scanner,notgo,dragon_king,p);
+        Map map =new Map();
+        Warks warks =new Warks(position,monsterposition,scanner,map,dragon_king,p);
         System.out.println(Metal_slime.look(dragon_king));
         for (Monster2 mons : p.monsters2){
             System.out.println(mons.Name()+"(性別."+mons.Seibetu()+")"+"  レベルは"+mons.LV()+"です");
