@@ -14,25 +14,21 @@ public class Main4 {
         Random random =new Random();
         Boolean fellow;
         Scanner scanner =new Scanner(System.in);
-        Notgo notgo =new Notgo();
         Gorlem gorlem =new Gorlem();
         Dragon_king dragon_king =new Dragon_king();
         Metal_slime metal_slime =new Metal_slime();
         Puti_slime puti_slime=new Puti_slime();
         Ship ship =new Ship();
         Ladder ladder =new Ladder();
-        Main4 battle =new Main4();
         ArrayList<Item> items =new ArrayList<Item>();
-        //このあいてむをてにいれたときにaddする
-        items.add(ladder);
-        items.add(ship);
         ArrayList<Monster2> monsters2 =new ArrayList<Monster2>();
-        //個のモンスターを手に入れたときにaddです
+        //このモンスターを手に入れたときにaddです
         monsters2.add(metal_slime);
         monsters2.add(gorlem);
         Person2 p = new Person2("takumi","dannsei",monsters2,items);
         Position position =new Position(p.position.x,p.position.y);
         Position monsterposition =new Position(dragon_king.position.x,dragon_king.position.y);
+        Notgo notgo =new Notgo();
         Warks warks =new Warks(position,monsterposition,scanner,notgo,dragon_king,p);
         System.out.println(Metal_slime.look(dragon_king));
         for (Monster2 mons : p.monsters2){

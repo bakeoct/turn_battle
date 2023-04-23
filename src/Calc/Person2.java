@@ -15,8 +15,8 @@ public class Person2 {
     public ArrayList<Item> items;
     public String name;
     public String seibetu;
-    public int x=0;
-    public int y=0;
+    public int x=6;
+    public int y=6;
     public Position position =new Position(x,y);
     public Ladder ladder =new Ladder();
     public Ship ship =new Ship();

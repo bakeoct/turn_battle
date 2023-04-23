@@ -6,8 +6,8 @@ import Calc.Position;
 import java.util.Random;
 
 public class Dragon_king extends Monster2{
-    public int x=0;
-    public int y=2;
+    public int x=6;
+    public int y=1;
     public Position position =new Position(x,y);
     public Dragon_king() {
         this.HP=200000000;
