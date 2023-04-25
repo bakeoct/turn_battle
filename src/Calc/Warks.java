@@ -4,6 +4,7 @@ import Calc.Item.Item;
 import Calc.Item.Ladder;
 import Calc.Item.Ship;
 import Monsters.Dragon_king;
+import Monsters.Monster2;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -23,17 +24,28 @@ public class Warks {
     public int monsterservex = 6;
     public int monsterservey = 1;
     public String itembox = "宝箱";
-    public Warks(Position position, Position monsterposition, Scanner scanner, Map map, Dragon_king dragon_king,Person2 person2){
+    public ArrayList<Item> items;
+    public int money;
+    public ArrayList<Monster2> monsters;
+    public String namae;
+    public String seibetu;
+    public Warks(Position position, Position monsterposition, Scanner scanner, Map map, Dragon_king dragon_king, Person2 person2, ArrayList<Item> items, int money, ArrayList<Monster2> monsters,String namae,String seibetu){
         this.position = position;
         this.monsterposition = monsterposition;
         this.scanner = scanner;
         this.map =map;
         this.dragon_king = dragon_king;
         this.p = person2;
+        this.items = items;
+        this.money = money;
+        this.monsters = monsters;
+        this.namae = namae;
+        this.seibetu = seibetu;
     }
 
     public void turnwalk() {
-        Warks warks =new Warks(position,monsterposition,scanner,map,dragon_king,p);
+        Warks warks =new Warks(position,monsterposition,scanner,map,dragon_king,p,items,money,monsters,namae,seibetu);
+        Store store =new Store(this.money);
         Random random = new Random();
         Ship ship = new Ship();
         Ladder ladder = new Ladder();
@@ -80,11 +92,17 @@ public class Warks {
                                 if (nogo == 5) {
                                     i = warks.treasureChest(i, ladder, servex, servey);
                                 } else {
-                                    if (nogo == -1) {
-                                        System.out.println("画面外なので、再度選んでください");
-                                        i--;
+                                    if (nogo == 6){
+                                        store.playstore(items,monsters,namae,seibetu);
                                         p.position.x = servex;
                                         p.position.y = servey;
+                                    }else {
+                                        if (nogo == -1) {
+                                            System.out.println("画面外なので、再度選んでください");
+                                            i--;
+                                            p.position.x = servex;
+                                            p.position.y = servey;
+                                        }
                                     }
                                 }
                             }
@@ -113,7 +131,6 @@ public class Warks {
             }
             this.monsterservex = dragon_king.position.x;
             this.monsterservey = dragon_king.position.y;
-            System.out.println(monsterservex+","+monsterservey);
             monsterposition = new Position(dragon_king.position.x, dragon_king.position.y);
             System.out.println("人間がいる位置はⅹ座標" + p.position.x + "、Y座標" + p.position.y + "です");
             System.out.println();
@@ -155,13 +172,15 @@ public class Warks {
         while (endflg == 0) {
             System.out.println("これは"+itembox+"を開けますか？ 開ける「ture」 開けない「false」");
             if (scanner.next().equals("ture")) {
-                if (item.have){
+                if (item.havenumber>=1){
                     System.out.println(itembox+"はすでに空っぽだ。再度選んでください");
                     i--;
                     endflg++;
                 }else {
                     System.out.println(itembox+"を開けた！,"+item.name+"を手に入れた");
+                    item.havenumber++;
                     item.have=true;
+                    this.items.add(item);
                     endflg++;
                 }
             } else {

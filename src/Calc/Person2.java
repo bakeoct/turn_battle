@@ -15,40 +15,43 @@ public class Person2 {
     public ArrayList<Item> items;
     public String name;
     public String seibetu;
+    public int money=100;
     public int x=6;
     public int y=6;
     public Position position =new Position(x,y);
     public Ladder ladder =new Ladder();
     public Ship ship =new Ship();
-    public Person2(String namae, String seibetu2, ArrayList<Monster2> monsters2,ArrayList<Item> items) {
+    public Person2(String namae, String seibetu2, ArrayList<Monster2> monsters2,ArrayList<Item> items,int personkey) {
         this.name = namae;
         this.monsters2 = monsters2;
         this.items = items;
         this.seibetu = seibetu2;
-        if (this.seibetu.equals("dannsei")) {
-            System.out.print(namae + "くんが持っているはモンスターは(モンスター");
-            for (Monster2 mons : monsters2) {
-                System.out.print("," + mons.name);
+        if (personkey==1) {
+            if (this.seibetu.equals("dannsei")) {
+                System.out.print(namae + "くんが持っているはモンスターは(モンスター");
+                for (Monster2 mons : monsters2) {
+                    System.out.print("," + mons.name);
+                }
+                System.out.println(")です");
+                for (Item item : items) {
+                    System.out.println("そして、" + namae + "君は" + item.name + "を持っています");
+                }
             }
-            System.out.println(")です");
-            for (Item item : items){
-                System.out.println("そして、"+namae+"君は"+item.name+"を持っています");
+            if (this.seibetu.equals("josei")) {
+                System.out.print(namae + "さんが持っているはモンスターは(モンスター");
+                for (Monster2 mons : monsters2) {
+                    System.out.print("," + mons.name);
+                }
+                System.out.println(")です");
+                if (ladder.have) {
+                    System.out.println("そして、" + namae + "君は" + ladder.name + "を持っています");
+                } else {
+                    System.out.println("そして、" + namae + "君は梯子を持っていません");
+                }
             }
-        }
-        if (this.seibetu.equals("josei")) {
-            System.out.print(namae + "さんが持っているはモンスターは(モンスター");
-            for (Monster2 mons : monsters2) {
-                System.out.print("," + mons.name);
+            if (!(this.seibetu.equals("dannsei") || this.seibetu.equals("josei"))) {
+                System.out.println("(josei)または(dannsei)を入力してください。");
             }
-            System.out.println(")です");
-            if (ladder.have){
-                System.out.println("そして、"+namae+"君は"+ladder.name+"を持っています");
-            }else {
-                System.out.println("そして、"+namae+"君は梯子を持っていません");
-            }
-        }
-        if(!(this.seibetu.equals("dannsei") || this.seibetu.equals("josei"))) {
-            System.out.println("(josei)または(dannsei)を入力してください。");
         }
     }
     public int walkx(int ramdomposition,String plice){

@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 public class Main4 {
     public static void main(String[] ares){
+        int personkey=1;
         Random random =new Random();
         Boolean fellow;
         Scanner scanner =new Scanner(System.in);
@@ -25,11 +26,13 @@ public class Main4 {
         //このモンスターを手に入れたときにaddです
         monsters2.add(metal_slime);
         monsters2.add(gorlem);
-        Person2 p = new Person2("takumi","dannsei",monsters2,items);
+        String name = "takumi";
+        String seibetu = "dannsei";
+        Person2 p = new Person2("takumi","dannsei",monsters2,items,personkey);
         Position position =new Position(p.position.x,p.position.y);
         Position monsterposition =new Position(dragon_king.position.x,dragon_king.position.y);
         Map map =new Map();
-        Warks warks =new Warks(position,monsterposition,scanner,map,dragon_king,p);
+        Warks warks =new Warks(position,monsterposition,scanner,map,dragon_king,p,p.items,p.money,monsters2,name,seibetu);
         System.out.println(Metal_slime.look(dragon_king));
         for (Monster2 mons : p.monsters2){
             System.out.println(mons.Name()+"(性別."+mons.Seibetu()+")"+"  レベルは"+mons.LV()+"です");
