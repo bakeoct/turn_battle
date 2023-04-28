@@ -7,10 +7,10 @@ import java.util.Random;
 
 public class Dragon_king extends Monster2{
     public int x=6;
-    public int y=1;
+    public int y=3;
     public Position position =new Position(x,y);
     public Dragon_king() {
-        this.HP=200000000;
+        this.HP=20000000;
         this.MP=200;
         this.judgeSente=7000;
         this.name="竜王";

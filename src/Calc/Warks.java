@@ -3,6 +3,7 @@ package Calc;
 import Calc.Item.Item;
 import Calc.Item.Ladder;
 import Calc.Item.Ship;
+import Calc.Mission.MissionDragon_king;
 import Monsters.Dragon_king;
 import Monsters.Monster2;
 
@@ -29,7 +30,8 @@ public class Warks {
     public ArrayList<Monster2> monsters;
     public String namae;
     public String seibetu;
-    public Warks(Position position, Position monsterposition, Scanner scanner, Map map, Dragon_king dragon_king, Person2 person2, ArrayList<Item> items, int money, ArrayList<Monster2> monsters,String namae,String seibetu){
+    public ArrayList<Item> itemAll;
+    public Warks(Position position, Position monsterposition, Scanner scanner, Map map, Dragon_king dragon_king, Person2 person2, ArrayList<Item> items, int money, ArrayList<Monster2> monsters,String namae,String seibetu,ArrayList<Item> itemAll){
         this.position = position;
         this.monsterposition = monsterposition;
         this.scanner = scanner;
@@ -41,10 +43,12 @@ public class Warks {
         this.monsters = monsters;
         this.namae = namae;
         this.seibetu = seibetu;
+        this.itemAll = itemAll;
     }
 
-    public void turnwalk() {
-        Warks warks =new Warks(position,monsterposition,scanner,map,dragon_king,p,items,money,monsters,namae,seibetu);
+    public Boolean turnwalk() {
+        MissionDragon_king missionDragon_king =new MissionDragon_king();
+        Warks warks =new Warks(position,monsterposition,scanner,map,dragon_king,p,items,money,monsters,namae,seibetu,itemAll);
         Store store =new Store(this.money);
         Random random = new Random();
         Ship ship = new Ship();
@@ -93,9 +97,10 @@ public class Warks {
                                     i = warks.treasureChest(i, ladder, servex, servey);
                                 } else {
                                     if (nogo == 6){
-                                        store.playstore(items,monsters,namae,seibetu);
+                                        Boolean progres =store.playstore(items,monsters,namae,seibetu,itemAll);
                                         p.position.x = servex;
                                         p.position.y = servey;
+                                        missionDragon_king.progress = progres;
                                     }else {
                                         if (nogo == -1) {
                                             System.out.println("画面外なので、再度選んでください");
@@ -137,6 +142,7 @@ public class Warks {
             System.out.println("モンスターがいる位置はⅹ座標" + monsterposition.x + "、Y座標" + monsterposition.y + "です");
             System.out.println();
         }
+        return missionDragon_king.progress;
     }
     public int notpoint(Item items,int servex,int servey,int i,String point,String item){
         //map.oceanxそれかyの中の数字に該当する数字だった場合tureを返す

@@ -6,7 +6,7 @@ public class Puti_slime extends Monster2{
         this.HP = 398;
         this.Attack=50000000;
         this.MP=700000000;
-        this.judgeSente=70;
+        this.judgeSente=7000000;
         this.name="プチスライム";
         this.seibetu="?";
         this.isalive=true;

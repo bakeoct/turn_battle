@@ -1,8 +1,6 @@
 package Calc;
 
-import Calc.Item.Item;
-import Calc.Item.Ladder;
-import Calc.Item.Ship;
+import Calc.Item.*;
 import Monsters.*;
 
 import java.util.ArrayList;
@@ -13,7 +11,10 @@ public class Main4 {
     public static void main(String[] ares){
         int personkey=1;
         Random random =new Random();
-        Boolean fellow;
+        SuperSword superSword =new SuperSword();
+        Puti_slimemerchandise puti_slimemerchandise =new Puti_slimemerchandise();
+        HealGlass healGlass =new HealGlass();
+        SteelArmor steelArmor =new SteelArmor();
         Scanner scanner =new Scanner(System.in);
         Gorlem gorlem =new Gorlem();
         Dragon_king dragon_king =new Dragon_king();
@@ -22,6 +23,13 @@ public class Main4 {
         Ship ship =new Ship();
         Ladder ladder =new Ladder();
         ArrayList<Item> items =new ArrayList<Item>();
+        ArrayList<Item> itemsAll =new ArrayList<Item>();
+        itemsAll.add(ship);
+        itemsAll.add(ladder);
+        itemsAll.add(puti_slimemerchandise);
+        itemsAll.add(healGlass);
+        itemsAll.add(steelArmor);
+        itemsAll.add(superSword);
         ArrayList<Monster2> monsters2 =new ArrayList<Monster2>();
         //このモンスターを手に入れたときにaddです
         monsters2.add(metal_slime);
@@ -32,16 +40,16 @@ public class Main4 {
         Position position =new Position(p.position.x,p.position.y);
         Position monsterposition =new Position(dragon_king.position.x,dragon_king.position.y);
         Map map =new Map();
-        Warks warks =new Warks(position,monsterposition,scanner,map,dragon_king,p,p.items,p.money,monsters2,name,seibetu);
+        Warks warks =new Warks(position,monsterposition,scanner,map,dragon_king,p,p.items,p.money,monsters2,name,seibetu,itemsAll);
         System.out.println(Metal_slime.look(dragon_king));
         for (Monster2 mons : p.monsters2){
             System.out.println(mons.Name()+"(性別."+mons.Seibetu()+")"+"  レベルは"+mons.LV()+"です");
         }
-        warks.turnwalk();
+        Boolean progres =warks.turnwalk();
         System.out.println();
         System.out.println("モンスターと出会った！！");
         if(random.nextBoolean()){
-            p.battle(dragon_king);
+            p.battle(dragon_king,dragon_king,progres);
         }else {
             System.out.println("仲間になった！！");
             monsters2.add(dragon_king);

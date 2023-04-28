@@ -6,5 +6,10 @@ public class SuperSword extends Item{
         this.buyprice=50;
         this.sellprice=25;
         this.code="supersword";
+        this.itemLV = 1;
+        this.isalive = false;
+        this.uphp = 0;
+        this.upattack = 10000;
+        this.heal = 0;
     }
 }

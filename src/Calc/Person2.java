@@ -1,8 +1,10 @@
 package Calc;
 
-import Calc.Item.Item;
-import Calc.Item.Ladder;
-import Calc.Item.Ship;
+import Calc.Item.*;
+import Calc.Mission.Mission;
+import Calc.Mission.MissionDragon_king;
+import Calc.Mission.MissionSab;
+import Monsters.Dragon_king;
 import Monsters.Metal_slime;
 import Monsters.Monster2;
 
@@ -11,6 +13,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Person2 {
+    public int LV=1;
     public ArrayList<Monster2> monsters2;
     public ArrayList<Item> items;
     public String name;
@@ -74,16 +77,22 @@ public class Person2 {
         }
         return ramdomposition;
     }
-    public void battle(Monster2 enemeymonster){
+    public void battle(Monster2 enemeymonster,Dragon_king dragon_king, Boolean progres){
+        MissionSab missionSab =new MissionSab();
+        MissionDragon_king missionDragon_king =new MissionDragon_king();
         int[] enemey_hp0_mp1 = new int[2];
         enemey_hp0_mp1[0]=enemeymonster.HP;
-        int i=0;
         for (Monster2 mons : this.monsters2) {
                 enemey_hp0_mp1 = Monster2.battle(enemeymonster,mons);
                 enemeymonster.HP = enemey_hp0_mp1[0];
                 enemeymonster.MP = enemey_hp0_mp1[1];
             if (enemeymonster.HP<=0){
-                System.out.println("勝利した");
+                System.out.println("勝利した");;
+                if (enemeymonster == dragon_king && progres){
+                    missionSab.missionprogres(missionDragon_king);
+                    System.out.println(missionDragon_king.name+"を達成した！");
+                    System.out.println("お店で報酬をもらおう！");
+                }
                 break;
             }
         }

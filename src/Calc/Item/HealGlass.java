@@ -6,5 +6,11 @@ public class HealGlass extends Item{
         this.buyprice=10;
         this.sellprice=5;
         this.code="healglass";
+        this.itemLV = 1;
+        this.isalive = false;
+        this.uphp = 0;
+        this.upattack = 0;
+        this.heal = 500;
+        this.use = true;
     }
 }
