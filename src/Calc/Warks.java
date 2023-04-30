@@ -46,7 +46,7 @@ public class Warks {
         this.itemAll = itemAll;
     }
 
-    public Boolean turnwalk() {
+    public void turnwalk() {
         MissionDragon_king missionDragon_king =new MissionDragon_king();
         Warks warks =new Warks(position,monsterposition,scanner,map,dragon_king,p,items,money,monsters,namae,seibetu,itemAll);
         Store store =new Store(this.money);
@@ -97,10 +97,9 @@ public class Warks {
                                     i = warks.treasureChest(i, ladder, servex, servey);
                                 } else {
                                     if (nogo == 6){
-                                        Boolean progres =store.playstore(items,monsters,namae,seibetu,itemAll);
+                                        store.playstore(items,monsters,namae,seibetu,itemAll);
                                         p.position.x = servex;
                                         p.position.y = servey;
-                                        missionDragon_king.progress = progres;
                                     }else {
                                         if (nogo == -1) {
                                             System.out.println("画面外なので、再度選んでください");
@@ -142,7 +141,6 @@ public class Warks {
             System.out.println("モンスターがいる位置はⅹ座標" + monsterposition.x + "、Y座標" + monsterposition.y + "です");
             System.out.println();
         }
-        return missionDragon_king.progress;
     }
     public int notpoint(Item items,int servex,int servey,int i,String point,String item){
         //map.oceanxそれかyの中の数字に該当する数字だった場合tureを返す

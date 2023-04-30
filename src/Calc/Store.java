@@ -21,7 +21,7 @@ public class Store {
         this.money = money;
     }
 
-    public Boolean playstore(ArrayList<Item> items, ArrayList<Monster2> monsters, String namae, String seibetu,ArrayList<Item> itemAll) {
+    public void playstore(ArrayList<Item> items, ArrayList<Monster2> monsters, String namae, String seibetu,ArrayList<Item> itemAll) {
         MissionDragon_king missionDragon_king =new MissionDragon_king();
         System.out.println(monsters);
         Store store = new Store(money);
@@ -46,9 +46,8 @@ public class Store {
                         System.out.println("ほかには何かあるか？");
                     } else {
                         if (shoppingcode.equals("mission")) {
-                            Boolean progres =store.mission(p,scanner);
+                            store.mission(p,scanner);
                             System.out.println("ほかには何かあるか？");
-                            missionDragon_king.progress = progres;
                         } else {
                             if (shoppingcode.equals("talk")) {
                                 store.talk();
@@ -65,7 +64,6 @@ public class Store {
                     }
                 }
             }
-        return missionDragon_king.progress;
         }
     public void buy(Person2 p, Scanner scanner,Store store,String name,ArrayList<Item> items,ArrayList<Item> itemAll,ArrayList<Monster2> monster2s) {
         int i = 0;
@@ -137,7 +135,7 @@ public class Store {
             }
         }
     }
-    public Boolean mission (Person2 p,Scanner scanner){
+    public void mission (Person2 p,Scanner scanner){
         Boolean endflg = false;
         Boolean repert = false;
         MissionSab missionSab =new MissionSab();
@@ -145,28 +143,26 @@ public class Store {
         ArrayList<Mission> missions =new ArrayList<Mission>();
         missions.add(missionDragon_king);
         for (Mission mission : missions){
-            if (mission.getreward == true && repert==false){
+            if (mission.getreward && repert==false){
                 endflg = true;
                 repert = true;
                 mission.getreward = false;
                 System.out.println("お！、お前"+mission.name+"のミッションを達成しているな");
                 System.out.println("ほら報酬だ！");
-                 this.money=mission.reward;
+                 this.money+=mission.reward;
             }else {
-                if (mission.getreward == true){
+                if (mission.getreward){
                     mission.getreward = false;
                     System.out.println("お！、お前"+mission.name+"のミッションも達成しているな");
                     System.out.println("ほら報酬だ！");
-                    this.money=mission.reward;
+                    this.money+=mission.reward;
                 }
             }
         }
         if (endflg==false){
             System.out.println("ミッションを受けるんだな");
-            Boolean progres=missionSab.receive(p,scanner);
-            missionDragon_king.progress = progres;
+            missionSab.receive(p,scanner);
         }
-        return missionDragon_king.progress;
     }
     public void talk (){
         System.out.println("いい天気ですね");

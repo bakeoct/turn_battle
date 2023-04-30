@@ -5,7 +5,7 @@ import Calc.Store;
 
 import java.util.ArrayList;
 
-public abstract class Mission {
+public class Mission {
     public int dangerousLV;
     public int reward;
     public String code;

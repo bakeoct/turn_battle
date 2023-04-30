@@ -7,18 +7,18 @@ import Monsters.Monster2;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class MissionSab extends Mission{
+public class MissionSab{
     public int endflg=0;
     public ArrayList<Mission> missionsAll =new ArrayList<Mission>();
     public MissionDragon_king missionDragon_king =new MissionDragon_king();
-    public Boolean receive(Person2 p, Scanner scanner) {
+    public void receive(Person2 p, Scanner scanner) {
         int i = 0;
         while (i==0) {
             ArrayList<Mission> missions = new ArrayList<Mission>();
             missionsAll.clear();
             missionsAll.add(missionDragon_king);
             for (Mission mission : missionsAll) {
-                if (p.LV >= mission.dangerousLV && !(mission.progress == true)) {
+                if (p.LV >= mission.dangerousLV && !(mission.progress)) {
                     endflg = 0;
                     System.out.println(mission.name + " " + "報酬" + mission.reward + "$" + " [" + mission.code + "]");
                     missions.add(mission);
@@ -32,6 +32,8 @@ public class MissionSab extends Mission{
             String missionSelection = scanner.next();
             for (Mission mission : missions) {
                 if (missionSelection.equals(mission.code)) {
+                    //progressはmissionを受けているという意味
+                    //mission.progressをtureにしても（person2　p91に移動）
                     mission.progress = true;
                     System.out.println(mission.name+"のミッションを受けた！");
                     System.out.println("ほかに受けたいミッションはあるか？");
@@ -48,14 +50,9 @@ public class MissionSab extends Mission{
                 }
             }
         }
-        return missionDragon_king.progress;
     }
     public void missionprogres(Mission successmission){
-        for (Mission mission : missionsAll){
-            if (successmission == mission && missionDragon_king.progress){
-                mission.progress = false;
-                mission.getreward = true;
-            }
-        }
+                successmission.progress = false;
+                successmission.getreward = true;
     }
 }

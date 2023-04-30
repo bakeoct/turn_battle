@@ -45,11 +45,11 @@ public class Main4 {
         for (Monster2 mons : p.monsters2){
             System.out.println(mons.Name()+"(性別."+mons.Seibetu()+")"+"  レベルは"+mons.LV()+"です");
         }
-        Boolean progres =warks.turnwalk();
+        warks.turnwalk();
         System.out.println();
         System.out.println("モンスターと出会った！！");
         if(random.nextBoolean()){
-            p.battle(dragon_king,dragon_king,progres);
+            p.battle(dragon_king,dragon_king);
         }else {
             System.out.println("仲間になった！！");
             monsters2.add(dragon_king);
