@@ -77,9 +77,8 @@ public class Person2 {
         }
         return ramdomposition;
     }
-    public void battle(Monster2 enemeymonster,Dragon_king dragon_king){
+    public void battle(Monster2 enemeymonster,Dragon_king dragon_king,MissionDragon_king missionDragon_king){
         MissionSab missionSab =new MissionSab();
-        MissionDragon_king missionDragon_king =new MissionDragon_king();
         int[] enemey_hp0_mp1 = new int[2];
         enemey_hp0_mp1[0]=enemeymonster.HP;
         for (Monster2 mons : this.monsters2) {
@@ -88,11 +87,7 @@ public class Person2 {
                 enemeymonster.MP = enemey_hp0_mp1[1];
             if (enemeymonster.HP<=0){
                 System.out.println("勝利した");
-                //missionSab.missionDragon_king.progressがtureにはならないからこの下の
-                //if (enemeymonster == dragon_king && missionSab.missionDragon_king.progress){の中には絶対に入らない
-                //自分がしたいのは　person2のmissionSab.missionDragon_king.progress　== missionSubのmission.progress　の状態にしたいということ
-                //そして、mission.progressがtureになったときmissionSab.missionDragon_king.progressも連動してtureになる
-                if (enemeymonster == dragon_king && missionSab.missionDragon_king.progress){
+                if (enemeymonster == dragon_king && missionDragon_king.progress){
                     missionSab.missionprogres(missionDragon_king);
                     System.out.println(missionDragon_king.name+"を達成した！");
                     System.out.println("お店で報酬をもらおう！");

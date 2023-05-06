@@ -11,10 +11,10 @@ public class MissionSab{
     public int endflg=0;
     public ArrayList<Mission> missionsAll =new ArrayList<Mission>();
     public MissionDragon_king missionDragon_king =new MissionDragon_king();
-    public void receive(Person2 p, Scanner scanner) {
+    public void receive(Person2 p, Scanner scanner,MissionDragon_king missionDragon_king) {
         int i = 0;
+        ArrayList<Mission> missions = new ArrayList<Mission>();
         while (i==0) {
-            ArrayList<Mission> missions = new ArrayList<Mission>();
             missionsAll.clear();
             missionsAll.add(missionDragon_king);
             for (Mission mission : missionsAll) {
@@ -32,8 +32,6 @@ public class MissionSab{
             String missionSelection = scanner.next();
             for (Mission mission : missions) {
                 if (missionSelection.equals(mission.code)) {
-                    //progressはmissionを受けているという意味
-                    //mission.progressをtureにしても（person2　p91に移動）
                     mission.progress = true;
                     System.out.println(mission.name+"のミッションを受けた！");
                     System.out.println("ほかに受けたいミッションはあるか？");

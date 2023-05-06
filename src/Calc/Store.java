@@ -21,8 +21,7 @@ public class Store {
         this.money = money;
     }
 
-    public void playstore(ArrayList<Item> items, ArrayList<Monster2> monsters, String namae, String seibetu,ArrayList<Item> itemAll) {
-        MissionDragon_king missionDragon_king =new MissionDragon_king();
+    public void playstore(ArrayList<Item> items, ArrayList<Monster2> monsters, String namae, String seibetu,ArrayList<Item> itemAll,MissionDragon_king missionDragon_king) {
         System.out.println(monsters);
         Store store = new Store(money);
         Person2 p = new Person2(namae, seibetu, monsters, items,personkey);
@@ -40,31 +39,23 @@ public class Store {
                 if (shoppingcode.equals("buy")) {
                     store.buy(p, scanner,store,namae,items,itemAll,monsters);
                     System.out.println("ほかには何かあるか？");
+                } else if (shoppingcode.equals("sell")) {
+                    store.sell(p, scanner,namae,items,store);
+                    System.out.println("ほかには何かあるか？");
+                } else if (shoppingcode.equals("mission")) {
+                    store.mission(p,scanner,missionDragon_king);
+                    System.out.println("ほかには何かあるか？");
+                } else if (shoppingcode.equals("talk")) {
+                    store.talk();
+                    System.out.println("ほかには何かあるか？");
+                } else if (shoppingcode.equals("go")) {
+                    store.go(p);
+                    i++;
                 } else {
-                    if (shoppingcode.equals("sell")) {
-                        store.sell(p, scanner,namae,items,store);
-                        System.out.println("ほかには何かあるか？");
-                    } else {
-                        if (shoppingcode.equals("mission")) {
-                            store.mission(p,scanner);
-                            System.out.println("ほかには何かあるか？");
-                        } else {
-                            if (shoppingcode.equals("talk")) {
-                                store.talk();
-                                System.out.println("ほかには何かあるか？");
-                            } else {
-                                if (shoppingcode.equals("go")) {
-                                    store.go(p);
-                                    i++;
-                                } else {
-                                    System.out.println("buy,sell,mission,talk,goで選んでください");
-                                }
-                            }
-                        }
-                    }
+                    System.out.println("buy,sell,mission,talk,goで選んでください");
                 }
-            }
         }
+    }
     public void buy(Person2 p, Scanner scanner,Store store,String name,ArrayList<Item> items,ArrayList<Item> itemAll,ArrayList<Monster2> monster2s) {
         int i = 0;
         int endflg = 0;
@@ -135,11 +126,10 @@ public class Store {
             }
         }
     }
-    public void mission (Person2 p,Scanner scanner){
+    public void mission (Person2 p,Scanner scanner,MissionDragon_king missionDragon_king){
         Boolean endflg = false;
         Boolean repert = false;
         MissionSab missionSab =new MissionSab();
-        MissionDragon_king missionDragon_king =new MissionDragon_king();
         ArrayList<Mission> missions =new ArrayList<Mission>();
         missions.add(missionDragon_king);
         for (Mission mission : missions){
@@ -150,18 +140,16 @@ public class Store {
                 System.out.println("お！、お前"+mission.name+"のミッションを達成しているな");
                 System.out.println("ほら報酬だ！");
                  this.money+=mission.reward;
-            }else {
-                if (mission.getreward){
+            }else if (mission.getreward){
                     mission.getreward = false;
                     System.out.println("お！、お前"+mission.name+"のミッションも達成しているな");
                     System.out.println("ほら報酬だ！");
                     this.money+=mission.reward;
                 }
             }
-        }
         if (endflg==false){
             System.out.println("ミッションを受けるんだな");
-            missionSab.receive(p,scanner);
+            missionSab.receive(p,scanner,missionDragon_king);
         }
     }
     public void talk (){

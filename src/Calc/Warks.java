@@ -31,7 +31,8 @@ public class Warks {
     public String namae;
     public String seibetu;
     public ArrayList<Item> itemAll;
-    public Warks(Position position, Position monsterposition, Scanner scanner, Map map, Dragon_king dragon_king, Person2 person2, ArrayList<Item> items, int money, ArrayList<Monster2> monsters,String namae,String seibetu,ArrayList<Item> itemAll){
+    public MissionDragon_king missionDragon_king;
+    public Warks(Position position, Position monsterposition, Scanner scanner, Map map, Dragon_king dragon_king, Person2 person2, ArrayList<Item> items, int money, ArrayList<Monster2> monsters,String namae,String seibetu,ArrayList<Item> itemAll,MissionDragon_king missionDragon_king){
         this.position = position;
         this.monsterposition = monsterposition;
         this.scanner = scanner;
@@ -44,11 +45,11 @@ public class Warks {
         this.namae = namae;
         this.seibetu = seibetu;
         this.itemAll = itemAll;
+        this.missionDragon_king = missionDragon_king;
     }
 
     public void turnwalk() {
-        MissionDragon_king missionDragon_king =new MissionDragon_king();
-        Warks warks =new Warks(position,monsterposition,scanner,map,dragon_king,p,items,money,monsters,namae,seibetu,itemAll);
+        Warks warks =new Warks(position,monsterposition,scanner,map,dragon_king,p,items,money,monsters,namae,seibetu,itemAll,missionDragon_king);
         Store store =new Store(this.money);
         Random random = new Random();
         Ship ship = new Ship();
@@ -97,7 +98,7 @@ public class Warks {
                                     i = warks.treasureChest(i, ladder, servex, servey);
                                 } else {
                                     if (nogo == 6){
-                                        store.playstore(items,monsters,namae,seibetu,itemAll);
+                                        store.playstore(items,monsters,namae,seibetu,itemAll,missionDragon_king);
                                         p.position.x = servex;
                                         p.position.y = servey;
                                     }else {
