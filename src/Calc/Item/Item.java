@@ -5,6 +5,7 @@ import Monsters.*;
 import java.util.ArrayList;
 
 public abstract class Item {
+    public String itemgroup;
     public int upattack;
     public int uphp;
     public Boolean use = false;

@@ -27,35 +27,7 @@ import java.util.ArrayList;
                 {E, E, E, E, E, E, E, E, E, E, E, E, E}
         };
 
-        public int notpoint(int pointx, int pointy) {
-            int nogo = 0;
-            if (1 == this.map[pointy][pointx]) {
-                nogo = 1;
-            } else {
-                if (2 == this.map[pointy][pointx]) {
-                    nogo = 2;
-                } else {
-                    if (3 == this.map[pointy][pointx]) {
-                        nogo = 3;
-                    } else {
-                        if (4 == this.map[pointy][pointx]) {
-                            nogo = 4;
-                        } else {
-                            if (5 == this.map[pointy][pointx]) {
-                                nogo = 5;
-                            }else {
-                                if (6 == this.map[pointy][pointx]) {
-                                    nogo = 6;
-                                } else{
-                                    if (-1 == this.map[pointy][pointx]) {
-                                        nogo = -1;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            return nogo;
+        public int getMapCode(int pointx, int pointy) {
+            return this.map[pointy][pointx];
         }
     }

@@ -25,13 +25,17 @@ public class Main4 {
         Ship ship =new Ship();
         Ladder ladder =new Ladder();
         ArrayList<Item> items =new ArrayList<Item>();
-        ArrayList<Item> itemsAll =new ArrayList<Item>();
-        itemsAll.add(ship);
-        itemsAll.add(ladder);
-        itemsAll.add(puti_slimemerchandise);
-        itemsAll.add(healGlass);
-        itemsAll.add(steelArmor);
-        itemsAll.add(superSword);
+        ArrayList<Item> items_all =new ArrayList<Item>();
+        items_all.add(ship);
+        items_all.add(ladder);
+        items_all.add(puti_slimemerchandise);
+        items_all.add(healGlass);
+        items_all.add(steelArmor);
+        items_all.add(superSword);
+        ArrayList<Item> fight_items =new ArrayList<Item>();
+        fight_items.add(healGlass);
+        fight_items.add(steelArmor);
+        fight_items.add(superSword);
         ArrayList<Monster2> monsters2 =new ArrayList<Monster2>();
         //このモンスターを手に入れたときにaddです
         monsters2.add(metal_slime);
@@ -42,16 +46,16 @@ public class Main4 {
         Position position =new Position(p.position.x,p.position.y);
         Position monsterposition =new Position(dragon_king.position.x,dragon_king.position.y);
         Map map =new Map();
-        Warks warks =new Warks(position,monsterposition,scanner,map,dragon_king,p,p.items,p.money,monsters2,name,seibetu,itemsAll,missionDragon_king);
+        Warks warks =new Warks(position,monsterposition,scanner,map,dragon_king,p,p.items,p.money,monsters2,name,seibetu,items_all,missionDragon_king);
         System.out.println(Metal_slime.look(dragon_king));
         for (Monster2 mons : p.monsters2){
             System.out.println(mons.Name()+"(性別."+mons.Seibetu()+")"+"  レベルは"+mons.LV()+"です");
         }
-        warks.turnwalk();
+        warks.warkTurn();
         System.out.println();
         System.out.println("モンスターと出会った！！");
         if(random.nextBoolean()){
-            p.battle(dragon_king,dragon_king,missionDragon_king);
+            p.battle(dragon_king,dragon_king,missionDragon_king,fight_items);
         }else {
             System.out.println("仲間になった！！");
             monsters2.add(dragon_king);

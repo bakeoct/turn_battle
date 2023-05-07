@@ -29,9 +29,6 @@ public class Dragon_king extends Monster2{
         }
         return ramdomposition;
     }
-    public static int[] battle(Monster2 monster1,Monster2 monster2) {
-        return Monster2.battle(monster1,monster2);
-    }
     public static String look(Monster2 monster){
         return monster.name;
     }

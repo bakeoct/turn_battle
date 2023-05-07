@@ -1,7 +1,9 @@
 package Monsters;
 
+import Calc.Item.Item;
 import Calc.Position;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public abstract class Monster2 {
@@ -59,7 +61,7 @@ public abstract class Monster2 {
         }
         return monster.MP;
     }
-    public static int[] battle(Monster2 monster1,Monster2 monster2) {
+    public static int[] battle(Monster2 monster1, Monster2 monster2) {
         int[] monster1_hp0_mp1=new int[2];
         if (monster1.isalive) {
             System.out.println(monster2.name+"と"+monster1.name+"の戦い");
@@ -67,7 +69,7 @@ public abstract class Monster2 {
                 while (monster1.isalive && monster2.isalive) {
                     boolean sente = judgeSente(monster2.judgeSente, monster1.judgeSente);
                     if (sente) {
-                        monster2.MP = monster1.turn(monster1);
+                        monster2.MP = monster1.turn(monster2);
                         monster1.MP = monster2.turn(monster1);
                         monster1.alive();
                     } else {
@@ -97,10 +99,8 @@ public abstract class Monster2 {
         boolean sente = true;
         if (judgeSenteFirst < judgeSenteSecond) {
             sente = false;
-        } else {
-            if (judgeSenteFirst == judgeSenteSecond) {
-                sente = random.nextBoolean();
-            }
+        } else if (judgeSenteFirst == judgeSenteSecond) {
+            sente = random.nextBoolean();
         }
         return sente;
     }
@@ -108,6 +108,27 @@ public abstract class Monster2 {
     public void alive() {
         if (this.HP<=0) {
             System.out.println(this.name + "を倒した");
+        }
+    }
+    public ArrayList<Item> judgeItems(ArrayList<Item> fight_items,ArrayList<Item> have_fight_items){
+        for (Item item : fight_items){
+            if (item.have){
+                have_fight_items.add(item);
+            }
+        }
+        return have_fight_items;
+    }
+    public void itemsStatus(ArrayList<Item> fight_items){
+        ArrayList<Item> hava_fight_items =new ArrayList<Item>();
+        hava_fight_items=judgeItems(fight_items,hava_fight_items);
+        for (Item item : hava_fight_items){
+            if (item.itemgroup.equals("attack")){
+                this.Attack += item.upattack;
+            }else if (item.itemgroup.equals("armor")){
+                this.HP += item.uphp;
+            }else if (item.itemgroup.equals("heal")){
+                this.HP += item.heal;
+            }
         }
     }
 }

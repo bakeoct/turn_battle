@@ -11,5 +11,6 @@ public class SuperSword extends Item{
         this.uphp = 0;
         this.upattack = 10000;
         this.heal = 0;
+        this.itemgroup = "attack";
     }
 }

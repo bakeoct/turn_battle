@@ -57,38 +57,36 @@ public class Person2 {
             }
         }
     }
-    public int walkx(int ramdomposition,String plice){
+    public int walkX(int ramdomposition,String plice){
         if (plice.equals("d")){
             ramdomposition++;
-        }else {
-            if (plice.equals("a")) {
-                ramdomposition--;
-            }
+        }else if (plice.equals("a")) {
+               ramdomposition--;
         }
         return ramdomposition;
     }
-    public int walky(int ramdomposition,String plice){
+    public int walkY(int ramdomposition,String plice){
         if (plice.equals("w")){
             ramdomposition++;
-        }else {
-            if (plice.equals("s")) {
-                ramdomposition--;
-            }
+        }else if (plice.equals("s")) {
+            ramdomposition--;
         }
         return ramdomposition;
     }
-    public void battle(Monster2 enemeymonster,Dragon_king dragon_king,MissionDragon_king missionDragon_king){
+    public void battle(Monster2 enemeymonster,Dragon_king dragon_king,MissionDragon_king missionDragon_king,ArrayList<Item> fight_items){
         MissionSab missionSab =new MissionSab();
         int[] enemey_hp0_mp1 = new int[2];
         enemey_hp0_mp1[0]=enemeymonster.HP;
         for (Monster2 mons : this.monsters2) {
-                enemey_hp0_mp1 = Monster2.battle(enemeymonster,mons);
-                enemeymonster.HP = enemey_hp0_mp1[0];
-                enemeymonster.MP = enemey_hp0_mp1[1];
+            mons.itemsStatus(fight_items);
+            System.out.println(mons.HP);
+            enemey_hp0_mp1 = Monster2.battle(enemeymonster,mons);
+            enemeymonster.HP = enemey_hp0_mp1[0];
+            enemeymonster.MP = enemey_hp0_mp1[1];
             if (enemeymonster.HP<=0){
                 System.out.println("勝利した");
                 if (enemeymonster == dragon_king && missionDragon_king.progress){
-                    missionSab.missionprogres(missionDragon_king);
+                    missionSab.missionProgres(missionDragon_king);
                     System.out.println(missionDragon_king.name+"を達成した！");
                     System.out.println("お店で報酬をもらおう！");
                 }

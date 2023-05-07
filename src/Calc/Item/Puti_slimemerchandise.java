@@ -11,5 +11,6 @@ public class Puti_slimemerchandise extends Item{
         this.uphp = 0;
         this.upattack = 0;
         this.heal = 0;
+        this.itemgroup = "monster";
     }
 }

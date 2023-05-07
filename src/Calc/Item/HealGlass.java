@@ -12,5 +12,6 @@ public class HealGlass extends Item{
         this.upattack = 0;
         this.heal = 500;
         this.use = true;
+        this.itemgroup = "heal";
     }
 }

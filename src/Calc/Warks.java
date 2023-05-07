@@ -30,9 +30,9 @@ public class Warks {
     public ArrayList<Monster2> monsters;
     public String namae;
     public String seibetu;
-    public ArrayList<Item> itemAll;
+    public ArrayList<Item> items_all;
     public MissionDragon_king missionDragon_king;
-    public Warks(Position position, Position monsterposition, Scanner scanner, Map map, Dragon_king dragon_king, Person2 person2, ArrayList<Item> items, int money, ArrayList<Monster2> monsters,String namae,String seibetu,ArrayList<Item> itemAll,MissionDragon_king missionDragon_king){
+    public Warks(Position position, Position monsterposition, Scanner scanner, Map map, Dragon_king dragon_king, Person2 person2, ArrayList<Item> items, int money, ArrayList<Monster2> monsters,String namae,String seibetu,ArrayList<Item> items_all,MissionDragon_king missionDragon_king){
         this.position = position;
         this.monsterposition = monsterposition;
         this.scanner = scanner;
@@ -44,12 +44,12 @@ public class Warks {
         this.monsters = monsters;
         this.namae = namae;
         this.seibetu = seibetu;
-        this.itemAll = itemAll;
+        this.items_all = items_all;
         this.missionDragon_king = missionDragon_king;
     }
 
-    public void turnwalk() {
-        Warks warks =new Warks(position,monsterposition,scanner,map,dragon_king,p,items,money,monsters,namae,seibetu,itemAll,missionDragon_king);
+    public void warkTurn() {
+        Warks warks =new Warks(position,monsterposition,scanner,map,dragon_king,p,items,money,monsters,namae,seibetu,items_all,missionDragon_king);
         Store store =new Store(this.money);
         Random random = new Random();
         Ship ship = new Ship();
@@ -61,58 +61,44 @@ public class Warks {
         while (!(p.position.x == monsterposition.x) || !(p.position.y == monsterposition.y)) {
             int i = 0;
             while (i == 0) {
-                int servenogo = map.notpoint(p.position.x, p.position.y);
+                int serveget_map_code = map.getMapCode(p.position.x, p.position.y);
                 String plice = scanner.next();
                 if (plice.equals("a") || plice.equals("d")) {
-                    p.position.x = p.walkx(p.position.x, plice);
+                    p.position.x = p.walkX(p.position.x, plice);
+                    i++;
+                } else if (plice.equals("w") || plice.equals("s")) {
+                    p.position.y = p.walkY(p.position.y, plice);
                     i++;
                 } else {
-                    if (plice.equals("w") || plice.equals("s")) {
-                        p.position.y = p.walky(p.position.y, plice);
-                        i++;
-                    } else {
-                        System.out.println("a,w,s,dのどれかを選んでください");
-                    }
+                    System.out.println("a,w,s,dのどれかを選んでください");
                 }
                 //これをmapに送って二つメソッド動かす
-                int nogo = map.notpoint(p.position.x, p.position.y);
-                if (nogo == 1 && !(nogo == servenogo)) {
+                int get_map_code = map.getMapCode(p.position.x, p.position.y);
+                if (get_map_code == 1 && !(get_map_code == serveget_map_code)) {
                     point = "崖";
                     item = "梯子";
-                    i = warks.notpoint(ladder, servex, servey, i, point, item);
-                } else {
-                    if (nogo == 2 && !(nogo == servenogo)) {
-                        point = "山";
-                        item = "梯子";
-                        i = warks.notpoint(ladder, servex, servey, i, point, item);
-                    } else {
-                        if (nogo == 3 && !(nogo == servenogo)) {
-                            point = "海";
-                            item = "船";
-                            i = warks.notpoint(ship, servex, servey, i, point, item);
-                        } else {
-                            if (nogo == 4) {
-                                i = warks.treasureChest(i, ship, servex, servey);
-                            } else {
-                                if (nogo == 5) {
-                                    i = warks.treasureChest(i, ladder, servex, servey);
-                                } else {
-                                    if (nogo == 6){
-                                        store.playstore(items,monsters,namae,seibetu,itemAll,missionDragon_king);
-                                        p.position.x = servex;
-                                        p.position.y = servey;
-                                    }else {
-                                        if (nogo == -1) {
-                                            System.out.println("画面外なので、再度選んでください");
-                                            i--;
-                                            p.position.x = servex;
-                                            p.position.y = servey;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    i = warks.notPoint(ladder, servex, servey, i, point, item);
+                } else if (get_map_code == 2 && !(get_map_code == serveget_map_code)) {
+                    point = "山";
+                    item = "梯子";
+                    i = warks.notPoint(ladder, servex, servey, i, point, item);
+                } else if (get_map_code == 3 && !(get_map_code == serveget_map_code)) {
+                    point = "海";
+                    item = "船";
+                    i = warks.notPoint(ship, servex, servey, i, point, item);
+                } else if (get_map_code == 4) {
+                    i = warks.openTreasureChest(i, ship, servex, servey);
+                } else if (get_map_code == 5) {
+                    i = warks.openTreasureChest(i, ladder, servex, servey);
+                } else if (get_map_code == 6) {
+                    store.shoppingStore(items, monsters, namae, seibetu, items_all, missionDragon_king);
+                    p.position.x = servex;
+                    p.position.y = servey;
+                } else if (get_map_code == -1) {
+                    System.out.println("画面外なので、再度選んでください");
+                    i--;
+                    p.position.x = servex;
+                    p.position.y = servey;
                 }
             }
             this.servex = p.position.x;
@@ -127,8 +113,8 @@ public class Warks {
                     dragon_king.position.y = dragon_king.walk(monsterposition.y);
                     monsteri++;
                 }
-                int monsternogo = map.notpoint(dragon_king.position.x, dragon_king.position.y);
-                if (monsternogo == -1) {
+                int monster_get_map_code = map.getMapCode(dragon_king.position.x, dragon_king.position.y);
+                if (monster_get_map_code == -1) {
                     monsteri--;
                     dragon_king.position.x = monsterservex;
                     dragon_king.position.y = monsterservey;
@@ -143,7 +129,7 @@ public class Warks {
             System.out.println();
         }
     }
-    public int notpoint(Item items,int servex,int servey,int i,String point,String item){
+    public int notPoint(Item items,int servex,int servey,int i,String point,String item){
         //map.oceanxそれかyの中の数字に該当する数字だった場合tureを返す
         System.out.print("ここには"+point+"があります。　");
         int endflg = 0;
@@ -152,16 +138,14 @@ public class Warks {
             if (scanner.next().equals("ture")) {
                 System.out.println(item+"を使った！");
                 endflg++;
+            } else if (scanner.next().equals("false")) {
+                System.out.println("再度選んでください");
+                p.position.x = servex;
+                p.position.y = servey;
+                i--;
+                endflg++;
             } else {
-                if (scanner.next().equals("false")) {
-                    System.out.println("再度選んでください");
-                    p.position.x = servex;
-                    p.position.y = servey;
-                    i--;
-                    endflg++;
-                } else {
-                    System.out.println("tureかfalseを選んでください");
-                }
+                System.out.println("tureかfalseを選んでください");
             }
         }
         if (endflg == 0) {
@@ -172,7 +156,7 @@ public class Warks {
         }
         return i;
     }
-    public int treasureChest(int i,Item item,int servex,int servey){
+    public int openTreasureChest(int i,Item item,int servex,int servey){
         int endflg = 0;
         while (endflg == 0) {
             System.out.println("これは"+itembox+"を開けますか？ 開ける「ture」 開けない「false」");
@@ -188,16 +172,14 @@ public class Warks {
                     this.items.add(item);
                     endflg++;
                 }
-            } else {
-                if (scanner.next().equals("false")) {
-                    System.out.println("再度選んでください");
-                    i--;
-                    endflg++;
+            } else if (scanner.next().equals("false")) {
+                System.out.println("再度選んでください");
+                i--;
+                endflg++;
                 } else {
-                    System.out.println("tureかfalseを選んでください");
+                System.out.println("tureかfalseを選んでください");
                 }
             }
-        }
         p.position.x = servex;
         p.position.y = servey;
         return i;

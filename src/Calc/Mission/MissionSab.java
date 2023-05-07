@@ -49,7 +49,7 @@ public class MissionSab{
             }
         }
     }
-    public void missionprogres(Mission successmission){
+    public void missionProgres(Mission successmission){
                 successmission.progress = false;
                 successmission.getreward = true;
     }

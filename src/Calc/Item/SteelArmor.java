@@ -11,5 +11,6 @@ public class SteelArmor extends Item{
         this.uphp = 15000;
         this.upattack = 0;
         this.heal = 0;
+        this.itemgroup = "armor";
     }
 }
