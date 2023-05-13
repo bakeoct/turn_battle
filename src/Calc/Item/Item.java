@@ -6,11 +6,6 @@ import java.util.ArrayList;
 
 public abstract class Item {
     public String itemgroup;
-    public int upattack;
-    public int uphp;
-    public Boolean use = false;
-    public int heal;
-    public Boolean isalive;
     public int itemLV;
     public Boolean have = false;
     public String name;
@@ -18,4 +13,5 @@ public abstract class Item {
     public int buyprice;
     public int sellprice;
     public String code;
+    public String itemsclass;
 }

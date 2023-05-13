@@ -24,7 +24,9 @@ public class Main4 {
         MissionDragon_king missionDragon_king =new MissionDragon_king();
         Ship ship =new Ship();
         Ladder ladder =new Ladder();
-        ArrayList<Item> items =new ArrayList<Item>();
+        ArrayList<FieldItem> field_items =new ArrayList<FieldItem>();
+        ArrayList<MonsterItem> monster_items =new ArrayList<MonsterItem>();
+        ArrayList<FightItem> fight_items =new ArrayList<FightItem>();
         ArrayList<Item> items_all =new ArrayList<Item>();
         items_all.add(ship);
         items_all.add(ladder);
@@ -32,15 +34,17 @@ public class Main4 {
         items_all.add(healGlass);
         items_all.add(steelArmor);
         items_all.add(superSword);
-        ArrayList<Item> fight_items =new ArrayList<Item>();
-        fight_items.add(healGlass);
-        fight_items.add(steelArmor);
-        fight_items.add(superSword);
+        ArrayList<FightItem> fight_items_all =new ArrayList<FightItem>();
+        fight_items_all.add(healGlass);
+        fight_items_all.add(steelArmor);
+        fight_items_all.add(superSword);
         ArrayList<Monster2> enemy_monsters =new ArrayList<Monster2>();
         enemy_monsters.add(dragon_king);
         enemy_monsters.add(metal_slime);
         enemy_monsters.add(puti_slime);
         enemy_monsters.add(gorlem);
+        ArrayList<MonsterItem> monster_items_all =new ArrayList<MonsterItem>();
+        monster_items_all.add(puti_slimemerchandise);
         EnemeyMonster enemeyMonster =new EnemeyMonster();
         ArrayList<Monster2> monsters2 =new ArrayList<Monster2>();
         //このモンスターを手に入れたときにaddです
@@ -48,10 +52,10 @@ public class Main4 {
         monsters2.add(gorlem);
         Finish finish =new Finish();
         finish.Read(string_memory);
-        Person2 p = new Person2("takumi","dannsei",monsters2,items,personkey);
+        Person2 p = new Person2("takumi","dannsei",monsters2,fight_items,monster_items,field_items,personkey);
         Map map =new Map();
         finish.saveWriteAndRead.InSave(string_memory,enemeyMonster,p,monsters2);
-        Game game =new Game(enemy_monsters,scanner,map,dragon_king,p,items_all,missionDragon_king,fight_items,monsters2,enemeyMonster);
+        Game game =new Game(enemy_monsters,scanner,map,dragon_king,p,items_all,missionDragon_king,fight_items_all,monsters2,enemeyMonster,monster_items_all);
         System.out.println(Metal_slime.look(dragon_king));
         for (Monster2 mons : p.monsters2){
             System.out.println(mons.Name()+"(性別."+mons.Seibetu()+")"+"  レベルは"+mons.LV()+"です");

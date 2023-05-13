@@ -1,9 +1,7 @@
 package Calc;
 
 import Calc.Error.Finish;
-import Calc.Item.Item;
-import Calc.Item.Ladder;
-import Calc.Item.Ship;
+import Calc.Item.*;
 import Calc.Mission.MissionDragon_king;
 import Monsters.Dragon_king;
 import Monsters.EnemeyMonster;
@@ -19,7 +17,6 @@ public class Game {
     public Dragon_king dragon_king;
     public Person2 p;
     public String point;
-    public String item;
     public int servex = 6;
     public int servey = 6;
     public int monsterservex = 6;
@@ -27,19 +24,21 @@ public class Game {
     public String itembox = "宝箱";
     public ArrayList<Item> items_all;
     public MissionDragon_king missionDragon_king;
-    public ArrayList<Item> fight_items = new ArrayList<Item>();
+    public ArrayList<FightItem> fight_items_all = new ArrayList<FightItem>();
+    public ArrayList<MonsterItem> monster_items_all =new ArrayList<MonsterItem>();
     public ArrayList<Monster2> enemy_monsters = new ArrayList<Monster2>();
     public ArrayList<Monster2> monsters2_have_person = new ArrayList<>();
     public EnemeyMonster enemeyMonster = new EnemeyMonster();
 
-    public Game(ArrayList<Monster2> enemy_monsters, Scanner scanner, Map map, Dragon_king dragon_king, Person2 person2, ArrayList<Item> items_all, MissionDragon_king missionDragon_king, ArrayList<Item> fight_items, ArrayList<Monster2> monsters2_have_person, EnemeyMonster enemeyMonster) {
+    public Game(ArrayList<Monster2> enemy_monsters, Scanner scanner, Map map, Dragon_king dragon_king, Person2 person2, ArrayList<Item> items_all, MissionDragon_king missionDragon_king, ArrayList<FightItem> fight_items_all, ArrayList<Monster2> monsters2_have_person, EnemeyMonster enemeyMonster,ArrayList<MonsterItem> monster_items_all) {
         this.scanner = scanner;
         this.map = map;
         this.dragon_king = dragon_king;
         this.p = person2;
         this.items_all = items_all;
         this.missionDragon_king = missionDragon_king;
-        this.fight_items = fight_items;
+        this.fight_items_all = fight_items_all;
+        this.monster_items_all = monster_items_all;
         this.enemy_monsters = enemy_monsters;
         this.monsters2_have_person = monsters2_have_person;
         this.enemeyMonster = enemeyMonster;
@@ -76,22 +75,19 @@ public class Game {
                 int get_map_code = map.getMapCode(p.position.x, p.position.y);
                 if (get_map_code == 1 && !(get_map_code == serveget_map_code)) {
                     point = "崖";
-                    item = "梯子";
-                    i = notPoint(ladder, servex, servey, i, point, item);
+                    i = notPoint(ladder, servex, servey, i, point);
                 } else if (get_map_code == 2 && !(get_map_code == serveget_map_code)) {
                     point = "山";
-                    item = "梯子";
-                    i = notPoint(ladder, servex, servey, i, point, item);
+                    i = notPoint(ladder, servex, servey, i, point);
                 } else if (get_map_code == 3 && !(get_map_code == serveget_map_code)) {
                     point = "海";
-                    item = "船";
-                    i = notPoint(ship, servex, servey, i, point, item);
+                    i = notPoint(ship, servex, servey, i, point);
                 } else if (get_map_code == 4) {
                     i = openTreasureChest(i, ship, servex, servey);
                 } else if (get_map_code == 5) {
                     i = openTreasureChest(i, ladder, servex, servey);
                 } else if (get_map_code == 6) {
-                    store.shoppingStore(p.items, p.monsters2, p.name, p.seibetu, items_all, missionDragon_king);
+                    store.shoppingStore(p.monsters2, items_all, missionDragon_king,p,monster_items_all);
                     p.position.x = servex;
                     p.position.y = servey;
                 } else if (get_map_code == -1) {
@@ -131,7 +127,7 @@ public class Game {
                 System.out.println();
                 System.out.println("モンスターと出会った！！");
                 if (random.nextBoolean()) {
-                    p.battle(enemeymonster, dragon_king, missionDragon_king, fight_items);
+                    p.battle(enemeymonster, dragon_king, missionDragon_king);
                     enemeymonster = ramdomMonster.randomMonsters(enemy_monsters);
                     ramdomMonster.randomNewEnemeyMonster(enemeyMonster);
                     enemeyMonster.position = new Position(enemeyMonster.position.x, enemeyMonster.position.y);
@@ -147,12 +143,12 @@ public class Game {
         }
     }
 
-    public int notPoint(Item items, int servex, int servey, int i, String point, String item) throws Finish {
+    public int notPoint(Item item, int servex, int servey, int i, String point) throws Finish {
         //map.oceanxそれかyの中の数字に該当する数字だった場合tureを返す
         System.out.print("ここには" + point + "があります。　");
         int endflg = 0;
-        while (items.have && endflg == 0) {
-            System.out.println(item + "を使いますか？ 使う「ture」 使わない「false」");
+        while (item.have && endflg == 0) {
+            System.out.println(item.name + "を使いますか？ 使う「ture」 使わない「false」");
             if (scanner.next().equals("ture")) {
                 System.out.println(item + "を使った！");
                 endflg++;
@@ -189,7 +185,13 @@ public class Game {
                     System.out.println(itembox+"を開けた！,"+item.name+"を手に入れた");
                     item.havenumber++;
                     item.have=true;
-                    this.p.items.add(item);
+                    if (item.itemsclass == "fightitem"){
+                        this.p.fight_items.add((FightItem) item);
+                    }else if (item.itemsclass == "fielditem"){
+                        this.p.field_items.add((FieldItem) item);
+                    }else if (item.itemsclass == "monsteritem"){
+                        this.p.monster_items.add((MonsterItem) item);
+                    }
                     endflg++;
                 }
             } else if (scanner.next().equals("false")) {

@@ -18,10 +18,8 @@ public class Store {
         this.money = money;
     }
 
-    public void shoppingStore(ArrayList<Item> items, ArrayList<Monster2> monsters, String namae, String seibetu,ArrayList<Item> items_all,MissionDragon_king missionDragon_king) throws Finish {
+    public void shoppingStore(ArrayList<Monster2> monsters,ArrayList<Item> items_all,MissionDragon_king missionDragon_king,Person2 p,ArrayList<MonsterItem> monster_items_all) throws Finish {
         System.out.println(monsters);
-        Store store = new Store(money);
-        Person2 p = new Person2(namae, seibetu, monsters, items,personkey);
         Scanner scanner = new Scanner(System.in);
         System.out.println("いらっしゃい、ここは雑貨屋だよアイテムからモンスターまで幅広く取り扱ってるよ");
         System.out.println("何の用かな？");
@@ -34,19 +32,19 @@ public class Store {
             System.out.println("出る[go]");
             String shoppingcode = scanner.next();
                 if (shoppingcode.equals("buy")) {
-                    store.buy(p, scanner,store,namae,items,items_all,monsters);
+                    buy(p,scanner,items_all,monsters,monster_items_all);
                     System.out.println("ほかには何かあるか？");
                 } else if (shoppingcode.equals("sell")) {
-                    store.sell(p, scanner,namae,items,store);
+                    sell(p,scanner,monsters,monster_items_all);
                     System.out.println("ほかには何かあるか？");
                 } else if (shoppingcode.equals("mission")) {
-                    store.mission(p,scanner,missionDragon_king);
+                    mission(p,scanner,missionDragon_king);
                     System.out.println("ほかには何かあるか？");
                 } else if (shoppingcode.equals("talk")) {
-                    store.talk();
+                    talk();
                     System.out.println("ほかには何かあるか？");
                 } else if (shoppingcode.equals("go")) {
-                    store.go(p);
+                    go(p);
                     i++;
                 } else if (shoppingcode.equals("finish")) {
                     throw new Finish();
@@ -55,7 +53,7 @@ public class Store {
                 }
         }
     }
-    public void buy(Person2 p, Scanner scanner,Store store,String name,ArrayList<Item> items,ArrayList<Item> items_all,ArrayList<Monster2> monster2s) throws Finish {
+    public void buy(Person2 p, Scanner scanner,ArrayList<Item> items_all,ArrayList<Monster2> monster2s,ArrayList<MonsterItem> monster_items_all) throws Finish {
         int i = 0;
         int endflg = 0;
         ArrayList<Item> buyitems =new ArrayList<Item>();
@@ -73,7 +71,7 @@ public class Store {
             for (Item item : buyitems){
                 if (shoppingcode.equals(item.code)){
                     endflg=1;
-                    store.buyMath(item,name,items,items_all,store,monster2s);
+                    buyMath(item,p,monster_items_all,monster2s);
                     System.out.println("他はどうだ？");
                 }
             }
@@ -87,12 +85,20 @@ public class Store {
                 }
             }
         }
-    public void sell (Person2 p, Scanner scanner,String name,ArrayList<Item> items,Store store) throws Finish {
+    public void sell (Person2 p, Scanner scanner,ArrayList<Monster2> monster2s,ArrayList<MonsterItem> monster_items_all) throws Finish {
         System.out.println("売るんだな、何を売るんだ？");
         int i = 0;
         int endflg = 0;
         while (i == 0) {
-            for (Item item : items) {
+            for (Item item : p.field_items) {
+                endflg = 1;
+                System.out.println(item.name + " " + item.sellprice + "$ [" + item.code + "]");
+            }
+            for (Item item : p.fight_items) {
+                endflg = 1;
+                System.out.println(item.name + " " + item.sellprice + "$ [" + item.code + "]");
+            }
+            for (Item item : p.monster_items) {
                 endflg = 1;
                 System.out.println(item.name + " " + item.sellprice + "$ [" + item.code + "]");
             }
@@ -105,10 +111,26 @@ public class Store {
             }
             System.out.println("売らない [goback]");
             String sellcode = scanner.next();
-            for (Item item : items) {
+            for (Item item : p.monster_items) {
                 if (sellcode.equals(item.code)) {
                     endflg = 2;
-                    store.sellMath(item, name, items);
+                    sellMath(item, p,monster2s,monster_items_all);
+                    System.out.println("他はどうする？");
+                    break;
+                }
+            }
+            for (Item item : p.field_items) {
+                if (sellcode.equals(item.code)) {
+                    endflg = 2;
+                    sellMath(item, p,monster2s,monster_items_all);
+                    System.out.println("他はどうする？");
+                    break;
+                }
+            }
+            for (Item item : p.fight_items) {
+                if (sellcode.equals(item.code)) {
+                    endflg = 2;
+                    sellMath(item,p,monster2s,monster_items_all);
                     System.out.println("他はどうする？");
                     break;
                 }
@@ -156,19 +178,24 @@ public class Store {
         System.out.println("じゃあな");
         p.money = this.money;
     }
-    public void buyMath (Item item,String name,ArrayList<Item> items, ArrayList<Item> items_all,Store store,ArrayList<Monster2> monster2s) {
+    public void buyMath (Item item,Person2 p,ArrayList<MonsterItem> monster_items_all,ArrayList<Monster2> monster2s) {
         if (this.money >= item.buyprice && !(item.have == true)) {
             this.money -= item.buyprice;
-            System.out.println(name + "は" + item.name + "を買った");
+            System.out.println(p.name + "は" + item.name + "を買った");
             item.have = true;
-            for (Item alive_item : items_all) {
-                if (alive_item.isalive) {
-                    if (alive_item==item){
-                        monster2s.add(store.inMonster(alive_item));
-                    }
+                for (MonsterItem alive_item : monster_items_all) {
+                        if (alive_item == item) {
+                            monster2s.add(inMonster(item));
+                            System.out.println("a");
+                        }
                 }
+            if (item.itemsclass == "fightitem"){
+                p.fight_items.add((FightItem) item);
+            }else if (item.itemsclass == "fielditem"){
+                p.field_items.add((FieldItem) item);
+            }else {
+                p.monster_items.add((MonsterItem) item);
             }
-            items.add(item);
         }else {
             if (this.money<item.buyprice) {
                 System.out.println("金が足んねえ");
@@ -179,11 +206,23 @@ public class Store {
             }
         }
     }
-    public void sellMath (Item item,String name,ArrayList<Item> items) {
-            this.money+=item.sellprice;
-            System.out.println(name+"は"+item.name+"を売った");
-            item.have=false;
-            items.remove(items.indexOf(item));
+    public void sellMath (Item item,Person2 p,ArrayList<Monster2> monster2s,ArrayList<MonsterItem> monster_items_all) {
+            this.money += item.sellprice;
+            System.out.println(p.name + "は" + item.name + "を売った");
+            item.have = false;
+        for (MonsterItem alive_item : monster_items_all) {
+                if (alive_item == item) {
+                    monster2s.remove(inMonster(item));
+                }
+        }
+        if (item.itemsclass == "fightitem"){
+            p.fight_items.remove(p.fight_items.indexOf(item));
+        }else if (item.itemsclass == "fielditem"){
+            p.field_items.remove(p.field_items.indexOf(item));
+        }else {
+            p.monster_items.remove(p.monster_items.indexOf(item));
+        }
+
     }
     public Monster2 inMonster(Item item){
         Monster2 monster2 = null;
@@ -192,6 +231,7 @@ public class Store {
         Gorlem gorlem =new Gorlem();
         Dragon_king dragon_king =new Dragon_king();
         if (item.name.equals("プチスライム")){
+            System.out.println("a");
             monster2=puti_slime;
         }else if (item.name.equals("ゴーレム")){
             monster2=gorlem;

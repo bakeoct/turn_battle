@@ -1,5 +1,6 @@
 package Monsters;
 
+import Calc.Item.FightItem;
 import Calc.Item.Item;
 import Calc.Position;
 
@@ -110,18 +111,8 @@ public abstract class Monster2 {
             System.out.println(this.name + "を倒した");
         }
     }
-    public ArrayList<Item> judgeItems(ArrayList<Item> fight_items,ArrayList<Item> have_fight_items){
-        for (Item item : fight_items){
-            if (item.have){
-                have_fight_items.add(item);
-            }
-        }
-        return have_fight_items;
-    }
-    public void itemsStatus(ArrayList<Item> fight_items){
-        ArrayList<Item> hava_fight_items =new ArrayList<Item>();
-        hava_fight_items=judgeItems(fight_items,hava_fight_items);
-        for (Item item : hava_fight_items){
+    public void itemsStatus(ArrayList<FightItem> fight_items){
+        for (FightItem item : fight_items){
             if (item.itemgroup.equals("attack")){
                 this.Attack += item.upattack;
             }else if (item.itemgroup.equals("armor")){
