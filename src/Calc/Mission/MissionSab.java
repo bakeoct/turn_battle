@@ -1,5 +1,6 @@
 package Calc.Mission;
 
+import Calc.Error.Finish;
 import Calc.Person2;
 import Calc.Store;
 import Monsters.Monster2;
@@ -11,7 +12,7 @@ public class MissionSab{
     public int endflg=0;
     public ArrayList<Mission> missionsAll =new ArrayList<Mission>();
     public MissionDragon_king missionDragon_king =new MissionDragon_king();
-    public void receive(Person2 p, Scanner scanner,MissionDragon_king missionDragon_king) {
+    public void receive(Person2 p, Scanner scanner,MissionDragon_king missionDragon_king) throws Finish {
         int i = 0;
         ArrayList<Mission> missions = new ArrayList<Mission>();
         while (i==0) {
@@ -42,13 +43,13 @@ public class MissionSab{
             if (missionSelection.equals("goback")) {
                 System.out.println("そうか");
                 i++;
-            }else {
-                if (endflg==0){
+            }else if (missionSelection.equals("finish")) {
+                throw new Finish();
+            } else if (endflg==0){
                     System.out.println("ミッションの中から選んでくれ");
                 }
             }
         }
-    }
     public void missionProgres(Mission successmission){
                 successmission.progress = false;
                 successmission.getreward = true;

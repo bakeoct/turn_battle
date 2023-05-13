@@ -1,5 +1,6 @@
 package Calc;
 
+import Calc.Error.Finish;
 import Calc.Item.*;
 import Calc.Mission.Mission;
 import Calc.Mission.MissionDragon_king;
@@ -21,7 +22,7 @@ public class Store {
         this.money = money;
     }
 
-    public void shoppingStore(ArrayList<Item> items, ArrayList<Monster2> monsters, String namae, String seibetu,ArrayList<Item> items_all,MissionDragon_king missionDragon_king) {
+    public void shoppingStore(ArrayList<Item> items, ArrayList<Monster2> monsters, String namae, String seibetu,ArrayList<Item> items_all,MissionDragon_king missionDragon_king) throws Finish {
         System.out.println(monsters);
         Store store = new Store(money);
         Person2 p = new Person2(namae, seibetu, monsters, items,personkey);
@@ -51,12 +52,14 @@ public class Store {
                 } else if (shoppingcode.equals("go")) {
                     store.go(p);
                     i++;
-                } else {
+                } else if (shoppingcode.equals("finish")) {
+                    throw new Finish();
+                } else{
                     System.out.println("buy,sell,mission,talk,goで選んでください");
                 }
         }
     }
-    public void buy(Person2 p, Scanner scanner,Store store,String name,ArrayList<Item> items,ArrayList<Item> items_all,ArrayList<Monster2> monster2s) {
+    public void buy(Person2 p, Scanner scanner,Store store,String name,ArrayList<Item> items,ArrayList<Item> items_all,ArrayList<Monster2> monster2s) throws Finish {
         int i = 0;
         int endflg = 0;
         ArrayList<Item> buyitems =new ArrayList<Item>();
@@ -81,12 +84,14 @@ public class Store {
             if (shoppingcode.equals("goback")) {
                 System.out.println("そうか");
                 i++;
-            }else if (!(endflg==1)){
+            }else if (shoppingcode.equals("finish")) {
+                throw new Finish();
+            } else if (!(endflg==1)){
                 System.out.println("メニューから選んでくれ");
                 }
             }
         }
-    public void sell (Person2 p, Scanner scanner,String name,ArrayList<Item> items,Store store) {
+    public void sell (Person2 p, Scanner scanner,String name,ArrayList<Item> items,Store store) throws Finish {
         System.out.println("売るんだな、何を売るんだ？");
         int i = 0;
         int endflg = 0;
@@ -115,12 +120,14 @@ public class Store {
             if (sellcode.equals("goback")) {
                 System.out.println("そうか");
                 i++;
+            } else if (sellcode.equals("finish")) {
+                throw new Finish();
             } else if (!(endflg == 2)) {
                 System.out.println("メニューから選んでくれ");
             }
         }
     }
-    public void mission (Person2 p,Scanner scanner,MissionDragon_king missionDragon_king){
+    public void mission (Person2 p,Scanner scanner,MissionDragon_king missionDragon_king) throws Finish {
         Boolean endflg = false;
         Boolean repert = false;
         MissionSab missionSab =new MissionSab();

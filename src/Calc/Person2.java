@@ -1,10 +1,12 @@
 package Calc;
 
+import Calc.Error.Finish;
 import Calc.Item.*;
 import Calc.Mission.Mission;
 import Calc.Mission.MissionDragon_king;
 import Calc.Mission.MissionSab;
 import Monsters.Dragon_king;
+import Monsters.EnemeyMonster;
 import Monsters.Metal_slime;
 import Monsters.Monster2;
 
@@ -24,7 +26,7 @@ public class Person2 {
     public Position position =new Position(x,y);
     public Ladder ladder =new Ladder();
     public Ship ship =new Ship();
-    public Person2(String namae, String seibetu2, ArrayList<Monster2> monsters2,ArrayList<Item> items,int personkey) {
+    public Person2(String namae, String seibetu2, ArrayList<Monster2> monsters2,ArrayList<Item> items,int personkey) throws Finish {
         this.name = namae;
         this.monsters2 = monsters2;
         this.items = items;
@@ -52,6 +54,9 @@ public class Person2 {
                     System.out.println("そして、" + namae + "君は梯子を持っていません");
                 }
             }
+            if (this.seibetu.equals("finish")) {
+                throw new Finish();
+            }
             if (!(this.seibetu.equals("dannsei") || this.seibetu.equals("josei"))) {
                 System.out.println("(josei)または(dannsei)を入力してください。");
             }
@@ -73,18 +78,18 @@ public class Person2 {
         }
         return ramdomposition;
     }
-    public void battle(Monster2 enemeymonster,Dragon_king dragon_king,MissionDragon_king missionDragon_king,ArrayList<Item> fight_items){
+    public void battle(Monster2 enemeymonster, Dragon_king dragon_king, MissionDragon_king missionDragon_king, ArrayList<Item> fight_items){
         MissionSab missionSab =new MissionSab();
+        int win_flg =0;;
         int[] enemey_hp0_mp1 = new int[2];
-        enemey_hp0_mp1[0]=enemeymonster.HP;
         for (Monster2 mons : this.monsters2) {
             mons.itemsStatus(fight_items);
-            System.out.println(mons.HP);
             enemey_hp0_mp1 = Monster2.battle(enemeymonster,mons);
             enemeymonster.HP = enemey_hp0_mp1[0];
             enemeymonster.MP = enemey_hp0_mp1[1];
             if (enemeymonster.HP<=0){
                 System.out.println("勝利した");
+                win_flg++;
                 if (enemeymonster == dragon_king && missionDragon_king.progress){
                     missionSab.missionProgres(missionDragon_king);
                     System.out.println(missionDragon_king.name+"を達成した！");
@@ -93,7 +98,7 @@ public class Person2 {
                 break;
             }
         }
-        if (enemeymonster.HP>0){
+        if (win_flg == 0){
             System.out.println("負けてしまった");
         }
     }

@@ -1,17 +1,19 @@
 package Calc;
 
+import Calc.Error.Finish;
 import Calc.Item.*;
 import Calc.Mission.MissionDragon_king;
+import Calc.save.InSave;
 import Monsters.*;
 
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Main4 {
-    public static void main(String[] ares){
+    public static void main(String[] ares) throws Finish {
         int personkey=1;
-        Random random =new Random();
+        ArrayList<String> string_memory =new ArrayList<String>();
+        ArrayList<Integer> int_memory =new ArrayList<Integer>();
         SuperSword superSword =new SuperSword();
         Puti_slimemerchandise puti_slimemerchandise =new Puti_slimemerchandise();
         HealGlass healGlass =new HealGlass();
@@ -36,30 +38,35 @@ public class Main4 {
         fight_items.add(healGlass);
         fight_items.add(steelArmor);
         fight_items.add(superSword);
+        ArrayList<Monster2> enemy_monsters =new ArrayList<Monster2>();
+        enemy_monsters.add(dragon_king);
+        enemy_monsters.add(metal_slime);
+        enemy_monsters.add(puti_slime);
+        enemy_monsters.add(gorlem);
+        EnemeyMonster enemeyMonster =new EnemeyMonster();
         ArrayList<Monster2> monsters2 =new ArrayList<Monster2>();
         //このモンスターを手に入れたときにaddです
         monsters2.add(metal_slime);
         monsters2.add(gorlem);
         String name = "takumi";
         String seibetu = "dannsei";
+        Finish finish =new Finish();
+        finish.Read(string_memory,int_memory);
         Person2 p = new Person2("takumi","dannsei",monsters2,items,personkey);
         Position position =new Position(p.position.x,p.position.y);
-        Position monsterposition =new Position(dragon_king.position.x,dragon_king.position.y);
+        Position monsterposition =new Position(enemeyMonster.position.x,enemeyMonster.position.y);
         Map map =new Map();
-        Warks warks =new Warks(position,monsterposition,scanner,map,dragon_king,p,p.items,p.money,monsters2,name,seibetu,items_all,missionDragon_king);
+        new InSave(string_memory,int_memory,monsterposition,position,p,monsters2);
+        Warks warks =new Warks(enemy_monsters,position,monsterposition,scanner,map,dragon_king,p,p.items,p.money,monsters2,name,seibetu,items_all,missionDragon_king,fight_items,monsters2,enemeyMonster);
         System.out.println(Metal_slime.look(dragon_king));
         for (Monster2 mons : p.monsters2){
             System.out.println(mons.Name()+"(性別."+mons.Seibetu()+")"+"  レベルは"+mons.LV()+"です");
         }
-        warks.warkTurn();
-        System.out.println();
-        System.out.println("モンスターと出会った！！");
-        if(random.nextBoolean()){
-            p.battle(dragon_king,dragon_king,missionDragon_king,fight_items);
-        }else {
-            System.out.println("仲間になった！！");
-            monsters2.add(dragon_king);
-            System.out.println(dragon_king.name + "(性別." + dragon_king.seibetu + ")" + "  レベルは" + dragon_king.leberu + "です");
+        try {
+            warks.warkTurn();
+        }
+        catch (Finish e){
+
         }
     }
 }
