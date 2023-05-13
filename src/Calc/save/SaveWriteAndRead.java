@@ -2,6 +2,7 @@ package Calc.save;
 
 import Calc.Person2;
 import Calc.Position;
+import Monsters.EnemeyMonster;
 import Monsters.Monster2;
 
 import java.io.*;
@@ -47,7 +48,7 @@ public class SaveWriteAndRead {
         }
         return string_read_memory;
     }
-    public void InSave(ArrayList<String> String_read_memory, Position monsterposition, Position position, Person2 p, ArrayList<Monster2> monsters2){
+    public void InSave(ArrayList<String> String_read_memory, EnemeyMonster monsterposition, Person2 p, ArrayList<Monster2> monsters2){
 
     }
 }

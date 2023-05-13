@@ -14,10 +14,6 @@ public class Store {
     public int storeLV=1;
     public int personkey=0;
     public int money;
-    public SuperSword superSword =new SuperSword();
-    public HealGlass healGlass =new HealGlass();
-    public Puti_slimemerchandise puti_slimemerchandise =new Puti_slimemerchandise();
-    public SteelArmor steelArmor =new SteelArmor();
     public Store(int money) {
         this.money = money;
     }

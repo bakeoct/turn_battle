@@ -13,9 +13,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 //敵を一回倒したらその敵をエラーの場所以外のどこかへ飛ばしまた倒されたら別の場所にまた飛ばす
-public class Warks {
-    public Position position;
-    public Position monsterposition;
+public class Game {
     public Scanner scanner;
     public Map map;
     public Dragon_king dragon_king;
@@ -34,9 +32,7 @@ public class Warks {
     public ArrayList<Monster2> monsters2_have_person = new ArrayList<>();
     public EnemeyMonster enemeyMonster = new EnemeyMonster();
 
-    public Warks(ArrayList<Monster2> enemy_monsters, Position position, Position monsterposition, Scanner scanner, Map map, Dragon_king dragon_king, Person2 person2, ArrayList<Item> items_all, MissionDragon_king missionDragon_king, ArrayList<Item> fight_items, ArrayList<Monster2> monsters2_have_person, EnemeyMonster enemeyMonster) {
-        this.position = position;
-        this.monsterposition = monsterposition;
+    public Game(ArrayList<Monster2> enemy_monsters, Scanner scanner, Map map, Dragon_king dragon_king, Person2 person2, ArrayList<Item> items_all, MissionDragon_king missionDragon_king, ArrayList<Item> fight_items, ArrayList<Monster2> monsters2_have_person, EnemeyMonster enemeyMonster) {
         this.scanner = scanner;
         this.map = map;
         this.dragon_king = dragon_king;
@@ -49,7 +45,7 @@ public class Warks {
         this.enemeyMonster = enemeyMonster;
     }
 
-    public void warkTurn() throws Finish {
+    public void gameTurn() throws Finish {
         Store store = new Store(this.p.money);
         Random random = new Random();
         Ship ship = new Ship();
@@ -57,7 +53,7 @@ public class Warks {
         Ladder ladder = new Ladder();
         System.out.println("人間がいる位置はⅹ座標" + p.position.x + "、Y座標" + p.position.y + "です");
         System.out.println();
-        System.out.println("モンスターがいる位置はⅹ座標" + monsterposition.x + "、Y座標" + monsterposition.y + "です");
+        System.out.println("モンスターがいる位置はⅹ座標" + enemeyMonster.position.x + "、Y座標" + enemeyMonster.position.y + "です");
         System.out.println();
         Monster2 enemeymonster = ramdomMonster.randomMonsters(enemy_monsters);
         while (true) {
@@ -111,10 +107,10 @@ public class Warks {
             int monsteri = 0;
             while (monsteri == 0) {
                 if (random.nextBoolean()) {
-                    enemeyMonster.position.x = enemeyMonster.walk(monsterposition.x);
+                    enemeyMonster.position.x = enemeyMonster.walk(enemeyMonster.position.x);
                     monsteri++;
                 } else {
-                    enemeyMonster.position.y = enemeyMonster.walk(monsterposition.y);
+                    enemeyMonster.position.y = enemeyMonster.walk(enemeyMonster.position.y);
                     monsteri++;
                 }
                 int monster_get_map_code = map.getMapCode(enemeyMonster.position.x, enemeyMonster.position.y);
@@ -126,26 +122,26 @@ public class Warks {
             }
             this.monsterservex = enemeyMonster.position.x;
             this.monsterservey = enemeyMonster.position.y;
-            monsterposition = new Position(enemeyMonster.position.x, enemeyMonster.position.y);
+            enemeyMonster.position = new Position(enemeyMonster.position.x, enemeyMonster.position.y);
             System.out.println("人間がいる位置はⅹ座標" + p.position.x + "、Y座標" + p.position.y + "です");
             System.out.println();
-            System.out.println("モンスターがいる位置はⅹ座標" + monsterposition.x + "、Y座標" + monsterposition.y + "です");
+            System.out.println("モンスターがいる位置はⅹ座標" + enemeyMonster.position.x + "、Y座標" + enemeyMonster.position.y + "です");
             System.out.println();
-            if (p.position.x == monsterposition.x && p.position.y == monsterposition.y) {
+            if (p.position.x == enemeyMonster.position.x && p.position.y == enemeyMonster.position.y) {
                 System.out.println();
                 System.out.println("モンスターと出会った！！");
                 if (random.nextBoolean()) {
                     p.battle(enemeymonster, dragon_king, missionDragon_king, fight_items);
                     enemeymonster = ramdomMonster.randomMonsters(enemy_monsters);
                     ramdomMonster.randomNewEnemeyMonster(enemeyMonster);
-                    monsterposition = new Position(enemeyMonster.position.x, enemeyMonster.position.y);
+                    enemeyMonster.position = new Position(enemeyMonster.position.x, enemeyMonster.position.y);
                 } else {
                     System.out.println("仲間になった！！");
                     monsters2_have_person.add(enemeymonster);
                     System.out.println(enemeymonster.name + "(性別." + enemeymonster.seibetu + ")" + "  レベルは" + enemeymonster.leberu + "です");
                     enemeymonster = ramdomMonster.randomMonsters(enemy_monsters);
                     ramdomMonster.randomNewEnemeyMonster(enemeyMonster);
-                    monsterposition = new Position(enemeyMonster.position.x, enemeyMonster.position.y);
+                    enemeyMonster.position = new Position(enemeyMonster.position.x, enemeyMonster.position.y);
                 }
             }
         }

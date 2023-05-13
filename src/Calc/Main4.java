@@ -46,22 +46,18 @@ public class Main4 {
         //このモンスターを手に入れたときにaddです
         monsters2.add(metal_slime);
         monsters2.add(gorlem);
-        String name = "takumi";
-        String seibetu = "dannsei";
         Finish finish =new Finish();
         finish.Read(string_memory);
         Person2 p = new Person2("takumi","dannsei",monsters2,items,personkey);
-        Position position =new Position(p.position.x,p.position.y);
-        Position monsterposition =new Position(enemeyMonster.position.x,enemeyMonster.position.y);
         Map map =new Map();
-        finish.saveWriteAndRead.InSave(string_memory,monsterposition,position,p,monsters2);
-        Warks warks =new Warks(enemy_monsters,position,monsterposition,scanner,map,dragon_king,p,items_all,missionDragon_king,fight_items,monsters2,enemeyMonster);
+        finish.saveWriteAndRead.InSave(string_memory,enemeyMonster,p,monsters2);
+        Game game =new Game(enemy_monsters,scanner,map,dragon_king,p,items_all,missionDragon_king,fight_items,monsters2,enemeyMonster);
         System.out.println(Metal_slime.look(dragon_king));
         for (Monster2 mons : p.monsters2){
             System.out.println(mons.Name()+"(性別."+mons.Seibetu()+")"+"  レベルは"+mons.LV()+"です");
         }
         try {
-            warks.warkTurn();
+            game.gameTurn();
         }
         catch (Finish e){
 
