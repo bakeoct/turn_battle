@@ -3,7 +3,6 @@ package Calc;
 import Calc.Error.Finish;
 import Calc.Item.*;
 import Calc.Mission.MissionDragon_king;
-import Calc.save.InSave;
 import Monsters.*;
 
 import java.util.ArrayList;
@@ -13,7 +12,6 @@ public class Main4 {
     public static void main(String[] ares) throws Finish {
         int personkey=1;
         ArrayList<String> string_memory =new ArrayList<String>();
-        ArrayList<Integer> int_memory =new ArrayList<Integer>();
         SuperSword superSword =new SuperSword();
         Puti_slimemerchandise puti_slimemerchandise =new Puti_slimemerchandise();
         HealGlass healGlass =new HealGlass();
@@ -51,13 +49,13 @@ public class Main4 {
         String name = "takumi";
         String seibetu = "dannsei";
         Finish finish =new Finish();
-        finish.Read(string_memory,int_memory);
+        finish.Read(string_memory);
         Person2 p = new Person2("takumi","dannsei",monsters2,items,personkey);
         Position position =new Position(p.position.x,p.position.y);
         Position monsterposition =new Position(enemeyMonster.position.x,enemeyMonster.position.y);
         Map map =new Map();
-        new InSave(string_memory,int_memory,monsterposition,position,p,monsters2);
-        Warks warks =new Warks(enemy_monsters,position,monsterposition,scanner,map,dragon_king,p,p.items,p.money,monsters2,name,seibetu,items_all,missionDragon_king,fight_items,monsters2,enemeyMonster);
+        finish.saveWriteAndRead.InSave(string_memory,monsterposition,position,p,monsters2);
+        Warks warks =new Warks(enemy_monsters,position,monsterposition,scanner,map,dragon_king,p,items_all,missionDragon_king,fight_items,monsters2,enemeyMonster);
         System.out.println(Metal_slime.look(dragon_king));
         for (Monster2 mons : p.monsters2){
             System.out.println(mons.Name()+"(性別."+mons.Seibetu()+")"+"  レベルは"+mons.LV()+"です");

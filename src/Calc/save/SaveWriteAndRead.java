@@ -1,5 +1,9 @@
 package Calc.save;
 
+import Calc.Person2;
+import Calc.Position;
+import Monsters.Monster2;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -23,7 +27,7 @@ public class SaveWriteAndRead {
             e.printStackTrace();
         }
     }
-    public ArrayList<String> read(ArrayList<String> string_read_memory,ArrayList<Integer> int_read_memory){
+    public ArrayList<String> read(ArrayList<String> string_read_memory){
         try {
             int i = 0;
             save_file_read = new BufferedReader(new FileReader(file));
@@ -42,5 +46,8 @@ public class SaveWriteAndRead {
             e.printStackTrace();
         }
         return string_read_memory;
+    }
+    public void InSave(ArrayList<String> String_read_memory, Position monsterposition, Position position, Person2 p, ArrayList<Monster2> monsters2){
+
     }
 }

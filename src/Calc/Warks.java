@@ -27,11 +27,6 @@ public class Warks {
     public int monsterservex = 6;
     public int monsterservey = 3;
     public String itembox = "宝箱";
-    public ArrayList<Item> items;
-    public int money;
-    public ArrayList<Monster2> monsters;
-    public String namae;
-    public String seibetu;
     public ArrayList<Item> items_all;
     public MissionDragon_king missionDragon_king;
     public ArrayList<Item> fight_items = new ArrayList<Item>();
@@ -39,18 +34,13 @@ public class Warks {
     public ArrayList<Monster2> monsters2_have_person = new ArrayList<>();
     public EnemeyMonster enemeyMonster = new EnemeyMonster();
 
-    public Warks(ArrayList<Monster2> enemy_monsters, Position position, Position monsterposition, Scanner scanner, Map map, Dragon_king dragon_king, Person2 person2, ArrayList<Item> items, int money, ArrayList<Monster2> monsters, String namae, String seibetu, ArrayList<Item> items_all, MissionDragon_king missionDragon_king, ArrayList<Item> fight_items, ArrayList<Monster2> monsters2_have_person, EnemeyMonster enemeyMonster) {
+    public Warks(ArrayList<Monster2> enemy_monsters, Position position, Position monsterposition, Scanner scanner, Map map, Dragon_king dragon_king, Person2 person2, ArrayList<Item> items_all, MissionDragon_king missionDragon_king, ArrayList<Item> fight_items, ArrayList<Monster2> monsters2_have_person, EnemeyMonster enemeyMonster) {
         this.position = position;
         this.monsterposition = monsterposition;
         this.scanner = scanner;
         this.map = map;
         this.dragon_king = dragon_king;
         this.p = person2;
-        this.items = items;
-        this.money = money;
-        this.monsters = monsters;
-        this.namae = namae;
-        this.seibetu = seibetu;
         this.items_all = items_all;
         this.missionDragon_king = missionDragon_king;
         this.fight_items = fight_items;
@@ -60,7 +50,7 @@ public class Warks {
     }
 
     public void warkTurn() throws Finish {
-        Store store = new Store(this.money);
+        Store store = new Store(this.p.money);
         Random random = new Random();
         Ship ship = new Ship();
         RamdomMonster ramdomMonster = new RamdomMonster();
@@ -105,7 +95,7 @@ public class Warks {
                 } else if (get_map_code == 5) {
                     i = openTreasureChest(i, ladder, servex, servey);
                 } else if (get_map_code == 6) {
-                    store.shoppingStore(items, monsters, namae, seibetu, items_all, missionDragon_king);
+                    store.shoppingStore(p.items, p.monsters2, p.name, p.seibetu, items_all, missionDragon_king);
                     p.position.x = servex;
                     p.position.y = servey;
                 } else if (get_map_code == -1) {
@@ -203,7 +193,7 @@ public class Warks {
                     System.out.println(itembox+"を開けた！,"+item.name+"を手に入れた");
                     item.havenumber++;
                     item.have=true;
-                    this.items.add(item);
+                    this.p.items.add(item);
                     endflg++;
                 }
             } else if (scanner.next().equals("false")) {
