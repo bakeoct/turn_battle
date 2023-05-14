@@ -186,7 +186,6 @@ public class Store {
                 for (MonsterItem alive_item : monster_items_all) {
                         if (alive_item == item) {
                             monster2s.add(inMonster(item));
-                            System.out.println("a");
                         }
                 }
             if (item.itemsclass == "fightitem"){
@@ -231,7 +230,6 @@ public class Store {
         Gorlem gorlem =new Gorlem();
         Dragon_king dragon_king =new Dragon_king();
         if (item.name.equals("プチスライム")){
-            System.out.println("a");
             monster2=puti_slime;
         }else if (item.name.equals("ゴーレム")){
             monster2=gorlem;

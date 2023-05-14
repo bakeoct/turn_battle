@@ -5,10 +5,7 @@ import Calc.Item.*;
 import Calc.Mission.Mission;
 import Calc.Mission.MissionDragon_king;
 import Calc.Mission.MissionSab;
-import Monsters.Dragon_king;
-import Monsters.EnemeyMonster;
-import Monsters.Metal_slime;
-import Monsters.Monster2;
+import Monsters.*;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -16,8 +13,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Person2 {
+    public ArrayList<Monster2> monsters2 =new ArrayList<Monster2>();
     public int LV=1;
-    public ArrayList<Monster2> monsters2;
     public ArrayList<FieldItem> field_items =new ArrayList<FieldItem>();
     public ArrayList<MonsterItem> monster_items =new ArrayList<MonsterItem>();
     public ArrayList<FightItem> fight_items =new ArrayList<FightItem>();
@@ -29,10 +26,11 @@ public class Person2 {
     public Position position =new Position(x,y);
     public Ladder ladder =new Ladder();
     public Ship ship =new Ship();
-    public Person2(String namae, String seibetu2, ArrayList<Monster2> monsters2, int personkey) throws Finish {
+    public Person2(String namae, String seibetu2, int personkey,Metal_slime metal_slime,Gorlem gorlem) throws Finish {
         this.name = namae;
-        this.monsters2 = monsters2;
         this.seibetu = seibetu2;
+        this.monsters2.add(metal_slime);
+        this.monsters2.add(gorlem);
         if (personkey==1) {
             if (this.seibetu.equals("dannsei")) {
                 System.out.print(namae + "くんが持っているはモンスターは(モンスター");

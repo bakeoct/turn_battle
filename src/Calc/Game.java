@@ -3,18 +3,21 @@ package Calc;
 import Calc.Error.Finish;
 import Calc.Item.*;
 import Calc.Mission.MissionDragon_king;
-import Monsters.Dragon_king;
-import Monsters.EnemeyMonster;
-import Monsters.Monster2;
+import Monsters.*;
 
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 //敵を一回倒したらその敵をエラーの場所以外のどこかへ飛ばしまた倒されたら別の場所にまた飛ばす
 public class Game {
+    public SuperSword superSword =new SuperSword();
+    public Puti_slimemerchandise puti_slimemerchandise =new Puti_slimemerchandise();
+    public HealGlass healGlass =new HealGlass();
+    public SteelArmor steelArmor =new SteelArmor();
+    public Ship ship =new Ship();
+    public Ladder ladder =new Ladder();
     public Scanner scanner;
     public Map map;
-    public Dragon_king dragon_king;
     public Person2 p;
     public String point;
     public int servex = 6;
@@ -22,26 +25,33 @@ public class Game {
     public int monsterservex = 6;
     public int monsterservey = 3;
     public String itembox = "宝箱";
-    public ArrayList<Item> items_all;
+    public ArrayList<Item> items_all=new ArrayList<Item>();
     public MissionDragon_king missionDragon_king;
     public ArrayList<FightItem> fight_items_all = new ArrayList<FightItem>();
     public ArrayList<MonsterItem> monster_items_all =new ArrayList<MonsterItem>();
-    public ArrayList<Monster2> enemy_monsters = new ArrayList<Monster2>();
-    public ArrayList<Monster2> monsters2_have_person = new ArrayList<>();
+    public ArrayList<Monster2> monsters2_have_person = new ArrayList<Monster2>();
     public EnemeyMonster enemeyMonster = new EnemeyMonster();
+    public ArrayList<Monster2> enemy_monsters = new ArrayList<Monster2>();
+    public Dragon_king dragon_king =new Dragon_king();
 
-    public Game(ArrayList<Monster2> enemy_monsters, Scanner scanner, Map map, Dragon_king dragon_king, Person2 person2, ArrayList<Item> items_all, MissionDragon_king missionDragon_king, ArrayList<FightItem> fight_items_all, ArrayList<Monster2> monsters2_have_person, EnemeyMonster enemeyMonster,ArrayList<MonsterItem> monster_items_all) {
+    public Game(Scanner scanner, Map map, Person2 person2, MissionDragon_king missionDragon_king, EnemeyMonster enemeyMonster,ArrayList<Monster2> enemy_monsters,Dragon_king dragon_king) {
         this.scanner = scanner;
         this.map = map;
-        this.dragon_king = dragon_king;
         this.p = person2;
-        this.items_all = items_all;
+        this.dragon_king = dragon_king;
         this.missionDragon_king = missionDragon_king;
-        this.fight_items_all = fight_items_all;
-        this.monster_items_all = monster_items_all;
-        this.enemy_monsters = enemy_monsters;
-        this.monsters2_have_person = monsters2_have_person;
         this.enemeyMonster = enemeyMonster;
+        this.enemy_monsters = enemy_monsters;
+        this.items_all.add(ship);
+        this.items_all.add(ladder);
+        this. items_all.add(puti_slimemerchandise);
+        this.items_all.add(healGlass);
+        this.items_all.add(steelArmor);
+        this.items_all.add(superSword);
+        this.fight_items_all.add(healGlass);
+        this.fight_items_all.add(steelArmor);
+        this.fight_items_all.add(superSword);
+        this.monster_items_all.add(puti_slimemerchandise);
     }
 
     public void gameTurn() throws Finish {
