@@ -10,7 +10,6 @@ public class HealGlass extends FightItem{
         this.uphp = 0;
         this.upattack = 0;
         this.heal = 500;
-        this.use = true;
         this.itemgroup = "heal";
         this.itemsclass = "fightitem";
     }

@@ -18,9 +18,9 @@ import java.util.Scanner;
 public class Person2 {
     public int LV=1;
     public ArrayList<Monster2> monsters2;
-    public ArrayList<MonsterItem> monster_items;
-    public ArrayList<FightItem> fight_items;
-    public ArrayList<FieldItem> field_items;
+    public ArrayList<FieldItem> field_items =new ArrayList<FieldItem>();
+    public ArrayList<MonsterItem> monster_items =new ArrayList<MonsterItem>();
+    public ArrayList<FightItem> fight_items =new ArrayList<FightItem>();
     public String name;
     public String seibetu;
     public int money=100;
@@ -29,13 +29,10 @@ public class Person2 {
     public Position position =new Position(x,y);
     public Ladder ladder =new Ladder();
     public Ship ship =new Ship();
-    public Person2(String namae, String seibetu2, ArrayList<Monster2> monsters2, ArrayList<FightItem> fight_items, ArrayList<MonsterItem> monster_items, ArrayList<FieldItem> field_items, int personkey) throws Finish {
+    public Person2(String namae, String seibetu2, ArrayList<Monster2> monsters2, int personkey) throws Finish {
         this.name = namae;
         this.monsters2 = monsters2;
         this.seibetu = seibetu2;
-        this.fight_items = fight_items;
-        this.field_items = field_items;
-        this.monster_items = monster_items;
         if (personkey==1) {
             if (this.seibetu.equals("dannsei")) {
                 System.out.print(namae + "くんが持っているはモンスターは(モンスター");

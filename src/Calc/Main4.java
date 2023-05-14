@@ -3,6 +3,7 @@ package Calc;
 import Calc.Error.Finish;
 import Calc.Item.*;
 import Calc.Mission.MissionDragon_king;
+import Calc.save.SaveWriteAndRead;
 import Monsters.*;
 
 import java.util.ArrayList;
@@ -24,9 +25,6 @@ public class Main4 {
         MissionDragon_king missionDragon_king =new MissionDragon_king();
         Ship ship =new Ship();
         Ladder ladder =new Ladder();
-        ArrayList<FieldItem> field_items =new ArrayList<FieldItem>();
-        ArrayList<MonsterItem> monster_items =new ArrayList<MonsterItem>();
-        ArrayList<FightItem> fight_items =new ArrayList<FightItem>();
         ArrayList<Item> items_all =new ArrayList<Item>();
         items_all.add(ship);
         items_all.add(ladder);
@@ -52,7 +50,7 @@ public class Main4 {
         monsters2.add(gorlem);
         Finish finish =new Finish();
         finish.Read(string_memory);
-        Person2 p = new Person2("takumi","dannsei",monsters2,fight_items,monster_items,field_items,personkey);
+        Person2 p = new Person2("takumi","dannsei",monsters2,personkey);
         Map map =new Map();
         finish.saveWriteAndRead.InSave(string_memory,enemeyMonster,p,monsters2);
         Game game =new Game(enemy_monsters,scanner,map,dragon_king,p,items_all,missionDragon_king,fight_items_all,monsters2,enemeyMonster,monster_items_all);
@@ -64,7 +62,14 @@ public class Main4 {
             game.gameTurn();
         }
         catch (Finish e){
-
+            ArrayList<String> write_memory =new ArrayList<String>();
+            write_memory.add(p.name);
+            write_memory.add(p.seibetu);
+            write_memory.add(String.valueOf(p.position.x));
+            write_memory.add(String.valueOf(p.position.y));
+            write_memory.add(String.valueOf(p.LV));
+            write_memory.add(String.valueOf(p.money));
+            finish.write(write_memory,p,enemeyMonster);
         }
     }
 }

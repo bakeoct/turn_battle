@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public abstract class Monster2 {
-    Position position;
     public int HP;
     public int MP;
     public int Attack;
