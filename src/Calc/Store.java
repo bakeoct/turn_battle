@@ -214,9 +214,9 @@ public class Store {
                     monster2s.remove(inMonster(item));
                 }
         }
-        if (item.itemsclass == "fightitem"){
+        if (item.itemsclass.equals("fightitem")){
             p.fight_items.remove(p.fight_items.indexOf(item));
-        }else if (item.itemsclass == "fielditem"){
+        }else if (item.itemsclass.equals("fielditem")){
             p.field_items.remove(p.field_items.indexOf(item));
         }else {
             p.monster_items.remove(p.monster_items.indexOf(item));
