@@ -3,20 +3,21 @@ package Calc;
 import Calc.Error.Finish;
 import Calc.Item.*;
 import Calc.Mission.MissionDragon_king;
+import Calc.save.SaveLoadManager;
 import Monsters.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 //敵を一回倒したらその敵をエラーの場所以外のどこかへ飛ばしまた倒されたら別の場所にまた飛ばす
-public class Game {
+public class Game implements Serializable {
     public SuperSword superSword =new SuperSword();
     public Puti_slimemerchandise puti_slimemerchandise =new Puti_slimemerchandise();
     public HealGlass healGlass =new HealGlass();
     public SteelArmor steelArmor =new SteelArmor();
     public Ship ship =new Ship();
     public Ladder ladder =new Ladder();
-    public Scanner scanner;
     public Map map;
     public Person2 p;
     public String point;
@@ -34,8 +35,7 @@ public class Game {
     public ArrayList<Monster2> enemy_monsters = new ArrayList<Monster2>();
     public Dragon_king dragon_king =new Dragon_king();
 
-    public Game(Scanner scanner, Map map, Person2 person2, MissionDragon_king missionDragon_king, EnemeyMonster enemeyMonster,ArrayList<Monster2> enemy_monsters,Dragon_king dragon_king) {
-        this.scanner = scanner;
+    public Game(Map map, Person2 person2, MissionDragon_king missionDragon_king, EnemeyMonster enemeyMonster,ArrayList<Monster2> enemy_monsters,Dragon_king dragon_king) {
         this.map = map;
         this.p = person2;
         this.dragon_king = dragon_king;
@@ -69,6 +69,7 @@ public class Game {
             int i = 0;
             while (i == 0) {
                 int serveget_map_code = map.getMapCode(p.position.x, p.position.y);
+                Scanner scanner =new Scanner(System.in);
                 String plice = scanner.next();
                 if (plice.equals("a") || plice.equals("d")) {
                     p.position.x = p.walkX(p.position.x, plice);
@@ -76,8 +77,10 @@ public class Game {
                 } else if (plice.equals("w") || plice.equals("s")) {
                     p.position.y = p.walkY(p.position.y, plice);
                     i++;
-                } else if (plice.equals("finish")) {
-                    throw new Finish();
+                } else if (plice.equals("fini")) {
+                    SaveLoadManager sl = new SaveLoadManager();
+                    System.out.println("saveします。");
+                    sl.save(this);
                 } else {
                     System.out.println("a,w,s,dのどれかを選んでください");
                 }
@@ -157,6 +160,7 @@ public class Game {
         //map.oceanxそれかyの中の数字に該当する数字だった場合tureを返す
         System.out.print("ここには" + point + "があります。　");
         int endflg = 0;
+        Scanner scanner =new Scanner(System.in);
         while (item.have && endflg == 0) {
             System.out.println(item.name + "を使いますか？ 使う「ture」 使わない「false」");
             if (scanner.next().equals("ture")) {
@@ -184,6 +188,7 @@ public class Game {
     }
     public int openTreasureChest(int i,Item item,int servex,int servey) throws Finish{
         int endflg = 0;
+        Scanner scanner =new Scanner(System.in);
         while (endflg == 0) {
             System.out.println("これは"+itembox+"を開けますか？ 開ける「ture」 開けない「false」");
             if (scanner.next().equals("ture")) {

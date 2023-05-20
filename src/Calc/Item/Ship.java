@@ -10,4 +10,9 @@ public class Ship extends FieldItem{
         this.itemgroup = "move";
         this.itemsclass = "fielditem";
     }
+
+    @Override
+    public void display() {
+        System.out.println("this is Ship");
+    }
 }

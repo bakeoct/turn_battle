@@ -1,8 +1,9 @@
 package Calc;
 
+import java.io.Serializable;
 import java.util.ArrayList;
     //名前をMAPにさせる
-    public class Map {
+    public class Map implements Serializable {
         public final int TL = 5;//TreasureChest(Ladder)
         public final int TS = 4;//TreasureChest(Ship)
         public final int O = 3;//Ocean

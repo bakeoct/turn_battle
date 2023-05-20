@@ -10,4 +10,9 @@ public class Puti_slimemerchandise extends MonsterItem{
         this.itemgroup = "monster";
         this.itemsclass = "monsteritem";
     }
+
+    @Override
+    public void display() {
+        System.out.println("this is Puti_slimemerchandise");
+    }
 }

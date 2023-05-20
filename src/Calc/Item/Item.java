@@ -2,9 +2,10 @@ package Calc.Item;
 
 import Monsters.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Item {
+public abstract class Item implements Serializable {
     public String itemgroup;
     public int itemLV;
     public Boolean have = false;
@@ -14,4 +15,6 @@ public abstract class Item {
     public int sellprice;
     public String code;
     public String itemsclass;
+    abstract public void display();
+
 }

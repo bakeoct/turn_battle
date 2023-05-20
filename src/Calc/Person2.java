@@ -2,17 +2,14 @@ package Calc;
 
 import Calc.Error.Finish;
 import Calc.Item.*;
-import Calc.Mission.Mission;
 import Calc.Mission.MissionDragon_king;
 import Calc.Mission.MissionSab;
 import Monsters.*;
 
-import java.lang.reflect.Field;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
 
-public class Person2 {
+public class Person2 implements Serializable {
     public ArrayList<Monster2> monsters2 =new ArrayList<Monster2>();
     public int LV=1;
     public ArrayList<FieldItem> field_items =new ArrayList<FieldItem>();
@@ -26,11 +23,16 @@ public class Person2 {
     public Position position =new Position(x,y);
     public Ladder ladder =new Ladder();
     public Ship ship =new Ship();
-    public Person2(String namae, String seibetu2, int personkey,Metal_slime metal_slime,Gorlem gorlem) throws Finish {
+    public Person2(String namae, String seibetu2, int personkey,Metal_slime metal_slime,Gorlem gorlem) {
         this.name = namae;
         this.seibetu = seibetu2;
         this.monsters2.add(metal_slime);
         this.monsters2.add(gorlem);
+        this.fight_items.add(new SteelArmor());
+        this.fight_items.add(new HealGlass());
+        this.field_items.add(new Ladder());
+        this.field_items.add(new Ladder());
+
         if (personkey==1) {
             if (this.seibetu.equals("dannsei")) {
                 System.out.print(namae + "くんが持っているはモンスターは(モンスター");
@@ -38,14 +40,12 @@ public class Person2 {
                     System.out.print("," + mons.name);
                 }
                 System.out.println(")です");
-                for (FightItem fight_item : fight_items) {
-                    System.out.println("そして、" + namae + "君は" + fight_item.name + "を持っています");
-                }
-                for (MonsterItem monster_item : monster_items){
-                    System.out.println("そして、" + namae + "君は" + monster_item.name + "を持っています");
-                }
-                for (FieldItem field_item : field_items){
-                    System.out.println("そして、" + namae + "君は" + field_item.name + "を持っています");
+                ArrayList<Item> allItems = new ArrayList<>();
+                allItems.addAll(this.field_items);
+                allItems.addAll(this.fight_items);
+                allItems.addAll(this.monster_items);
+                for (Item item : allItems) {
+                    item.display();
                 }
             }
             if (this.seibetu.equals("josei")) {
@@ -63,9 +63,6 @@ public class Person2 {
                 for (FieldItem field_item : field_items){
                     System.out.println("そして、" + namae + "君は" + field_item.name + "を持っています");
                 }
-            }
-            if (this.seibetu.equals("finish")) {
-                throw new Finish();
             }
             if (!(this.seibetu.equals("dannsei") || this.seibetu.equals("josei"))) {
                 System.out.println("(josei)または(dannsei)を入力してください。");

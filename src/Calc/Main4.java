@@ -3,6 +3,7 @@ package Calc;
 import Calc.Error.Finish;
 import Calc.Item.*;
 import Calc.Mission.MissionDragon_king;
+import Calc.save.SaveLoadManager;
 import Calc.save.SaveWriteAndRead;
 import Monsters.*;
 
@@ -17,7 +18,6 @@ public class Main4 {
         Puti_slime puti_slime=new Puti_slime();
         int personkey=1;
         ArrayList<String> string_memory =new ArrayList<String>();
-        Scanner scanner =new Scanner(System.in);
         MissionDragon_king missionDragon_king =new MissionDragon_king();
         EnemeyMonster enemeyMonster =new EnemeyMonster();
         ArrayList<Monster2> enemy_monsters = new ArrayList<>();
@@ -27,10 +27,15 @@ public class Main4 {
         enemy_monsters.add(gorlem);
         Finish finish =new Finish();
         finish.Read(string_memory);
-        Person2 p = new Person2("takumi","dannsei",personkey,metal_slime,gorlem);
+        SaveLoadManager sl = new SaveLoadManager();
+        Game game = sl.restore();
+        System.out.println(game.p.money);
+        System.out.println(game.p.money);
+        System.out.println(game.p.money);
+        System.out.println(game.p.money);
         Map map =new Map();
+        Person2 p = game.p;
         finish.saveWriteAndRead.InSave(string_memory,enemeyMonster,p,p.monsters2);
-        Game game =new Game(scanner,map,p,missionDragon_king,enemeyMonster,enemy_monsters,dragon_king);
         System.out.println(Metal_slime.look(dragon_king));
         for (Monster2 mons : p.monsters2){
             System.out.println(mons.Name()+"(性別."+mons.Seibetu()+")"+"  レベルは"+mons.LV()+"です");

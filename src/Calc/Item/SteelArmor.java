@@ -13,4 +13,8 @@ public class SteelArmor extends FightItem{
         this.itemgroup = "armor";
         this.itemsclass = "fightitem";
     }
+    @Override
+    public void display() {
+        System.out.println("this is SteelArmor");
+    }
 }

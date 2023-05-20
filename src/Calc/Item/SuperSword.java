@@ -13,4 +13,9 @@ public class SuperSword extends FightItem{
         this.itemgroup = "attack";
         this.itemsclass = "fightitem";
     }
+
+    @Override
+    public void display() {
+        System.out.println("this is SuperSword");
+    }
 }

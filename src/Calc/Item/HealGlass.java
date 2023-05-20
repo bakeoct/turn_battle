@@ -13,4 +13,10 @@ public class HealGlass extends FightItem{
         this.itemgroup = "heal";
         this.itemsclass = "fightitem";
     }
+
+    @Override
+    public void display() {
+        System.out.println("this is HealGlass");
+    }
+
 }

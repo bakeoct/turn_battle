@@ -3,9 +3,10 @@ package Monsters;
 import Calc.Person2;
 import Calc.Position;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Dragon_king extends Monster2{
+public class Dragon_king extends Monster2 {
     public Dragon_king() {
         this.HP=20000000;
         this.MP=200;

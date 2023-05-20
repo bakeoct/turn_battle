@@ -4,10 +4,11 @@ import Calc.Item.FightItem;
 import Calc.Item.Item;
 import Calc.Position;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public abstract class Monster2 {
+public abstract class Monster2 implements Serializable {
     public int HP;
     public int MP;
     public int Attack;

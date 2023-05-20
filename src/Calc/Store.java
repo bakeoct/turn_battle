@@ -5,6 +5,7 @@ import Calc.Item.*;
 import Calc.Mission.Mission;
 import Calc.Mission.MissionDragon_king;
 import Calc.Mission.MissionSab;
+import Calc.save.SaveLoadManager;
 import Monsters.*;
 
 import java.util.ArrayList;
@@ -46,8 +47,6 @@ public class Store {
                 } else if (shoppingcode.equals("go")) {
                     go(p);
                     i++;
-                } else if (shoppingcode.equals("finish")) {
-                    throw new Finish();
                 } else{
                     System.out.println("buy,sell,mission,talk,goで選んでください");
                 }
@@ -58,6 +57,8 @@ public class Store {
         int endflg = 0;
         ArrayList<Item> buyitems =new ArrayList<Item>();
         System.out.println("買うんだな、この中から選びな");
+        System.out.println("お金を追加");
+        p.money++;
         while (i == 0) {
             buyitems.clear();
             for (Item item : items_all){
@@ -138,8 +139,6 @@ public class Store {
             if (sellcode.equals("goback")) {
                 System.out.println("そうか");
                 i++;
-            } else if (sellcode.equals("finish")) {
-                throw new Finish();
             } else if (!(endflg == 2)) {
                 System.out.println("メニューから選んでくれ");
             }
@@ -188,9 +187,10 @@ public class Store {
                             monster2s.add(inMonster(item));
                         }
                 }
-            if (item.itemsclass == "fightitem"){
+                System.out.println(item.itemsclass);
+            if (item.itemsclass.equals("fightitem")){
                 p.fight_items.add((FightItem) item);
-            }else if (item.itemsclass == "fielditem"){
+            }else if (item.itemsclass.equals("fielditem")){
                 p.field_items.add((FieldItem) item);
             }else {
                 p.monster_items.add((MonsterItem) item);
