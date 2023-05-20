@@ -2,8 +2,6 @@ package Calc.Mission;
 
 import Calc.Error.Finish;
 import Calc.Person2;
-import Calc.Store;
-import Monsters.Monster2;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -11,8 +9,8 @@ import java.util.Scanner;
 public class MissionSab{
     public int endflg=0;
     public ArrayList<Mission> missionsAll =new ArrayList<Mission>();
-    public MissionDragon_king missionDragon_king =new MissionDragon_king();
-    public void receive(Person2 p, Scanner scanner,MissionDragon_king missionDragon_king) throws Finish {
+    public MissionDragonKing missionDragon_king =new MissionDragonKing();
+    public void receive(Person2 p, Scanner scanner, MissionDragonKing missionDragon_king) throws Finish {
         int i = 0;
         ArrayList<Mission> missions = new ArrayList<Mission>();
         while (i==0) {

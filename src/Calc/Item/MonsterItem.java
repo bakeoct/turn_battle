@@ -1,4 +1,6 @@
 package Calc.Item;
 
-public abstract class MonsterItem extends Item{
+import java.io.Serializable;
+
+public abstract class MonsterItem extends Item implements Serializable {
 }

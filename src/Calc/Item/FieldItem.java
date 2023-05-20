@@ -1,2 +1,6 @@
 package Calc.Item;
-public abstract class FieldItem extends Item{}
+
+
+import java.io.Serializable;
+
+public abstract class FieldItem extends Item  implements Serializable {}

@@ -1,8 +1,8 @@
 package Calc;
 
+import All.AllClass;
 import Calc.Error.Finish;
-import Calc.Item.*;
-import Calc.Mission.MissionDragon_king;
+import Calc.Mission.MissionDragonKing;
 import Calc.save.SaveWriteAndRead;
 import Monsters.*;
 
@@ -12,26 +12,24 @@ import java.util.Scanner;
 public class Main4 {
     public static void main(String[] ares) throws Finish {
         Gorlem gorlem =new Gorlem();
-        Dragon_king dragon_king =new Dragon_king();
-        Metal_slime metal_slime =new Metal_slime();
-        Puti_slime puti_slime=new Puti_slime();
+        DragonKing dragon_king =new DragonKing();
+        MetalSlime metal_slime =new MetalSlime();
+        PutiSlime puti_slime=new PutiSlime();
         int personkey=1;
-        ArrayList<String> string_memory =new ArrayList<String>();
         Scanner scanner =new Scanner(System.in);
-        MissionDragon_king missionDragon_king =new MissionDragon_king();
+        MissionDragonKing missionDragon_king =new MissionDragonKing();
         EnemeyMonster enemeyMonster =new EnemeyMonster();
         ArrayList<Monster2> enemy_monsters = new ArrayList<>();
         enemy_monsters.add(dragon_king);
         enemy_monsters.add(metal_slime);
         enemy_monsters.add(puti_slime);
         enemy_monsters.add(gorlem);
-        Finish finish =new Finish();
-        finish.Read(string_memory);
-        Person2 p = new Person2("takumi","dannsei",personkey,metal_slime,gorlem);
         Map map =new Map();
-        finish.saveWriteAndRead.InSave(string_memory,enemeyMonster,p,p.monsters2);
+        Person2 p = new Person2("takumi","dannsei",personkey,metal_slime,gorlem);
         Game game =new Game(scanner,map,p,missionDragon_king,enemeyMonster,enemy_monsters,dragon_king);
-        System.out.println(Metal_slime.look(dragon_king));
+        SaveWriteAndRead saveWriteAndRead =new SaveWriteAndRead(p,enemeyMonster,new Position(1,1));
+        saveWriteAndRead.read();
+        System.out.println(MetalSlime.look(dragon_king));
         for (Monster2 mons : p.monsters2){
             System.out.println(mons.Name()+"(性別."+mons.Seibetu()+")"+"  レベルは"+mons.LV()+"です");
         }
@@ -39,14 +37,15 @@ public class Main4 {
             game.gameTurn();
         }
         catch (Finish e){
-            ArrayList<String> write_memory =new ArrayList<String>();
-            write_memory.add(p.name);
-            write_memory.add(p.seibetu);
-            write_memory.add(String.valueOf(p.position.x));
-            write_memory.add(String.valueOf(p.position.y));
-            write_memory.add(String.valueOf(p.LV));
-            write_memory.add(String.valueOf(p.money));
-            finish.write(write_memory,p,enemeyMonster);
+            ArrayList<String> string_write_memory =new ArrayList<>();
+            ArrayList<Integer> int_write_memory =new ArrayList<>();
+            string_write_memory.add(p.name);
+            string_write_memory.add(p.seibetu);
+            int_write_memory.add(p.position.x);
+            int_write_memory.add(p.position.y);
+            int_write_memory.add(p.LV);
+            int_write_memory.add(p.money);
+            saveWriteAndRead.write();
         }
     }
 }

@@ -2,9 +2,10 @@ package Calc.Item;
 
 import Monsters.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Item {
+public abstract class Item  implements Serializable {
     public String itemgroup;
     public int itemLV;
     public Boolean have = false;

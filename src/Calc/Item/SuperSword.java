@@ -1,6 +1,8 @@
 package Calc.Item;
 
-public class SuperSword extends FightItem{
+import java.io.Serializable;
+
+public class SuperSword extends FightItem implements Serializable {
     public SuperSword(){
         this.name="すごい剣";
         this.buyprice=50;

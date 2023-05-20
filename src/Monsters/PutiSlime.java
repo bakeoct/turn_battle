@@ -1,7 +1,7 @@
 package Monsters;
 
-public class Puti_slime extends Monster2{
-    public Puti_slime(){
+public class PutiSlime extends Monster2{
+    public PutiSlime(){
         this.leberu = 300;
         this.HP = 398;
         this.Attack=50000000;

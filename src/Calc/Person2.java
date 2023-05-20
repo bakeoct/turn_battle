@@ -2,15 +2,11 @@ package Calc;
 
 import Calc.Error.Finish;
 import Calc.Item.*;
-import Calc.Mission.Mission;
-import Calc.Mission.MissionDragon_king;
+import Calc.Mission.MissionDragonKing;
 import Calc.Mission.MissionSab;
 import Monsters.*;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
 
 public class Person2 {
     public ArrayList<Monster2> monsters2 =new ArrayList<Monster2>();
@@ -26,7 +22,7 @@ public class Person2 {
     public Position position =new Position(x,y);
     public Ladder ladder =new Ladder();
     public Ship ship =new Ship();
-    public Person2(String namae, String seibetu2, int personkey,Metal_slime metal_slime,Gorlem gorlem) throws Finish {
+    public Person2(String namae, String seibetu2, int personkey, MetalSlime metal_slime, Gorlem gorlem) throws Finish {
         this.name = namae;
         this.seibetu = seibetu2;
         this.monsters2.add(metal_slime);
@@ -88,7 +84,7 @@ public class Person2 {
         }
         return ramdomposition;
     }
-    public void battle(Monster2 enemeymonster, Dragon_king dragon_king, MissionDragon_king missionDragon_king){
+    public void battle(Monster2 enemeymonster, DragonKing dragon_king, MissionDragonKing missionDragon_king){
         MissionSab missionSab =new MissionSab();
         int win_flg =0;
         int[] enemey_hp0_mp1 = new int[2];

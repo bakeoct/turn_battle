@@ -3,7 +3,7 @@ package Calc;
 import Calc.Error.Finish;
 import Calc.Item.*;
 import Calc.Mission.Mission;
-import Calc.Mission.MissionDragon_king;
+import Calc.Mission.MissionDragonKing;
 import Calc.Mission.MissionSab;
 import Monsters.*;
 
@@ -18,7 +18,7 @@ public class Store {
         this.money = money;
     }
 
-    public void shoppingStore(ArrayList<Monster2> monsters,ArrayList<Item> items_all,MissionDragon_king missionDragon_king,Person2 p,ArrayList<MonsterItem> monster_items_all) throws Finish {
+    public void shoppingStore(ArrayList<Monster2> monsters, ArrayList<Item> items_all, MissionDragonKing missionDragon_king, Person2 p, ArrayList<MonsterItem> monster_items_all) throws Finish {
         System.out.println(monsters);
         Scanner scanner = new Scanner(System.in);
         System.out.println("いらっしゃい、ここは雑貨屋だよアイテムからモンスターまで幅広く取り扱ってるよ");
@@ -145,7 +145,7 @@ public class Store {
             }
         }
     }
-    public void mission (Person2 p,Scanner scanner,MissionDragon_king missionDragon_king) throws Finish {
+    public void mission (Person2 p, Scanner scanner, MissionDragonKing missionDragon_king) throws Finish {
         Boolean endflg = false;
         Boolean repert = false;
         MissionSab missionSab =new MissionSab();
@@ -225,10 +225,10 @@ public class Store {
     }
     public Monster2 inMonster(Item item){
         Monster2 monster2 = null;
-        Puti_slime puti_slime =new Puti_slime();
-        Metal_slime metal_slime =new Metal_slime();
+        PutiSlime puti_slime =new PutiSlime();
+        MetalSlime metal_slime =new MetalSlime();
         Gorlem gorlem =new Gorlem();
-        Dragon_king dragon_king =new Dragon_king();
+        DragonKing dragon_king =new DragonKing();
         if (item.name.equals("プチスライム")){
             monster2=puti_slime;
         }else if (item.name.equals("ゴーレム")){

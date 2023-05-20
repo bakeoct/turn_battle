@@ -1,7 +1,7 @@
 package Monsters;
 
-public class Metal_slime extends Monster2{
-    public Metal_slime(){
+public class MetalSlime extends Monster2{
+    public MetalSlime(){
         this.HP = 50;
         this.leberu = 0;
         this.Attack=6000;

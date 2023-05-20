@@ -1,6 +1,8 @@
 package Calc.Item;
 
-public class SteelArmor extends FightItem{
+import java.io.Serializable;
+
+public class SteelArmor extends FightItem implements Serializable {
     public SteelArmor(){
         this.name="鋼の防具";
         this.buyprice=50;

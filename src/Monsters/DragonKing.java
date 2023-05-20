@@ -1,12 +1,7 @@
 package Monsters;
 
-import Calc.Person2;
-import Calc.Position;
-
-import java.util.Random;
-
-public class Dragon_king extends Monster2{
-    public Dragon_king() {
+public class DragonKing extends Monster2{
+    public DragonKing() {
         this.HP=20000000;
         this.MP=200;
         this.judgeSente=7000;

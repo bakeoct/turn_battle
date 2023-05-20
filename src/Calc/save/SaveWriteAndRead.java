@@ -1,161 +1,74 @@
 package Calc.save;
 
-import Calc.Item.FightItem;
-import Calc.Item.Item;
+import Calc.Item.*;
 import Calc.Person2;
 import Calc.Position;
-import Monsters.EnemeyMonster;
-import Monsters.Monster2;
+import Monsters.*;
 
+import javax.print.DocFlavor;
 import java.io.*;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SaveWriteAndRead {
-    public File file =new File("C:\\Users\\2009t\\IdeaProjects\\ex001\\src\\Calc\\save\\Save.txt");
-    public BufferedWriter save_file_write;
-    public BufferedReader save_file_read;
-    public void write(ArrayList<String> write_memorys,Person2 p,EnemeyMonster enemeyMonster){
-        try {
-            file.delete();
-            save_file_write = new BufferedWriter(new FileWriter(file));
-            if (!file.canWrite()){
-                file.setWritable(true);
+    //下の奴の目印
+    public ArrayList<String> string_read_memory =new ArrayList<>();
+    public ArrayList<String> fight_item_read_memory =new ArrayList<>();
+    public ArrayList<String> field_item_read_memory =new ArrayList<>();
+    public ArrayList<String> monster_item_read_memory =new ArrayList<>();
+    public ArrayList<Integer> int_read_memory =new ArrayList<>();
+    public ArrayList<String> monster_read_memory =new ArrayList<>();
+    public ArrayList<String> enemey_read_memory =new ArrayList<>();
+    public File first_save_file = new File("C:\\Users\\2009t\\IdeaProjects\\ex001\\out\\production\\ex001\\src\\firstsave.dat");
+    public Person2 p;
+    public EnemeyMonster enemeyMonster;
+    public Position position;
+    public SaveWriteAndRead(Person2 p, EnemeyMonster enemeyMonster,Position position){
+        this.p = p;
+        this.enemeyMonster = enemeyMonster;
+        this.position = position;
+    }
+    //まで
+    public void write(){
+        try (FileOutputStream file = new FileOutputStream("C:\\Users\\2009t\\IdeaProjects\\ex001\\src\\save.dat");
+             BufferedOutputStream buffered = new BufferedOutputStream(file);
+             ObjectOutputStream output = new ObjectOutputStream(buffered);
+             FileWriter first_save = new FileWriter(first_save_file);
+             BufferedReader first_read =new BufferedReader(new FileReader(first_save_file))){
+            output.defaultWriteObject();
+            output.writeObject(p);
+            output.writeObject(enemeyMonster);
+            if (!(first_save_file.canRead())){
+                first_save_file.setReadable(true);
             }
-            for (String memory : write_memorys){
-                save_file_write.write(memory);
-                save_file_write.newLine();
+            if (first_read.readLine().equals("false")) {
+                first_save_file.setWritable(true);
+                first_save_file.delete();
+                first_save.write(String.valueOf(true));
             }
-            for (FightItem fight_item : p.fight_items){
-                save_file_write.write(fight_item.name);
-                save_file_write.newLine();
-                save_file_write.write(fight_item.code);
-                save_file_write.newLine();
-                save_file_write.write(fight_item.itemsclass);
-                save_file_write.newLine();
-                save_file_write.write(fight_item.itemgroup);
-                save_file_write.newLine();
-                String items_have = tureChengeString(fight_item.have);
-                save_file_write.write(items_have);
-                save_file_write.newLine();
-                save_file_write.write(String.valueOf(fight_item.itemLV));
-                save_file_write.newLine();
-                save_file_write.write(String.valueOf(fight_item.buyprice));
-                save_file_write.newLine();
-                save_file_write.write(String.valueOf(fight_item.sellprice));
-                save_file_write.newLine();
-                save_file_write.write(String.valueOf(fight_item.upattack));
-                save_file_write.newLine();
-                save_file_write.write(String.valueOf(fight_item.uphp));
-                save_file_write.newLine();
-                save_file_write.write(String.valueOf(fight_item.heal));
-                save_file_write.newLine();
-                save_file_write.write(String.valueOf(fight_item.havenumber));
-                save_file_write.newLine();
-            }
-            for (Item field_item : p.monster_items){
-                save_file_write.write(field_item.name);
-                save_file_write.newLine();
-                save_file_write.write(field_item.code);
-                save_file_write.newLine();
-                save_file_write.write(field_item.itemsclass);
-                save_file_write.newLine();
-                save_file_write.write(field_item.itemgroup);
-                save_file_write.newLine();
-                String items_have = tureChengeString(field_item.have);
-                save_file_write.write(items_have);
-                save_file_write.newLine();
-                save_file_write.write(String.valueOf(field_item.itemLV));
-                save_file_write.newLine();
-                save_file_write.write(String.valueOf(field_item.buyprice));
-                save_file_write.newLine();
-                save_file_write.write(String.valueOf(field_item.sellprice));
-                save_file_write.newLine();
-                save_file_write.write(String.valueOf(field_item.havenumber));
-                save_file_write.newLine();
-            }
-            for (Item monster_item : p.field_items){
-                save_file_write.write(monster_item.name);
-                save_file_write.newLine();
-                save_file_write.write(monster_item.code);
-                save_file_write.newLine();
-                save_file_write.write(monster_item.itemsclass);
-                save_file_write.newLine();
-                save_file_write.write(monster_item.itemgroup);
-                save_file_write.newLine();
-                String items_have = tureChengeString(monster_item.have);
-                save_file_write.write(items_have);
-                save_file_write.newLine();
-                save_file_write.write(String.valueOf(monster_item.itemLV));
-                save_file_write.newLine();
-                save_file_write.write(String.valueOf(monster_item.buyprice));
-                save_file_write.newLine();
-                save_file_write.write(String.valueOf(monster_item.sellprice));
-                save_file_write.newLine();
-                save_file_write.write(String.valueOf(monster_item.havenumber));
-                save_file_write.newLine();
-            }
-            for (Monster2 monster : p.monsters2){
-                save_file_write.write(monster.name);
-                save_file_write.newLine();
-                save_file_write.write(monster.seibetu);
-                save_file_write.newLine();
-                save_file_write.write(String.valueOf(monster.HP));
-                save_file_write.newLine();
-                save_file_write.write(String.valueOf(monster.MP));
-                save_file_write.newLine();
-                save_file_write.write(String.valueOf(monster.Attack));
-                save_file_write.newLine();
-                save_file_write.write(String.valueOf(monster.judgeSente));
-                save_file_write.newLine();
-                save_file_write.write(String.valueOf(monster.leberu));
-                save_file_write.newLine();
-                String monster_alive = tureChengeString(monster.isalive);
-                save_file_write.write(monster_alive);
-                save_file_write.newLine();
-                String monster_fellow = tureChengeString(monster.fellow);
-                save_file_write.write(monster_fellow);
-                save_file_write.newLine();
-            }
-            save_file_write.write(String.valueOf(enemeyMonster.position.x));
-            save_file_write.newLine();
-            save_file_write.write(String.valueOf(enemeyMonster.position.y));
-            save_file_write.newLine();
-            save_file_write.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public ArrayList<String> read(ArrayList<String> string_read_memory){
-        try {
-            int i = 0;
-            save_file_read = new BufferedReader(new FileReader(file));
-            if (!file.canRead()){
-                file.setReadable(true);
+    public void read(){
+        //最初にfileの中が空やから入れる必要がある
+        try (BufferedReader read_or_no =new BufferedReader(new FileReader(first_save_file))){
+            if (read_or_no.readLine().equals("ture")) {
+                FileInputStream file = new FileInputStream("C:\\Users\\2009t\\IdeaProjects\\ex001\\src\\save.dat");
+                BufferedInputStream buffered = new BufferedInputStream(file);
+                ObjectInputStream input = new ObjectInputStream(buffered);
+                this.p = (Person2) input.readObject();
+                this.enemeyMonster = (EnemeyMonster) input.readObject();
             }
-            while (true){
-                string_read_memory.add(save_file_read.readLine());
-                if (string_read_memory.get(i) == null){
-                    break;
-                }
-                i++;
-            }
-            save_file_read.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
-        return string_read_memory;
-    }
-    public void InSave(ArrayList<String> string_read_memory, EnemeyMonster monsterposition, Person2 p, ArrayList<Monster2> monsters2){
-
-    }
-    public String tureChengeString(Boolean item_have){
-        String item_have_string;
-        if (item_have){
-            item_have_string = "ture";
-        }else {
-            item_have_string = "false";
-        }
-        return item_have_string;
     }
 }

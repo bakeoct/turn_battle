@@ -1,6 +1,8 @@
 package Calc.Item;
 
-public class Ladder extends FieldItem {
+import java.io.Serializable;
+
+public class Ladder extends FieldItem implements Serializable {
     public Ladder(){
         this.name="梯子";
         this.buyprice=200;

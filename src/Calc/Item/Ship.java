@@ -1,6 +1,8 @@
 package Calc.Item;
 
-public class Ship extends FieldItem{
+import java.io.Serializable;
+
+public class Ship extends FieldItem implements Serializable {
     public Ship(){
         this.name="船";
         this.buyprice=200;

@@ -2,7 +2,7 @@ package Calc;
 
 import Calc.Error.Finish;
 import Calc.Item.*;
-import Calc.Mission.MissionDragon_king;
+import Calc.Mission.MissionDragonKing;
 import Monsters.*;
 
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.Scanner;
 //敵を一回倒したらその敵をエラーの場所以外のどこかへ飛ばしまた倒されたら別の場所にまた飛ばす
 public class Game {
     public SuperSword superSword =new SuperSword();
-    public Puti_slimemerchandise puti_slimemerchandise =new Puti_slimemerchandise();
+    public PutiSlimeMerchandise puti_slimeMerchandise =new PutiSlimeMerchandise();
     public HealGlass healGlass =new HealGlass();
     public SteelArmor steelArmor =new SteelArmor();
     public Ship ship =new Ship();
@@ -26,15 +26,15 @@ public class Game {
     public int monsterservey = 3;
     public String itembox = "宝箱";
     public ArrayList<Item> items_all=new ArrayList<Item>();
-    public MissionDragon_king missionDragon_king;
+    public MissionDragonKing missionDragon_king;
     public ArrayList<FightItem> fight_items_all = new ArrayList<FightItem>();
     public ArrayList<MonsterItem> monster_items_all =new ArrayList<MonsterItem>();
     public ArrayList<Monster2> monsters2_have_person = new ArrayList<Monster2>();
     public EnemeyMonster enemeyMonster = new EnemeyMonster();
     public ArrayList<Monster2> enemy_monsters = new ArrayList<Monster2>();
-    public Dragon_king dragon_king =new Dragon_king();
+    public DragonKing dragon_king =new DragonKing();
 
-    public Game(Scanner scanner, Map map, Person2 person2, MissionDragon_king missionDragon_king, EnemeyMonster enemeyMonster,ArrayList<Monster2> enemy_monsters,Dragon_king dragon_king) {
+    public Game(Scanner scanner, Map map, Person2 person2, MissionDragonKing missionDragon_king, EnemeyMonster enemeyMonster, ArrayList<Monster2> enemy_monsters, DragonKing dragon_king) {
         this.scanner = scanner;
         this.map = map;
         this.p = person2;
@@ -44,14 +44,14 @@ public class Game {
         this.enemy_monsters = enemy_monsters;
         this.items_all.add(ship);
         this.items_all.add(ladder);
-        this. items_all.add(puti_slimemerchandise);
+        this. items_all.add(puti_slimeMerchandise);
         this.items_all.add(healGlass);
         this.items_all.add(steelArmor);
         this.items_all.add(superSword);
         this.fight_items_all.add(healGlass);
         this.fight_items_all.add(steelArmor);
         this.fight_items_all.add(superSword);
-        this.monster_items_all.add(puti_slimemerchandise);
+        this.monster_items_all.add(puti_slimeMerchandise);
     }
 
     public void gameTurn() throws Finish {
