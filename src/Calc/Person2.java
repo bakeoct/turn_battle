@@ -6,9 +6,10 @@ import Calc.Mission.MissionDragonKing;
 import Calc.Mission.MissionSab;
 import Monsters.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Person2 {
+public class Person2  implements Serializable {
     public ArrayList<Monster2> monsters2 =new ArrayList<Monster2>();
     public int LV=1;
     public ArrayList<FieldItem> field_items =new ArrayList<FieldItem>();
@@ -22,12 +23,11 @@ public class Person2 {
     public Position position =new Position(x,y);
     public Ladder ladder =new Ladder();
     public Ship ship =new Ship();
-    public Person2(String namae, String seibetu2, int personkey, MetalSlime metal_slime, Gorlem gorlem) throws Finish {
+    public Person2(String namae, String seibetu2, MetalSlime metal_slime, Gorlem gorlem) throws Finish {
         this.name = namae;
         this.seibetu = seibetu2;
         this.monsters2.add(metal_slime);
         this.monsters2.add(gorlem);
-        if (personkey==1) {
             if (this.seibetu.equals("dannsei")) {
                 System.out.print(namae + "くんが持っているはモンスターは(モンスター");
                 for (Monster2 mons : monsters2) {
@@ -66,7 +66,6 @@ public class Person2 {
             if (!(this.seibetu.equals("dannsei") || this.seibetu.equals("josei"))) {
                 System.out.println("(josei)または(dannsei)を入力してください。");
             }
-        }
     }
     public int walkX(int ramdomposition,String plice){
         if (plice.equals("d")){

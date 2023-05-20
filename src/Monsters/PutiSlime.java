@@ -1,6 +1,8 @@
 package Monsters;
 
-public class PutiSlime extends Monster2{
+import java.io.Serializable;
+
+public class PutiSlime extends Monster2 implements Serializable {
     public PutiSlime(){
         this.leberu = 300;
         this.HP = 398;

@@ -1,26 +1,12 @@
 package Calc.save;
-
-import Calc.Item.*;
 import Calc.Person2;
 import Calc.Position;
 import Monsters.*;
-
-import javax.print.DocFlavor;
 import java.io.*;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class SaveWriteAndRead {
     //下の奴の目印
-    public ArrayList<String> string_read_memory =new ArrayList<>();
-    public ArrayList<String> fight_item_read_memory =new ArrayList<>();
-    public ArrayList<String> field_item_read_memory =new ArrayList<>();
-    public ArrayList<String> monster_item_read_memory =new ArrayList<>();
-    public ArrayList<Integer> int_read_memory =new ArrayList<>();
-    public ArrayList<String> monster_read_memory =new ArrayList<>();
-    public ArrayList<String> enemey_read_memory =new ArrayList<>();
-    public File first_save_file = new File("C:\\Users\\2009t\\IdeaProjects\\ex001\\out\\production\\ex001\\src\\firstsave.dat");
+    public File first_save_file = new File("C:\\Users\\2009t\\IdeaProjects\\ex001\\src\\firstsave.dat");
     public Person2 p;
     public EnemeyMonster enemeyMonster;
     public Position position;
@@ -36,7 +22,7 @@ public class SaveWriteAndRead {
              ObjectOutputStream output = new ObjectOutputStream(buffered);
              FileWriter first_save = new FileWriter(first_save_file);
              BufferedReader first_read =new BufferedReader(new FileReader(first_save_file))){
-            output.defaultWriteObject();
+            output.reset();
             output.writeObject(p);
             output.writeObject(enemeyMonster);
             if (!(first_save_file.canRead())){
@@ -56,7 +42,7 @@ public class SaveWriteAndRead {
     public void read(){
         //最初にfileの中が空やから入れる必要がある
         try (BufferedReader read_or_no =new BufferedReader(new FileReader(first_save_file))){
-            if (read_or_no.readLine().equals("ture")) {
+            if (read_or_no.readLine().equals("true")) {
                 FileInputStream file = new FileInputStream("C:\\Users\\2009t\\IdeaProjects\\ex001\\src\\save.dat");
                 BufferedInputStream buffered = new BufferedInputStream(file);
                 ObjectInputStream input = new ObjectInputStream(buffered);

@@ -1,6 +1,8 @@
 package Monsters;
 
-public class DragonKing extends Monster2{
+import java.io.Serializable;
+
+public class DragonKing extends Monster2 implements Serializable {
     public DragonKing() {
         this.HP=20000000;
         this.MP=200;

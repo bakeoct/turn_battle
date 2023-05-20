@@ -1,6 +1,8 @@
 package Monsters;
 
-public class MetalSlime extends Monster2{
+import java.io.Serializable;
+
+public class MetalSlime extends Monster2  implements Serializable{
     public MetalSlime(){
         this.HP = 50;
         this.leberu = 0;

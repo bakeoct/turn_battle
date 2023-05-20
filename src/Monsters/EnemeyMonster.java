@@ -2,9 +2,10 @@ package Monsters;
 
 import Calc.Position;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class EnemeyMonster {
+public class EnemeyMonster implements Serializable {
     public int x=6;
     public int y=3;
     public Position position =new Position(x,y);

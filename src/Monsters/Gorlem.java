@@ -1,6 +1,8 @@
 package Monsters;
 
-public class Gorlem extends Monster2{
+import java.io.Serializable;
+
+public class Gorlem extends Monster2  implements Serializable {
     public Gorlem(){
         this.leberu = 30;
         this.HP=9000;

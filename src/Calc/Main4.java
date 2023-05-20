@@ -25,7 +25,7 @@ public class Main4 {
         enemy_monsters.add(puti_slime);
         enemy_monsters.add(gorlem);
         Map map =new Map();
-        Person2 p = new Person2("takumi","dannsei",personkey,metal_slime,gorlem);
+        Person2 p = new Person2("takumi","dannsei",metal_slime,gorlem);
         Game game =new Game(scanner,map,p,missionDragon_king,enemeyMonster,enemy_monsters,dragon_king);
         SaveWriteAndRead saveWriteAndRead =new SaveWriteAndRead(p,enemeyMonster,new Position(1,1));
         saveWriteAndRead.read();
