@@ -12,16 +12,7 @@ public class ReaderAndWriter {
     public static void main(String[] args){
         try {
             File file =new File("C:\\Users\\2009t\\IdeaProjects\\ex001\\src\\Calc\\save\\SaveString.txt");
-            DragonKing dragon_king =new DragonKing();
-            Gorlem gorlem =new Gorlem();
-            PutiSlime puti_slime =new PutiSlime();
-            MetalSlime metal_slime =new MetalSlime();
             HealGlass healGlass =new HealGlass();
-            SuperSword superSword =new SuperSword();
-            SteelArmor steelArmor =new SteelArmor();
-            Ladder ladder =new Ladder();
-            Ship ship =new Ship();
-            PutiSlimeMerchandise puti_slimeMerchandise =new PutiSlimeMerchandise();
 
             BufferedWriter file_save_writer = new BufferedWriter(new FileWriter(file));
             if (!file.canWrite()){

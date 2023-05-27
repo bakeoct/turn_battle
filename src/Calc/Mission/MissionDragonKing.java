@@ -1,6 +1,8 @@
 package Calc.Mission;
 
-public class MissionDragonKing extends Mission{
+import java.io.Serializable;
+
+public class MissionDragonKing extends Mission implements Serializable {
     public MissionDragonKing(){
         this.dangerousLV=1;
         this.reward=300;

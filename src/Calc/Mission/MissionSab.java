@@ -3,13 +3,13 @@ package Calc.Mission;
 import Calc.Error.Finish;
 import Calc.Person2;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class MissionSab{
+public class MissionSab implements Serializable {
     public int endflg=0;
     public ArrayList<Mission> missionsAll =new ArrayList<Mission>();
-    public MissionDragonKing missionDragon_king =new MissionDragonKing();
     public void receive(Person2 p, Scanner scanner, MissionDragonKing missionDragon_king) throws Finish {
         int i = 0;
         ArrayList<Mission> missions = new ArrayList<Mission>();

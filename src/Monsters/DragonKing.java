@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class DragonKing extends Monster2 implements Serializable {
     public DragonKing() {
         this.HP=20000000;
-        this.MP=200;
+        this.MP=2;
         this.judgeSente=7000;
         this.name="竜王";
         this.Attack=300000000;
@@ -13,6 +13,8 @@ public class DragonKing extends Monster2 implements Serializable {
         this.leberu=1;
         this.isalive=true;
         this.fellow=false;
+        this.can_get_experince_point = 1000;
+        this.need_experince_point = 300;
     }
     public static String look(Monster2 monster){
         return monster.name;

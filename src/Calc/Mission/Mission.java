@@ -3,9 +3,10 @@ package Calc.Mission;
 import Calc.Person2;
 import Calc.Store;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Mission {
+public abstract class Mission implements Serializable {
     public int dangerousLV;
     public int reward;
     public String code;

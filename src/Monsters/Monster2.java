@@ -2,6 +2,7 @@ package Monsters;
 
 import Calc.Item.FightItem;
 import Calc.Item.Item;
+import Calc.Person2;
 import Calc.Position;
 
 import java.util.ArrayList;
@@ -17,7 +18,9 @@ public abstract class Monster2 {
     public boolean isalive;
     public int judgeSente;
     public Boolean fellow;
-
+    public int can_get_experince_point;
+    public int have_experince_point = 0;
+    public int need_experince_point = 0;
 
     public String Name() {
         return this.name;
@@ -88,6 +91,7 @@ public abstract class Monster2 {
                 return monster1_hp0_mp1;
             }
         }else {
+            System.out.println("c");
             monster1_hp0_mp1[0] = monster1.HP;
             monster1_hp0_mp1[1] = monster1.MP;
             return monster1_hp0_mp1;
@@ -118,6 +122,17 @@ public abstract class Monster2 {
                 this.HP += item.uphp;
             }else if (item.itemgroup.equals("heal")){
                 this.HP += item.heal;
+            }
+        }
+    }
+    public void goBackStatus(ArrayList<FightItem> fight_items){
+        for (FightItem item : fight_items){
+            if (item.itemgroup.equals("attack")){
+                this.Attack -= item.upattack;
+            }else if (item.itemgroup.equals("armor")){
+                this.HP -= item.uphp;
+            }else if (item.itemgroup.equals("heal")){
+                this.HP -= item.heal;
             }
         }
     }

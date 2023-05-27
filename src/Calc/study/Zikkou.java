@@ -8,7 +8,5 @@ public class Zikkou {
     public static void main(String[] args){
         In in =new In();
         Class c =new Class();
-        in.clas();
-        System.out.println(c.ok);
     }
 }

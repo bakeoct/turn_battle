@@ -2,7 +2,7 @@ package Calc.Item;
 
 import java.io.Serializable;
 
-public class HealGlass extends FightItem implements Serializable {
+public class HealGlass extends FightItem implements Serializable  {
     public HealGlass(){
         this.name="薬草";
         this.buyprice=10;
