@@ -20,6 +20,7 @@ public class RamdomMonster {
         while (number == map.E){
             x =random_new_enemey_monster.nextInt(range[0]);
             y = random_new_enemey_monster.nextInt(range[1]);
+            number =map.getMapCode(x,y,enemeyMonster.area);
         }
             enemeyMonster.position.x = x;
             enemeyMonster.position.y = y;

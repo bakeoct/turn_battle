@@ -21,7 +21,7 @@ public class Main4 {
         enemy_monsters.add(metal_slime);
         enemy_monsters.add(puti_slime);
         enemy_monsters.add(gorlem);
-        Person2 p = new Person2("takumi","dannsei",metal_slime,gorlem);
+        Person2 p = new Person2("takumi","dannsei",new MetalSlime(),new Gorlem());
         Game game =new Game(p,missionDragon_king,enemeyMonster,enemy_monsters,dragon_king);
         SaveWriteAndRead saveWriteAndRead =new SaveWriteAndRead(game);
         game = saveWriteAndRead.read();

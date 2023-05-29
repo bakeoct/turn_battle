@@ -91,7 +91,6 @@ public abstract class Monster2 {
                 return monster1_hp0_mp1;
             }
         }else {
-            System.out.println("c");
             monster1_hp0_mp1[0] = monster1.HP;
             monster1_hp0_mp1[1] = monster1.MP;
             return monster1_hp0_mp1;

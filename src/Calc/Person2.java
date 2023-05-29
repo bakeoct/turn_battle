@@ -103,16 +103,19 @@ public class Person2 implements Serializable {
         int serve_mp = enemeymonster.MP;
         int win_flg =0;
         int[] enemey_hp0_mp1;
+        System.out.println(this.monsters2.get(0).name);
+        System.out.println("f");
         for (Monster2 mons : this.monsters2) {
-            System.out.println("a");
+            System.out.println("1");
             mons.itemsStatus(this.fight_items);
             //enemy_monsterの中のすべての情報を初期化する
+            System.out.println(enemeymonster.HP);
+            System.out.println(enemeymonster.isalive);
             enemey_hp0_mp1 = Monster2.battle(enemeymonster,mons);
             mons.goBackStatus(this.fight_items);
             enemeymonster.HP = enemey_hp0_mp1[0];
             enemeymonster.MP = enemey_hp0_mp1[1];
             if (enemeymonster.HP<=0){
-                System.out.println("b");
                 for (Monster2 monsters : this.monsters2) {
                     monsters.have_experince_point += enemeymonster.can_get_experince_point;
                 }
@@ -130,7 +133,6 @@ public class Person2 implements Serializable {
                 break;
             }
         }
-        System.out.println("f");
         if (win_flg == 0){
             System.out.println("負けてしまった");
         }

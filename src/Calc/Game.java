@@ -57,7 +57,7 @@ public class Game implements Serializable {
         this.monster_items_all.add(puti_slimeMerchandise);
         this.monster_items_all.add(dragonKingMerchandise);
         this.monster_items_all.add(metalSlimeMerchandise);
-        this.monster_items_all.add(puti_slimeMerchandise);
+        this.monster_items_all.add(gorlemMerchandise);
     }
 
     public void gameTurn() throws Finish {
@@ -65,7 +65,6 @@ public class Game implements Serializable {
         Random random = new Random();
         RamdomMonster ramdomMonster = new RamdomMonster();
         Monster2 enemeymonster = ramdomMonster.randomMonsters(enemy_monsters);
-        ArrayList<Monster2> serve_enemey_monster = enemy_monsters;
         System.out.println("人間がいる位置は"+p.area+"でⅹ座標" + p.position.x + "、Y座標" + p.position.y + "です");
         System.out.println();
         System.out.println("モンスターがいる位置は"+enemeyMonster.area+"でⅹ座標" + enemeyMonster.position.x + "、Y座標" + enemeyMonster.position.y + "です");
@@ -104,6 +103,9 @@ public class Game implements Serializable {
                     i = openTreasureChest(i, ladder, servex, servey);
                 } else if (get_map_code == 6) {
                     store.shoppingStore(p.monsters2, items_all, missionDragon_king,p,monster_items_all);
+                    for (Monster2 monster : p.monsters2) {
+                        System.out.println(monster.name);
+                    }
                     p.position.x = servex;
                     p.position.y = servey;
                 } else if (get_map_code == 7) {
@@ -140,8 +142,8 @@ public class Game implements Serializable {
                 int monster_get_map_code = map.getMapCode(enemeyMonster.position.x, enemeyMonster.position.y,enemeyMonster.area);
                 if (monster_get_map_code == -1) {
                     monsteri--;
-                    enemeyMonster.position.x = monsterservex;
-                    enemeyMonster.position.y = monsterservey;
+                    enemeyMonster.position.x = this.monsterservex;
+                    enemeyMonster.position.y = this.monsterservey;
                 }else if (monster_get_map_code == 7){
                     if (enemeyMonster.area.equals("民家1")){
                         System.out.println("モンスターは"+enemeyMonster.area+"から出て行った");
@@ -150,7 +152,7 @@ public class Game implements Serializable {
                     }
                     enemeyMonster.area = "メインマップ";
                 }else if (monster_get_map_code == 9){
-                    enemeyMonster.area = "民家１";
+                    enemeyMonster.area = "民家1";
                     System.out.println("モンスターは"+enemeyMonster.area+"へ入った");
                     enemeyMonster.position.x = 4;
                     enemeyMonster.position.y = 7;
@@ -164,17 +166,17 @@ public class Game implements Serializable {
             System.out.println("モンスターがいる位置は"+enemeyMonster.area+"でⅹ座標" + enemeyMonster.position.x + "、Y座標" + enemeyMonster.position.y + "です");
             System.out.println();
             if (p.position.x == enemeyMonster.position.x && p.position.y == enemeyMonster.position.y && p.area.equals(enemeyMonster.area)) {
-                System.out.println();
                 System.out.println("モンスターと出会った！！");
                 p.battle(enemeymonster,dragon_king, missionDragon_king);
+                System.out.println("a");
                 enemy_monsters = ramdomMonster.initialization(enemy_monsters);
-                System.out.println("h");
+                System.out.println("b");
                 enemeymonster = ramdomMonster.randomMonsters(enemy_monsters);
-                System.out.println("i");
+                System.out.println("c");
                 ramdomMonster.randomNewEnemeyMonster(enemeyMonster);
-                System.out.println("j");
+                System.out.println("d");
                 enemeyMonster.position = new Position(enemeyMonster.position.x, enemeyMonster.position.y);
-                System.out.println("g");
+                System.out.println("e");
             }
         }
     }
