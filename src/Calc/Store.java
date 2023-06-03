@@ -19,7 +19,6 @@ public class Store implements Serializable {
     }
 
     public void shoppingStore(ArrayList<Monster2> monsters, ArrayList<Item> items_all, MissionDragonKing missionDragon_king, Person2 p, ArrayList<MonsterItem> monster_items_all) throws Finish {
-        ArrayList<Item> items =new ArrayList<>();
         System.out.println(monsters);
         Scanner scanner = new Scanner(System.in);
         System.out.println("いらっしゃい、ここは雑貨屋だよアイテムからモンスターまで幅広く取り扱ってるよ");
@@ -57,7 +56,7 @@ public class Store implements Serializable {
     public void buy(Person2 p, Scanner scanner,ArrayList<Item> items_all,ArrayList<Monster2> monster2s,ArrayList<MonsterItem> monster_items_all) throws Finish {
         int i = 0;
         int endflg = 0;
-        ArrayList<Item> buyitems =new ArrayList<Item>();
+        ArrayList<Item> buyitems =new ArrayList<>();
         System.out.println("買うんだな、この中から選びな");
         while (i == 0) {
             buyitems.clear();
@@ -72,7 +71,9 @@ public class Store implements Serializable {
             for (Item item : buyitems){
                 if (shoppingcode.equals(item.code)){
                     endflg=1;
-                    buyMath(item,p,monster_items_all,monster2s);
+                    System.out.println("何個買いたいんだ？");
+                    int buy_point = scanner.nextInt();
+                    buyMath(item,p,monster_items_all,monster2s,buy_point);
                     System.out.println("他はどうだ？");
                 }
             }
@@ -87,13 +88,14 @@ public class Store implements Serializable {
             }
         }
     public void sell (Person2 p, Scanner scanner) throws Finish {
+        int sell_point = 1;
         System.out.println("売るんだな、何を売るんだ？");
         int i = 0;
         int endflg = 0;
         while (i == 0) {
             for (Item item : p.items) {
                 endflg = 1;
-                System.out.println(item.name + " " + item.sellprice + "$ [" + item.code + "]");
+                System.out.println(item.name + " " + item.sellprice + "$ [" + item.code + "]" + item.have_point + "個");
             }
             if (endflg == 0) {
                 System.out.println("ってお前アイテム持ってねえじゃねえか!");
@@ -106,8 +108,26 @@ public class Store implements Serializable {
             String sellcode = scanner.next();
             for (Item item : p.items) {
                 if (sellcode.equals(item.code)) {
+                    int sell_endflg = 0;
                     endflg = 2;
-                    sellMath(item,p);
+                    if (item.have_point>=2){
+                        System.out.println("何個売るんだ？");
+                        while (sell_endflg == 0) {
+                            sell_point = scanner.nextInt();
+                            sell_endflg++;
+                            if (sell_point>item.have_point){
+                                System.out.println("お前はそんなに持ってねーぞ");
+                                sell_endflg--;
+                            }
+                            if (sell_point<=0){
+                                System.out.println("1個以上で注文してくれ");
+                                sell_endflg--;
+                            }
+                        }
+                    }else {
+                        sell_point = 1;
+                    }
+                    sellMath(item,p,sell_point);
                     System.out.println("他はどうする？");
                     break;
                 }
@@ -155,58 +175,47 @@ public class Store implements Serializable {
         System.out.println("じゃあな");
         p.money = this.money;
     }
-    public void buyMath (Item item,Person2 p,ArrayList<MonsterItem> monster_items_all,ArrayList<Monster2> monster2s) {
-        if (this.money >= item.buyprice) {
-            this.money -= item.buyprice;
-            System.out.println(p.name + "は" + item.name + "を買った");
-            item.have = true;
+    public void buyMath (Item item,Person2 p,ArrayList<MonsterItem> monster_items_all,ArrayList<Monster2> monster2s,int buy_point) {
+        if (this.money >= item.buyprice*buy_point) {
+            this.money -= item.buyprice*buy_point;
+            System.out.println(p.name + "は" + item.name +"を" + buy_point + "個" + "買った");
+            if (item.have_point == 0) {
+                item.have = true;
                 for (MonsterItem alive_item : monster_items_all) {
-                        if (alive_item == item) {
-                            monster2s.add(inMonster(item));
-                        }
+                    if (alive_item == item) {
+                        monster2s.add(inMonster(item));
+                    }
                 }
-            if (item.itemsclass.equals("fightitem")){
-                p.fight_items.add((FightItem) item);
-            }else if (item.itemsclass.equals("fielditem")){
-                p.field_items.add((FieldItem) item);
-            }else {
-                p.monster_items.add((MonsterItem) item);
+                if (item.itemsclass.equals("fightitem")) {
+                    p.fight_items.add((FightItem) item);
+                } else if (item.itemsclass.equals("fielditem")) {
+                    p.field_items.add((FieldItem) item);
+                } else {
+                    p.monster_items.add((MonsterItem) item);
+                }
+                p.items.add(item);
             }
-            p.items.add(item);
+            item.have_point += buy_point;
         }else {
-            if (this.money<item.buyprice) {
-                System.out.println("金が足んねえ");
-                System.out.println("、、、出直して来な");
-            }
+            System.out.println("金が足んねえ");
+            System.out.println("、、、出直して来な");
         }
     }
-    public void sellMath (Item item,Person2 p) {
-            this.money += item.sellprice;
-            System.out.println(p.name + "は" + item.name + "を売った");
+    public void sellMath (Item item,Person2 p,int sell_point) {
+        this.money += item.sellprice * sell_point;
+        item.have_point -= sell_point;
+        System.out.println(p.name + "は" + item.name+ "を" + sell_point + "個" + "売った");
+        if (item.have_point == 0) {
             item.have = false;
-        for (int i=0; i<p.monsters2.size();i++){
-            if (p.monsters2.get(i).name.equals(item.name)) {
-                p.monsters2.remove(i);
+            for (int i = 0; i < p.monsters2.size(); i++) {
+                if (p.monsters2.get(i).name.equals(item.name)) {
+                    p.monsters2.remove(i);
+                }
             }
-        }
-        for (int i=0; i<p.fight_items.size();i++){
-            if (p.fight_items.get(i) == item) {
-                p.fight_items.remove(i);
-            }
-        }
-        for (int i=0; i<p.field_items.size();i++) {
-            if (p.field_items.get(i) == item) {
-                p.field_items.remove(i);
-            }
-        }
-        for (int i=0; i<p.monster_items.size();i++) {
-            if (p.monster_items.get(i) == item) {
-                p.monster_items.remove(i);
-            }
-        }
-        for (int i=0; i<p.items.size();i++){
-            if (p.items.get(i) == item) {
-                p.items.remove(i);
+            for (int i = 0; i < p.items.size(); i++) {
+                if (p.items.get(i) == item) {
+                    p.items.remove(i);
+                }
             }
         }
     }

@@ -15,6 +15,10 @@ import java.util.ArrayList;
         public final int BW = 7;//BackWorld
         public final int W = 8;//wood
         public final int PH1 = 9;//peopleHome1
+        public final int SN = 10;//Stone;
+        public final int CV1 = 11;//Cave1;
+        public final int CV1_1 = 12;//Cave1_1;
+        public final int BCV1 = 13;//BackCave1;
         public int[][] world_map = {
                 {E, E, E, E, E, E, E, E, E, E, E, E, E},
                 {E, O, O, O, O, O, O, O, O, O, O, O, E},
@@ -25,10 +29,21 @@ import java.util.ArrayList;
                 {E, G, G, G, G, G, G, G, G, G, G, G, E},
                 {E, G, G, G, G, G, G, G, G, G, G, G, E},
                 {E, C, C, C, C, C, C, C, C, C, C, C, E},
-                {E, C, C, M, M, M, M, M, M, C, C, C, E},
+                {E, C, C, M, M, M, M, M, M, C, C, CV1, E},
                 {E, M, M, M, PH1, M, M, M, M, M, M, M, E},
                 {E, M, M, M, M, M, M, M, TS, M, M, M, E},
                 {E, E, E, E, E, E, E, E, E, E, E, E, E}
+        };
+        public int[][] cave1 = {
+                {E,E,CV1_1,E,E},
+                {E,SN,SN,SN,E},
+                {E,SN,SN,SN,E},
+                {E,SN,SN,SN,E},
+                {E,SN,SN,SN,E},
+                {E,SN,SN,SN,E},
+                {E,SN,SN,SN,E},
+                {E,SN,SN,SN,E},
+                {E,E,BW,E,E},
         };
         public int[][] people_home1 = {
                 {E,E,E,E,E,E,E,E,E},
@@ -41,12 +56,27 @@ import java.util.ArrayList;
                 {E,W,W,W,W,W,W,W,E},
                 {E,E,E,E,BW,E,E,E,E},
         };
+        public int[][] cave1_1 = {
+                {E,E,E,E,E,E,E,E,E},
+                {E,SN,SN,SN,SN,SN,SN,SN,E},
+                {E,SN,SN,SN,SN,SN,SN,SN,E},
+                {E,SN,SN,SN,SN,SN,SN,SN,E},
+                {E,SN,SN,SN,SN,SN,SN,SN,E},
+                {E,SN,SN,SN,E,E,E,E,E,E,E},
+                {E,SN,SN,SN,E,E,E,E,E,E,E},
+                {E,SN,SN,SN,E,E,E,E,E,E,E},
+                {E,E,BCV1,E,E,E,E,E,E},
+        };
         public int getMapCode(int pointx, int pointy,String area) {
             int map = 0;
             if (area.equals("メインマップ")){
                 map = this.world_map[pointy][pointx];
             }else if (area.equals("民家1")){
                 map = this.people_home1[pointy][pointx];
+            }else if (area.equals("洞窟1")){
+                map = this.cave1[pointy][pointx];
+            }else if (area.equals("洞窟1_1")){
+                map = this.cave1_1[pointy][pointx];
             }
             return map;
         }
@@ -56,6 +86,12 @@ import java.util.ArrayList;
                 map[0] = 12;
                 map[1] = 12;
             }else if (area.equals("民家1")){
+                map[0] = 8;
+                map[1] = 8;
+            }else if (area.equals("洞窟1")){
+                map[0] = 4;
+                map[1] = 8;
+            }else if (area.equals("洞窟1_1")){
                 map[0] = 8;
                 map[1] = 8;
             }

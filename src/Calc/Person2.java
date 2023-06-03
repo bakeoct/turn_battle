@@ -103,14 +103,9 @@ public class Person2 implements Serializable {
         int serve_mp = enemeymonster.MP;
         int win_flg =0;
         int[] enemey_hp0_mp1;
-        System.out.println(this.monsters2.get(0).name);
-        System.out.println("f");
         for (Monster2 mons : this.monsters2) {
-            System.out.println("1");
             mons.itemsStatus(this.fight_items);
             //enemy_monsterの中のすべての情報を初期化する
-            System.out.println(enemeymonster.HP);
-            System.out.println(enemeymonster.isalive);
             enemey_hp0_mp1 = Monster2.battle(enemeymonster,mons);
             mons.goBackStatus(this.fight_items);
             enemeymonster.HP = enemey_hp0_mp1[0];

@@ -27,7 +27,6 @@ public class Game implements Serializable {
     public int servey = 6;
     public int monsterservex = 6;
     public int monsterservey = 3;
-    public String itembox = "宝箱";
     public ArrayList<Item> items_all = new ArrayList<>();
     public MissionDragonKing missionDragon_king;
     public ArrayList<FightItem> fight_items_all = new ArrayList<FightItem>();
@@ -61,6 +60,7 @@ public class Game implements Serializable {
     }
 
     public void gameTurn() throws Finish {
+        Event event =new Event(p,map,ladder,ship,missionDragon_king,enemeyMonster);
         Store store = new Store(this.p.money);
         Random random = new Random();
         RamdomMonster ramdomMonster = new RamdomMonster();
@@ -72,8 +72,8 @@ public class Game implements Serializable {
         while (true) {
             int i = 0;
             while (i == 0) {
-                int serveget_map_code = map.getMapCode(p.position.x, p.position.y,p.area);
-                Scanner scanner =new Scanner(System.in);
+                int serve_get_map_code = map.getMapCode(p.position.x, p.position.y, p.area);
+                Scanner scanner = new Scanner(System.in);
                 String plice = scanner.next();
                 if (plice.equals("a") || plice.equals("d")) {
                     p.position.x = p.walkX(p.position.x, plice);
@@ -86,46 +86,7 @@ public class Game implements Serializable {
                 } else {
                     System.out.println("a,w,s,dのどれかを選んでください");
                 }
-                //これをmapに送って二つメソッド動かす
-                int get_map_code = map.getMapCode(p.position.x, p.position.y,p.area);
-                if (get_map_code == 1 && !(get_map_code == serveget_map_code)) {
-                    point = "崖";
-                    i = notPoint(ladder, servex, servey, i, point);
-                } else if (get_map_code == 2 && !(get_map_code == serveget_map_code)) {
-                    point = "山";
-                    i = notPoint(ladder, servex, servey, i, point);
-                } else if (get_map_code == 3 && !(get_map_code == serveget_map_code)) {
-                    point = "海";
-                    i = notPoint(ship, servex, servey, i, point);
-                } else if (get_map_code == 4) {
-                    i = openTreasureChest(i, ship, servex, servey);
-                } else if (get_map_code == 5) {
-                    i = openTreasureChest(i, ladder, servex, servey);
-                } else if (get_map_code == 6) {
-                    store.shoppingStore(p.monsters2, items_all, missionDragon_king,p,monster_items_all);
-                    for (Monster2 monster : p.monsters2) {
-                        System.out.println(monster.name);
-                    }
-                    p.position.x = servex;
-                    p.position.y = servey;
-                } else if (get_map_code == 7) {
-                    if (p.area.equals("民家1")){
-                        System.out.println("人間は"+p.area+"から出て行った");
-                        p.position.x = 4;
-                        p.position.y = 9;
-                    }
-                    p.area = "メインマップ";
-                } else if (get_map_code == 9) {
-                    p.area = "民家1";
-                    System.out.println("人間は"+p.area+"へ入った");
-                    p.position.x = 4;
-                    p.position.y = 7;
-                } else if (get_map_code == -1) {
-                    System.out.println("画面外なので、再度選んでください");
-                    i--;
-                    p.position.x = servex;
-                    p.position.y = servey;
-                }
+                i = event.eventPerson(serve_get_map_code, i, servex, servey, store, items_all, monster_items_all);
             }
             this.servex = p.position.x;
             this.servey = p.position.y;
@@ -139,24 +100,7 @@ public class Game implements Serializable {
                     enemeyMonster.position.y = enemeyMonster.walk(enemeyMonster.position.y);
                     monsteri++;
                 }
-                int monster_get_map_code = map.getMapCode(enemeyMonster.position.x, enemeyMonster.position.y,enemeyMonster.area);
-                if (monster_get_map_code == -1) {
-                    monsteri--;
-                    enemeyMonster.position.x = this.monsterservex;
-                    enemeyMonster.position.y = this.monsterservey;
-                }else if (monster_get_map_code == 7){
-                    if (enemeyMonster.area.equals("民家1")){
-                        System.out.println("モンスターは"+enemeyMonster.area+"から出て行った");
-                        enemeyMonster.position.x = 4;
-                        enemeyMonster.position.y = 9;
-                    }
-                    enemeyMonster.area = "メインマップ";
-                }else if (monster_get_map_code == 9){
-                    enemeyMonster.area = "民家1";
-                    System.out.println("モンスターは"+enemeyMonster.area+"へ入った");
-                    enemeyMonster.position.x = 4;
-                    enemeyMonster.position.y = 7;
-                }
+                monsteri = event.eventMonster(monsteri,monsterservex,monsterservey);
             }
             this.monsterservex = enemeyMonster.position.x;
             this.monsterservey = enemeyMonster.position.y;
@@ -168,86 +112,11 @@ public class Game implements Serializable {
             if (p.position.x == enemeyMonster.position.x && p.position.y == enemeyMonster.position.y && p.area.equals(enemeyMonster.area)) {
                 System.out.println("モンスターと出会った！！");
                 p.battle(enemeymonster,dragon_king, missionDragon_king);
-                System.out.println("a");
                 enemy_monsters = ramdomMonster.initialization(enemy_monsters);
-                System.out.println("b");
                 enemeymonster = ramdomMonster.randomMonsters(enemy_monsters);
-                System.out.println("c");
                 ramdomMonster.randomNewEnemeyMonster(enemeyMonster);
-                System.out.println("d");
                 enemeyMonster.position = new Position(enemeyMonster.position.x, enemeyMonster.position.y);
-                System.out.println("e");
             }
         }
-    }
-
-    public int notPoint(Item item, int servex, int servey, int i, String point) throws Finish {
-        Scanner scanner = new Scanner(System.in);
-        //map.oceanxそれかyの中の数字に該当する数字だった場合tureを返す
-        System.out.print("ここには" + point + "があります。　");
-        int endflg = 0;
-        while (item.have && endflg == 0) {
-            System.out.println(item.name + "を使いますか？ 使う「ture」 使わない「false」");
-            if (scanner.next().equals("ture")) {
-                System.out.println(item.name + "を使った！");
-                endflg++;
-            } else if (scanner.next().equals("false")) {
-                System.out.println("再度選んでください");
-                p.position.x = servex;
-                p.position.y = servey;
-                i--;
-                endflg++;
-            } else if (scanner.next().equals("finish")) {
-                throw new Finish();
-            } else {
-                System.out.println("tureかfalseを選んでください");
-            }
-        }
-        if (endflg == 0) {
-            System.out.println("再度選んでください");
-            p.position.x = servex;
-            p.position.y = servey;
-            i--;
-        }
-        return i;
-    }
-
-    public int openTreasureChest(int i, Item item, int servex, int servey) throws Finish {
-        Scanner scanner = new Scanner(System.in);
-        int endflg = 0;
-        while (endflg == 0) {
-            System.out.println("これは" + itembox + "を開けますか？ 開ける「ture」 開けない「false」");
-            if (scanner.next().equals("ture")) {
-                if (item.havenumber >= 1) {
-                    System.out.println(itembox + "はすでに空っぽだ。再度選んでください");
-                    i--;
-                    endflg++;
-                } else {
-                    System.out.println(itembox + "を開けた！," + item.name + "を手に入れた");
-                    item.havenumber++;
-                    item.have = true;
-                    if (item.itemsclass.equals("fightitem")) {
-                        this.p.fight_items.add((FightItem) item);
-                    } else if (item.itemsclass.equals("fielditem")) {
-                        this.p.field_items.add((FieldItem) item);
-                    } else if (item.itemsclass.equals("monsteritem")) {
-                        this.p.monster_items.add((MonsterItem) item);
-                    }
-                    p.items.add(item);
-                    endflg++;
-                }
-            } else if (scanner.next().equals("false")) {
-                System.out.println("再度選んでください");
-                i--;
-                endflg++;
-            } else if (scanner.next().equals("finish")) {
-                throw new Finish();
-            } else {
-                System.out.println("tureかfalseを選んでください");
-            }
-        }
-        p.position.x = servex;
-        p.position.y = servey;
-        return i;
     }
 }
