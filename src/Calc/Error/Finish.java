@@ -1,13 +1,8 @@
 package Calc.Error;
 
 import Calc.Person2;
-import Calc.save.SaveWriteAndRead;
 import Monsters.EnemeyMonster;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
 import java.util.ArrayList;
 
 public class Finish extends Exception {

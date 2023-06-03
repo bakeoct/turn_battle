@@ -1,14 +1,11 @@
 package Calc;
 
 import Calc.Error.Finish;
-import Calc.Item.*;
 import Calc.Mission.MissionDragon_king;
 import Calc.save.SaveLoadManager;
-import Calc.save.SaveWriteAndRead;
 import Monsters.*;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Main4 {
     public static void main(String[] ares) throws Finish {

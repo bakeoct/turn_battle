@@ -45,13 +45,10 @@ public class SaveLoadManager {
             enemy_monsters.add(metal_slime);
             enemy_monsters.add(puti_slime);
             enemy_monsters.add(gorlem);
-            Finish finish =new Finish();
-            finish.Read(string_memory);
             Person2 p = new Person2("takumi","dannsei",personkey,metal_slime,gorlem);
             p.money = 220;
             SaveLoadManager sl = new SaveLoadManager();
             Map map =new Map();
-            finish.saveWriteAndRead.InSave(string_memory,enemeyMonster,p,p.monsters2);
             game =new Game(map,p,missionDragon_king,enemeyMonster,enemy_monsters,dragon_king);
             return game;
         }  catch (ClassNotFoundException e) {
@@ -69,13 +66,10 @@ public class SaveLoadManager {
             enemy_monsters.add(metal_slime);
             enemy_monsters.add(puti_slime);
             enemy_monsters.add(gorlem);
-            Finish finish =new Finish();
-            finish.Read(string_memory);
             Person2 p = new Person2("takumi","dannsei",personkey,metal_slime,gorlem);
             p.money = 250;
             SaveLoadManager sl = new SaveLoadManager();
             Map map =new Map();
-            finish.saveWriteAndRead.InSave(string_memory,enemeyMonster,p,p.monsters2);
             game =new Game(map,p,missionDragon_king,enemeyMonster,enemy_monsters,dragon_king);
             return game;
         }
