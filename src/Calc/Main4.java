@@ -1,6 +1,9 @@
 package Calc;
 
 import Calc.Error.Finish;
+import Calc.Item.FieldItem;
+import Calc.Item.FightItem;
+import Calc.Item.HealGlass;
 import Calc.Mission.MissionDragonKing;
 import Calc.save.SaveWriteAndRead;
 import Monsters.*;
@@ -12,13 +15,12 @@ public class Main4 {
         Gorlem gorlem =new Gorlem();
         DragonKing dragon_king =new DragonKing();
         MetalSlime metal_slime =new MetalSlime();
-        PutiSlime puti_slime=new PutiSlime();
+        HealGlass hg = new HealGlass();
         MissionDragonKing missionDragon_king =new MissionDragonKing();
         EnemeyMonster enemeyMonster =new EnemeyMonster();
         ArrayList<Monster2> enemy_monsters = new ArrayList<>();
         enemy_monsters.add(dragon_king);
         enemy_monsters.add(metal_slime);
-        enemy_monsters.add(puti_slime);
         enemy_monsters.add(gorlem);
         Person2 p = new Person2("takumi","dannsei",new MetalSlime(),new Gorlem());
         Game game =new Game(p,missionDragon_king,enemeyMonster,enemy_monsters,dragon_king);

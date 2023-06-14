@@ -186,9 +186,9 @@ public class Store implements Serializable {
                         monster2s.add(inMonster(item));
                     }
                 }
-                if (item.itemsclass.equals("fightitem")) {
+                if (item instanceof FightItem) {
                     p.fight_items.add((FightItem) item);
-                } else if (item.itemsclass.equals("fielditem")) {
+                } else if (item instanceof FieldItem) {
                     p.field_items.add((FieldItem) item);
                 } else {
                     p.monster_items.add((MonsterItem) item);
