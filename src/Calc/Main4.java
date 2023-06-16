@@ -13,7 +13,6 @@ public class Main4 {
         DragonKing dragon_king =new DragonKing();
         MetalSlime metal_slime =new MetalSlime();
         PutiSlime puti_slime=new PutiSlime();
-        MissionDragonKing missionDragon_king =new MissionDragonKing();
         EnemeyMonster enemeyMonster =new EnemeyMonster();
         ArrayList<Monster2> enemy_monsters = new ArrayList<>();
         enemy_monsters.add(dragon_king);
@@ -21,7 +20,7 @@ public class Main4 {
         enemy_monsters.add(puti_slime);
         enemy_monsters.add(gorlem);
         Person2 p = new Person2("takumi","dannsei",new MetalSlime(),new Gorlem());
-        Game game =new Game(p,missionDragon_king,enemeyMonster,enemy_monsters,dragon_king);
+        Game game =new Game(p,enemeyMonster,enemy_monsters,dragon_king);
         SaveWriteAndRead saveWriteAndRead =new SaveWriteAndRead(game);
         game = saveWriteAndRead.read();
         //gameの中のpについて数値を変更しているから実際のpには何も影響がない.
@@ -33,14 +32,6 @@ public class Main4 {
             game.gameTurn();
         }
         catch (Finish e){
-            ArrayList<String> string_write_memory =new ArrayList<>();
-            ArrayList<Integer> int_write_memory =new ArrayList<>();
-            string_write_memory.add(p.name);
-            string_write_memory.add(p.seibetu);
-            int_write_memory.add(p.position.x);
-            int_write_memory.add(p.position.y);
-            int_write_memory.add(p.LV);
-            int_write_memory.add(p.money);
             saveWriteAndRead.write();
         }
     }

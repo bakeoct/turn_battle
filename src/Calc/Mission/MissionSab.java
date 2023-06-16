@@ -8,15 +8,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MissionSab implements Serializable {
-    public int endflg=0;
-    public ArrayList<Mission> missionsAll =new ArrayList<Mission>();
-    public void receive(Person2 p, Scanner scanner, MissionDragonKing missionDragon_king) throws Finish {
+    public void receive(Person2 p, Scanner scanner, ArrayList<Mission> mission_all) throws Finish {
         int i = 0;
-        ArrayList<Mission> missions = new ArrayList<Mission>();
+        ArrayList<Mission> missions = new ArrayList<>();
         while (i==0) {
-            missionsAll.clear();
-            missionsAll.add(missionDragon_king);
-            for (Mission mission : missionsAll) {
+            int endflg = 1;
+            for (Mission mission : mission_all) {
                 if (p.LV >= mission.dangerousLV && !(mission.progress)) {
                     endflg = 0;
                     System.out.println(mission.name + " " + "報酬" + mission.reward + "$" + " [" + mission.code + "]");

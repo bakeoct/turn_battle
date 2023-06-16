@@ -25,9 +25,9 @@ public class Person2 implements Serializable {
     public String area = "メインマップ";
     public int x=6;
     public int y=6;
-    public Position position =new Position(x,y);
-    public Ladder ladder =new Ladder();
-    public Ship ship =new Ship();
+    public int servex = 6;
+    public int servey = 6;
+    public int choose_item;
     public Person2(String namae, String seibetu2, MetalSlime metal_slime, Gorlem gorlem) throws Finish {
         this.name = namae;
         this.seibetu = seibetu2;
@@ -81,35 +81,39 @@ public class Person2 implements Serializable {
                 System.out.println("(josei)または(dannsei)を入力してください。");
             }
     }
-    public int walkX(int ramdomposition,String plice){
+    public int walkX(int position,String plice){
         if (plice.equals("d")){
-            ramdomposition++;
+            position++;
         }else if (plice.equals("a")) {
-               ramdomposition--;
+               position--;
         }
-        return ramdomposition;
+        return position;
     }
-    public int walkY(int ramdomposition,String plice){
+    public int walkY(int position,String plice){
         if (plice.equals("w")){
-            ramdomposition++;
+            position++;
         }else if (plice.equals("s")) {
-            ramdomposition--;
+            position--;
         }
-        return ramdomposition;
+        return position;
     }
-    public void battle(Monster2 enemeymonster, DragonKing dragon_king, MissionDragonKing missionDragon_king){
+    public void battle(Monster2 enemeymonster, DragonKing dragon_king, MissionDragonKing missionDragon_king) throws Finish {
+        System.out.println(missionDragon_king.progress);
         MissionSab missionSab =new MissionSab();
-        int serve_hp = enemeymonster.HP;
-        int serve_mp = enemeymonster.MP;
+        String what_did = null;
         int win_flg =0;
-        int[] enemey_hp0_mp1;
         for (Monster2 mons : this.monsters2) {
+
+            //能力上昇で死ぬ、だから防御値を設定して割合でダメ－ジを軽減するのに変えるHP上限値を作る
+
             mons.itemsStatus(this.fight_items);
-            //enemy_monsterの中のすべての情報を初期化する
-            enemey_hp0_mp1 = Monster2.battle(enemeymonster,mons);
+            what_did = Monster2.battle(enemeymonster,mons,what_did,this);
             mons.goBackStatus(this.fight_items);
-            enemeymonster.HP = enemey_hp0_mp1[0];
-            enemeymonster.MP = enemey_hp0_mp1[1];
+            if (what_did.equals("goback")){
+                System.out.println(this.name+"は逃げ出した");
+                win_flg++;
+                break;
+            }
             if (enemeymonster.HP<=0){
                 for (Monster2 monsters : this.monsters2) {
                     monsters.have_experince_point += enemeymonster.can_get_experince_point;
@@ -117,9 +121,8 @@ public class Person2 implements Serializable {
                 this.have_experince_point += enemeymonster.can_get_experince_point;
                 level.upLevel(this);
                 System.out.println("勝利した");
-                enemeymonster.HP = serve_hp;
-                enemeymonster.MP = serve_mp;
                 win_flg++;
+                System.out.println(missionDragon_king.progress);
                 if (enemeymonster == dragon_king && missionDragon_king.progress){
                     missionSab.missionProgres(missionDragon_king);
                     System.out.println(missionDragon_king.name+"を達成した！");

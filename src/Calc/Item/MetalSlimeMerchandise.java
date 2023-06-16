@@ -10,6 +10,5 @@ public class MetalSlimeMerchandise  extends MonsterItem implements Serializable 
         this.code="metalslime";
         this.itemLV = 1;
         this.itemgroup = "monster";
-        this.itemsclass = "monsteritem";
     }
 }

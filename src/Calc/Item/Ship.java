@@ -10,6 +10,5 @@ public class Ship extends FieldItem implements Serializable {
         this.code="ship";
         this.itemLV = 999999999;
         this.itemgroup = "move";
-        this.itemsclass = "fielditem";
     }
 }

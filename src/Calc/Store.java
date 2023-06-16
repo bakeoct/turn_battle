@@ -14,12 +14,39 @@ import java.util.Scanner;
 public class Store implements Serializable {
     public int storeLV=1;
     public int money;
-    public Store(int money) {
+    public ArrayList<Item> items_all =new ArrayList<>();
+    public ArrayList<MonsterItem> monster_items_all =new ArrayList<>();
+    public ArrayList<FightItem> fight_items_all = new ArrayList<FightItem>();
+    public SuperSword superSword = new SuperSword();
+    public PutiSlimeMerchandise puti_slimeMerchandise = new PutiSlimeMerchandise();
+    public DragonKingMerchandise dragonKingMerchandise =new DragonKingMerchandise();
+    public MetalSlimeMerchandise metalSlimeMerchandise =new MetalSlimeMerchandise();
+    public GorlemMerchandise gorlemMerchandise =new GorlemMerchandise();
+    public HealGlass healGlass = new HealGlass();
+    public SteelArmor steelArmor = new SteelArmor();
+    public ArrayList<Mission> mission_all =new ArrayList<>();
+    public Store(int money,Ship ship,Ladder ladder,MissionDragonKing missionDragonKing) {
         this.money = money;
+        this.items_all.add(ship);
+        this.items_all.add(ladder);
+        this.items_all.add(puti_slimeMerchandise);
+        this.items_all.add(dragonKingMerchandise);
+        this.items_all.add(metalSlimeMerchandise);
+        this.items_all.add(gorlemMerchandise);
+        this.items_all.add(healGlass);
+        this.items_all.add(steelArmor);
+        this.items_all.add(superSword);
+        this.fight_items_all.add(healGlass);
+        this.fight_items_all.add(steelArmor);
+        this.fight_items_all.add(superSword);
+        this.monster_items_all.add(puti_slimeMerchandise);
+        this.monster_items_all.add(dragonKingMerchandise);
+        this.monster_items_all.add(metalSlimeMerchandise);
+        this.monster_items_all.add(gorlemMerchandise);
+        this.mission_all.add(missionDragonKing);
     }
-
-    public void shoppingStore(ArrayList<Monster2> monsters, ArrayList<Item> items_all, MissionDragonKing missionDragon_king, Person2 p, ArrayList<MonsterItem> monster_items_all) throws Finish {
-        System.out.println(monsters);
+    public void shoppingStore(Person2 p) throws Finish {
+        System.out.println(p.monsters2.get(0).name);
         Scanner scanner = new Scanner(System.in);
         System.out.println("いらっしゃい、ここは雑貨屋だよアイテムからモンスターまで幅広く取り扱ってるよ");
         System.out.println("何の用かな？");
@@ -32,13 +59,13 @@ public class Store implements Serializable {
             System.out.println("出る[go]");
             String shoppingcode = scanner.next();
                 if (shoppingcode.equals("buy")) {
-                    buy(p,scanner,items_all,monsters,monster_items_all);
+                    buy(p,scanner,p.monsters2);
                     System.out.println("ほかには何かあるか？");
                 } else if (shoppingcode.equals("sell")) {
                     sell(p,scanner);
                     System.out.println("ほかには何かあるか？");
                 } else if (shoppingcode.equals("mission")) {
-                    mission(p,scanner,missionDragon_king);
+                    mission(p,scanner);
                     System.out.println("ほかには何かあるか？");
                 } else if (shoppingcode.equals("talk")) {
                     talk();
@@ -53,7 +80,7 @@ public class Store implements Serializable {
                 }
         }
     }
-    public void buy(Person2 p, Scanner scanner,ArrayList<Item> items_all,ArrayList<Monster2> monster2s,ArrayList<MonsterItem> monster_items_all) throws Finish {
+    public void buy(Person2 p, Scanner scanner,ArrayList<Monster2> monster2s) throws Finish {
         int i = 0;
         int endflg = 0;
         ArrayList<Item> buyitems =new ArrayList<>();
@@ -142,30 +169,22 @@ public class Store implements Serializable {
             }
         }
     }
-    public void mission (Person2 p, Scanner scanner, MissionDragonKing missionDragon_king) throws Finish {
+    public void mission (Person2 p, Scanner scanner) throws Finish {
         Boolean endflg = false;
-        Boolean repert = false;
         MissionSab missionSab =new MissionSab();
-        ArrayList<Mission> missions =new ArrayList<Mission>();
-        missions.add(missionDragon_king);
-        for (Mission mission : missions){
-            if (mission.getreward && repert==false){
+        for (Mission mission : this.mission_all){
+            if (mission.getreward){
                 endflg = true;
-                repert = true;
                 mission.getreward = false;
                 System.out.println("お！、お前"+mission.name+"のミッションを達成しているな");
                 System.out.println("ほら報酬だ！");
                  this.money+=mission.reward;
-            }else if (mission.getreward){
-                    mission.getreward = false;
-                    System.out.println("お！、お前"+mission.name+"のミッションも達成しているな");
-                    System.out.println("ほら報酬だ！");
-                    this.money+=mission.reward;
-                }
             }
-        if (endflg==false){
+        }
+        if (!endflg){
             System.out.println("ミッションを受けるんだな");
-            missionSab.receive(p,scanner,missionDragon_king);
+            missionSab.receive(p,scanner,this.mission_all);
+            System.out.println(this.mission_all.get(0).progress);
         }
     }
     public void talk (){
@@ -186,9 +205,9 @@ public class Store implements Serializable {
                         monster2s.add(inMonster(item));
                     }
                 }
-                if (item.itemsclass.equals("fightitem")) {
+                if (item instanceof FightItem) {
                     p.fight_items.add((FightItem) item);
-                } else if (item.itemsclass.equals("fielditem")) {
+                } else if (item instanceof FieldItem) {
                     p.field_items.add((FieldItem) item);
                 } else {
                     p.monster_items.add((MonsterItem) item);

@@ -10,6 +10,5 @@ public class Ladder extends FieldItem implements Serializable {
         this.code="ladder";
         this.itemLV = 999999999;
         this.itemgroup = "move";
-        this.itemsclass = "fielditem";
     }
 }

@@ -10,6 +10,5 @@ public class GorlemMerchandise  extends MonsterItem implements Serializable {
         this.code="gorlem";
         this.itemLV = 1;
         this.itemgroup = "monster";
-        this.itemsclass = "monsteritem";
     }
 }

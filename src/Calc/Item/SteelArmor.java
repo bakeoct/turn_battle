@@ -10,9 +10,6 @@ public class SteelArmor extends FightItem implements Serializable {
         this.code="steelarmor";
         this.itemLV = 1;
         this.uphp = 15000;
-        this.upattack = 0;
-        this.heal = 0;
         this.itemgroup = "armor";
-        this.itemsclass = "fightitem";
     }
 }

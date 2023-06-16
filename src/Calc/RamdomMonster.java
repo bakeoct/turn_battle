@@ -16,14 +16,14 @@ public class RamdomMonster {
         int[] range = map.getRange(enemeyMonster.area);
         int x = random_new_enemey_monster.nextInt(range[0]);
         int y = random_new_enemey_monster.nextInt(range[1]);
-        int number =map.getMapCode(x,y,enemeyMonster.area);
-        while (number == map.E){
+        String price =map.getMapCode(x,y,enemeyMonster.area);
+        while (price.equals(map.E)){
             x =random_new_enemey_monster.nextInt(range[0]);
             y = random_new_enemey_monster.nextInt(range[1]);
-            number =map.getMapCode(x,y,enemeyMonster.area);
+            price =map.getMapCode(x,y,enemeyMonster.area);
         }
-            enemeyMonster.position.x = x;
-            enemeyMonster.position.y = y;
+            enemeyMonster.x = x;
+            enemeyMonster.y = y;
     }
     public ArrayList<Monster2> initialization(ArrayList<Monster2> monster2s){
         monster2s.set(0,new DragonKing());

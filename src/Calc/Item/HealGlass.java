@@ -9,10 +9,7 @@ public class HealGlass extends FightItem implements Serializable  {
         this.sellprice=5;
         this.code="healglass";
         this.itemLV = 1;
-        this.uphp = 0;
-        this.upattack = 0;
         this.heal = 500;
         this.itemgroup = "heal";
-        this.itemsclass = "fightitem";
     }
 }

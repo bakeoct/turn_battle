@@ -4,22 +4,22 @@ import java.io.Serializable;
 import java.util.ArrayList;
     //名前をMAPにさせる
     public class Map implements Serializable {
-        public final int TL = 5;//TreasureChest(Ladder)
-        public final int TS = 4;//TreasureChest(Ship)
-        public final int O = 3;//Ocean
-        public final int M = 2;//Mounten
-        public final int C = 1;//Cliff
-        public final int G = 0;//Glass
-        public final int E = -1;//ErrerPoint
-        public final int S = 6;//Store
-        public final int BW = 7;//BackWorld
-        public final int W = 8;//wood
-        public final int PH1 = 9;//peopleHome1
-        public final int SN = 10;//Stone;
-        public final int CV1 = 11;//Cave1;
-        public final int CV1_1 = 12;//Cave1_1;
-        public final int BCV1 = 13;//BackCave1;
-        public int[][] world_map = {
+        public final String TL = "treasure_chest_ladder";
+        public final String TS = "treasure_chest_ship";
+        public final String O = "海";//Ocean
+        public final String M = "山";//Mounten
+        public final String C = "崖";//Cliff
+        public final String G = "glass";//Glass
+        public final String E = "errer";//ErrerPoString
+        public final String S = "store";//Store
+        public final String BW = "back_world";//BackWorld
+        public final String W = "wood";//wood
+        public final String PH1 = "people_home_1";//peopleHome1
+        public final String SN = "stone";//Stone;
+        public final String CV1 = "cave1";//Cave1;
+        public final String CV1_1 = "cave1_1";//Cave1_1;
+        public final String BCV1 = "back_cave_1";//BackCave1;
+        public String[][] world_map = {
                 {E, E, E, E, E, E, E, E, E, E, E, E, E},
                 {E, O, O, O, O, O, O, O, O, O, O, O, E},
                 {E, O, O, O, O, G, G, O, O, O, O, O, E},
@@ -34,7 +34,7 @@ import java.util.ArrayList;
                 {E, M, M, M, M, M, M, M, TS, M, M, M, E},
                 {E, E, E, E, E, E, E, E, E, E, E, E, E}
         };
-        public int[][] cave1 = {
+        public String[][] cave1 = {
                 {E,E,CV1_1,E,E},
                 {E,SN,SN,SN,E},
                 {E,SN,SN,SN,E},
@@ -45,7 +45,7 @@ import java.util.ArrayList;
                 {E,SN,SN,SN,E},
                 {E,E,BW,E,E},
         };
-        public int[][] people_home1 = {
+        public String[][] people_home1 = {
                 {E,E,E,E,E,E,E,E,E},
                 {E,W,W,W,W,W,W,W,E},
                 {E,W,W,W,W,W,W,W,E},
@@ -56,7 +56,7 @@ import java.util.ArrayList;
                 {E,W,W,W,W,W,W,W,E},
                 {E,E,E,E,BW,E,E,E,E},
         };
-        public int[][] cave1_1 = {
+        public String[][] cave1_1 = {
                 {E,E,E,E,E,E,E,E,E},
                 {E,SN,SN,SN,SN,SN,SN,SN,E},
                 {E,SN,SN,SN,SN,SN,SN,SN,E},
@@ -67,8 +67,8 @@ import java.util.ArrayList;
                 {E,SN,SN,SN,E,E,E,E,E,E,E},
                 {E,E,BCV1,E,E,E,E,E,E},
         };
-        public int getMapCode(int pointx, int pointy,String area) {
-            int map = 0;
+        public String getMapCode(int pointx, int pointy,String area) {
+            String map = null;
             if (area.equals("メインマップ")){
                 map = this.world_map[pointy][pointx];
             }else if (area.equals("民家1")){

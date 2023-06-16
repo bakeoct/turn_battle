@@ -13,7 +13,6 @@ public class Classmain {
         MetalSlime metalSlime1 =new MetalSlime();
         Gorlem gorlem =new Gorlem();
         metalSlime.attack(metalSlime1);
-            Monster2.battle(metalSlime1,metalSlime);
             System.out.println(metalSlime.HP);
     }
 }
