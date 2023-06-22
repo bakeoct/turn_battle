@@ -1,4 +1,6 @@
-package Calc.Item;
+package Calc.Item.monsteritem;
+
+import Calc.Item.MonsterItem;
 
 import java.io.Serializable;
 

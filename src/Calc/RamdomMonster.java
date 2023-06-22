@@ -1,15 +1,11 @@
 package Calc;
 
+import Calc.map.Map;
 import Monsters.*;
-
 import java.util.ArrayList;
 import java.util.Random;
 
 public class RamdomMonster {
-    public Monster2 randomMonsters(ArrayList<Monster2> monsters){
-        Random random_monsters =new Random();
-        return monsters.get(random_monsters.nextInt(4));
-    }
     public void randomNewEnemeyMonster(EnemeyMonster enemeyMonster){
         Random random_new_enemey_monster =new Random();
         Map map =new Map();
@@ -25,11 +21,16 @@ public class RamdomMonster {
             enemeyMonster.x = x;
             enemeyMonster.y = y;
     }
-    public ArrayList<Monster2> initialization(ArrayList<Monster2> monster2s){
-        monster2s.set(0,new DragonKing());
-        monster2s.set(1,new MetalSlime());
-        monster2s.set(2,new PutiSlime());
-        monster2s.set(3,new Gorlem());
-        return monster2s;
+
+    public Monster2 getMonsterRandomly() {
+        Random random = new Random();
+        ArrayList<Monster2> monster2List = new ArrayList<>();
+        monster2List.add(new DragonKing());
+        monster2List.add(new MetalSlime());
+        monster2List.add(new PutiSlime());
+        monster2List.add(new Gorlem());
+        //0~3 no random na value get
+        int randomNum = random.nextInt(monster2List.size());
+        return monster2List.get(randomNum);
     }
 }

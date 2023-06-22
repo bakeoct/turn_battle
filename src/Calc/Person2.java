@@ -97,7 +97,7 @@ public class Person2 implements Serializable {
         }
         return position;
     }
-    public void battle(Monster2 enemeymonster, DragonKing dragon_king, MissionDragonKing missionDragon_king) throws Finish {
+    public void battle(Monster2 enemeymonster,  MissionDragonKing missionDragon_king) throws Finish {
         System.out.println(missionDragon_king.progress);
         MissionSab missionSab =new MissionSab();
         String what_did = null;
@@ -123,7 +123,7 @@ public class Person2 implements Serializable {
                 System.out.println("勝利した");
                 win_flg++;
                 System.out.println(missionDragon_king.progress);
-                if (enemeymonster == dragon_king && missionDragon_king.progress){
+                if (enemeymonster.name.equals("竜王") && missionDragon_king.progress){
                     missionSab.missionProgres(missionDragon_king);
                     System.out.println(missionDragon_king.name+"を達成した！");
                     System.out.println("お店で報酬をもらおう！");

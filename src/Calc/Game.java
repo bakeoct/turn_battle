@@ -3,6 +3,7 @@ package Calc;
 import Calc.Error.Finish;
 import Calc.Item.*;
 import Calc.Mission.MissionDragonKing;
+import Calc.map.Map;
 import Monsters.*;
 
 import java.io.Serializable;
@@ -17,14 +18,10 @@ public class Game implements Serializable {
     public Person2 p;
     public String point;
     public EnemeyMonster enemeyMonster;
-    public ArrayList<Monster2> enemy_monsters;
-    public DragonKing dragon_king;
     public MissionDragonKing missionDragonKing =new MissionDragonKing();
-    public Game(Person2 person2, EnemeyMonster enemeyMonster, ArrayList<Monster2> enemy_monsters, DragonKing dragon_king) {
+    public Game(Person2 person2, EnemeyMonster enemeyMonster) {
         this.p = person2;
-        this.dragon_king = dragon_king;
         this.enemeyMonster = enemeyMonster;
-        this.enemy_monsters = enemy_monsters;
     }
 
     public void gameTurn() throws Finish {
@@ -32,7 +29,7 @@ public class Game implements Serializable {
         Event event =new Event(p,map,ladder,ship,missionDragonKing,enemeyMonster);
         Random random = new Random();
         RamdomMonster ramdomMonster = new RamdomMonster();
-        Monster2 enemeymonster = ramdomMonster.randomMonsters(enemy_monsters);
+        Monster2 enemeymonster = ramdomMonster.getMonsterRandomly();
         System.out.println("人間がいる位置は"+p.area+"でⅹ座標" + p.x + "、Y座標" + p.y + "です");
         System.out.println();
         System.out.println("モンスターがいる位置は"+enemeyMonster.area+"でⅹ座標" + enemeyMonster.x + "、Y座標" + enemeyMonster.y + "です");
@@ -79,9 +76,8 @@ public class Game implements Serializable {
             if (p.x == enemeyMonster.x && p.y == enemeyMonster.y && p.area.equals(enemeyMonster.area)) {
                 System.out.println("!");
                 System.out.println("モンスターと出会った！！");
-                p.battle(enemeymonster,dragon_king,missionDragonKing);
-                enemy_monsters = ramdomMonster.initialization(enemy_monsters);
-                enemeymonster = ramdomMonster.randomMonsters(enemy_monsters);
+                p.battle(enemeymonster,missionDragonKing);
+                enemeymonster = ramdomMonster.getMonsterRandomly();
                 ramdomMonster.randomNewEnemeyMonster(enemeyMonster);
             }
         }

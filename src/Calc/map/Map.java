@@ -1,4 +1,4 @@
-package Calc;
+package Calc.map;
 
 import java.io.Serializable;
 import java.util.ArrayList;

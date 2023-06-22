@@ -7,22 +7,22 @@ import java.io.Serializable;
 public class Level implements Serializable {
     public void upLevel(Person2 p){
         while (true) {
-            int endflg = 0;
+            boolean endflg = true;
             if (p.have_experince_point >= p.need_experince_point) {
                 p.LV++;
                 p.have_experince_point -= p.need_experince_point;
                 p.need_experince_point *= 2;
-                endflg++;
+                endflg = false;
             }
             for (Monster2 monster2 : p.monsters2) {
                 if (monster2.have_experince_point >= monster2.need_experince_point) {
                     monster2.leberu++;
                     monster2.have_experince_point -= monster2.need_experince_point;
                     monster2.need_experince_point *= 2;
-                    endflg++;
+                    endflg = false;
                 }
             }
-            if (endflg == 0) {
+            if (endflg) {
                 break;
             }
         }
