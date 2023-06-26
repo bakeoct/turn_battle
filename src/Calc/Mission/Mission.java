@@ -7,10 +7,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public abstract class Mission implements Serializable {
-    public int dangerousLV;
+    public int dangerous_lv;
     public int reward;
     public String code;
     public String name;
     public Boolean progress = false;
-    public Boolean getreward = false;
+    public Boolean get_reward = false;
 }

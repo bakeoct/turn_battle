@@ -14,7 +14,7 @@ public class MissionSab implements Serializable {
         while (i==0) {
             int endflg = 1;
             for (Mission mission : mission_all) {
-                if (p.LV >= mission.dangerousLV && !(mission.progress)) {
+                if (p.lv >= mission.dangerous_lv && !(mission.progress)) {
                     endflg = 0;
                     System.out.println(mission.name + " " + "報酬" + mission.reward + "$" + " [" + mission.code + "]");
                     missions.add(mission);
@@ -47,6 +47,6 @@ public class MissionSab implements Serializable {
         }
     public void missionProgres(Mission successmission){
                 successmission.progress = false;
-                successmission.getreward = true;
+                successmission.get_reward = true;
     }
 }

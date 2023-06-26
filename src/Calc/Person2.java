@@ -5,14 +5,14 @@ import Calc.Item.*;
 import Calc.Mission.MissionDragonKing;
 import Calc.Mission.MissionSab;
 import Monsters.*;
-
+import static Calc.BattleManager.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Person2 implements Serializable {
     public Level level =new Level();
     public ArrayList<Monster2> monsters2 =new ArrayList<Monster2>();
-    public int LV=1;
+    public int lv=1;
     public int have_experince_point = 0;
     public int need_experince_point = 100;
     public ArrayList<FieldItem> field_items =new ArrayList<FieldItem>();
@@ -25,8 +25,8 @@ public class Person2 implements Serializable {
     public String area = "メインマップ";
     public int x=6;
     public int y=6;
-    public int servex = 6;
-    public int servey = 6;
+    public int serve_x = 6;
+    public int serve_y = 6;
     public int choose_item;
     public Person2(String namae, String seibetu2, MetalSlime metal_slime, Gorlem gorlem) throws Finish {
         this.name = namae;
@@ -97,7 +97,7 @@ public class Person2 implements Serializable {
         }
         return position;
     }
-    public void battle(Monster2 enemeymonster,  MissionDragonKing missionDragon_king) throws Finish {
+    public void turnBattle(Monster2 enemeymonster,  MissionDragonKing missionDragon_king) throws Finish {
         System.out.println(missionDragon_king.progress);
         MissionSab missionSab =new MissionSab();
         String what_did = null;
@@ -106,15 +106,15 @@ public class Person2 implements Serializable {
 
             //能力上昇で死ぬ、だから防御値を設定して割合でダメ－ジを軽減するのに変えるHP上限値を作る
 
-            mons.itemsStatus(this.fight_items);
-            what_did = Monster2.battle(enemeymonster,mons,what_did,this);
-            mons.goBackStatus(this.fight_items);
+            itemsStatus(this.fight_items,mons);
+            what_did = battle(enemeymonster,mons,what_did,this);
+            goBackStatus(this.fight_items,mons);
             if (what_did.equals("goback")){
                 System.out.println(this.name+"は逃げ出した");
                 win_flg++;
                 break;
             }
-            if (enemeymonster.HP<=0){
+            if (enemeymonster.hp<=0){
                 for (Monster2 monsters : this.monsters2) {
                     monsters.have_experince_point += enemeymonster.can_get_experince_point;
                 }

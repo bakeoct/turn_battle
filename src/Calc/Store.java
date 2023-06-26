@@ -16,37 +16,37 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Store implements Serializable {
-    public int storeLV=1;
+    public int store_lv=1;
     public int money;
     public ArrayList<Item> items_all =new ArrayList<>();
     public ArrayList<MonsterItem> monster_items_all =new ArrayList<>();
     public ArrayList<FightItem> fight_items_all = new ArrayList<FightItem>();
-    public SuperSword superSword = new SuperSword();
-    public PutiSlimeMerchandise puti_slimeMerchandise = new PutiSlimeMerchandise();
-    public DragonKingMerchandise dragonKingMerchandise =new DragonKingMerchandise();
-    public MetalSlimeMerchandise metalSlimeMerchandise =new MetalSlimeMerchandise();
-    public GorlemMerchandise gorlemMerchandise =new GorlemMerchandise();
-    public HealGlass healGlass = new HealGlass();
-    public SteelArmor steelArmor = new SteelArmor();
+    public SuperSword super_sword = new SuperSword();
+    public PutiSlimeMerchandise puti_slime_merchandise = new PutiSlimeMerchandise();
+    public DragonKingMerchandise dragon_king_merchandise =new DragonKingMerchandise();
+    public MetalSlimeMerchandise metal_slime_merchandise =new MetalSlimeMerchandise();
+    public GorlemMerchandise gorlem_merchandise =new GorlemMerchandise();
+    public HealGlass heal_glass = new HealGlass();
+    public SteelArmor steel_armor = new SteelArmor();
     public ArrayList<Mission> mission_all =new ArrayList<>();
     public Store(int money,Ship ship,Ladder ladder,MissionDragonKing missionDragonKing) {
         this.money = money;
         this.items_all.add(ship);
         this.items_all.add(ladder);
-        this.items_all.add(puti_slimeMerchandise);
-        this.items_all.add(dragonKingMerchandise);
-        this.items_all.add(metalSlimeMerchandise);
-        this.items_all.add(gorlemMerchandise);
-        this.items_all.add(healGlass);
-        this.items_all.add(steelArmor);
-        this.items_all.add(superSword);
-        this.fight_items_all.add(healGlass);
-        this.fight_items_all.add(steelArmor);
-        this.fight_items_all.add(superSword);
-        this.monster_items_all.add(puti_slimeMerchandise);
-        this.monster_items_all.add(dragonKingMerchandise);
-        this.monster_items_all.add(metalSlimeMerchandise);
-        this.monster_items_all.add(gorlemMerchandise);
+        this.items_all.add(puti_slime_merchandise);
+        this.items_all.add(dragon_king_merchandise);
+        this.items_all.add(metal_slime_merchandise);
+        this.items_all.add(gorlem_merchandise);
+        this.items_all.add(heal_glass);
+        this.items_all.add(steel_armor);
+        this.items_all.add(super_sword);
+        this.fight_items_all.add(heal_glass);
+        this.fight_items_all.add(steel_armor);
+        this.fight_items_all.add(super_sword);
+        this.monster_items_all.add(puti_slime_merchandise);
+        this.monster_items_all.add(dragon_king_merchandise);
+        this.monster_items_all.add(metal_slime_merchandise);
+        this.monster_items_all.add(gorlem_merchandise);
         this.mission_all.add(missionDragonKing);
     }
     public void shoppingStore(Person2 p) throws Finish {
@@ -92,8 +92,8 @@ public class Store implements Serializable {
         while (i == 0) {
             buyitems.clear();
             for (Item item : items_all){
-                if (item.itemLV<=storeLV){
-                    System.out.println(item.name+"　"+item.buyprice+"$ ["+item.code+"]");
+                if (item.item_lv<=store_lv){
+                    System.out.println(item.name+"　"+item.buy_price+"$ ["+item.code+"]");
                     buyitems.add(item);
                 }
             }
@@ -126,7 +126,7 @@ public class Store implements Serializable {
         while (i == 0) {
             for (Item item : p.items) {
                 endflg = 1;
-                System.out.println(item.name + " " + item.sellprice + "$ [" + item.code + "]" + item.have_point + "個");
+                System.out.println(item.name + " " + item.sell_price + "$ [" + item.code + "]" + item.have_point + "個");
             }
             if (endflg == 0) {
                 System.out.println("ってお前アイテム持ってねえじゃねえか!");
@@ -177,9 +177,9 @@ public class Store implements Serializable {
         Boolean endflg = false;
         MissionSab missionSab =new MissionSab();
         for (Mission mission : this.mission_all){
-            if (mission.getreward){
+            if (mission.get_reward){
                 endflg = true;
-                mission.getreward = false;
+                mission.get_reward = false;
                 System.out.println("お！、お前"+mission.name+"のミッションを達成しているな");
                 System.out.println("ほら報酬だ！");
                  this.money+=mission.reward;
@@ -199,8 +199,8 @@ public class Store implements Serializable {
         p.money = this.money;
     }
     public void buyMath (Item item,Person2 p,ArrayList<MonsterItem> monster_items_all,ArrayList<Monster2> monster2s,int buy_point) {
-        if (this.money >= item.buyprice*buy_point) {
-            this.money -= item.buyprice*buy_point;
+        if (this.money >= item.buy_price*buy_point) {
+            this.money -= item.buy_price*buy_point;
             System.out.println(p.name + "は" + item.name +"を" + buy_point + "個" + "買った");
             if (item.have_point == 0) {
                 item.have = true;
@@ -225,7 +225,7 @@ public class Store implements Serializable {
         }
     }
     public void sellMath (Item item,Person2 p,int sell_point) {
-        this.money += item.sellprice * sell_point;
+        this.money += item.sell_price * sell_point;
         item.have_point -= sell_point;
         System.out.println(p.name + "は" + item.name+ "を" + sell_point + "個" + "売った");
         if (item.have_point == 0) {

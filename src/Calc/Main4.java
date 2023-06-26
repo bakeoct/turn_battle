@@ -16,7 +16,7 @@ public class Main4 {
         game = saveWriteAndRead.read();
         //gameの中のpについて数値を変更しているから実際のpには何も影響がない.
         for (Monster2 mons : p.monsters2){
-            System.out.println(mons.Name()+"(性別."+mons.Seibetu()+")"+"  レベルは"+mons.LV()+"です");
+            System.out.println(mons.name()+"(性別."+mons.seibetu()+")"+"  レベルは"+mons.lv()+"です");
         }
         try {
             game.gameTurn();

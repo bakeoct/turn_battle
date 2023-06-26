@@ -5,35 +5,31 @@ import Calc.Item.*;
 import Calc.Mission.MissionDragonKing;
 import Calc.map.Map;
 import Monsters.*;
-
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+
+import static Monsters.Monster2.getMonsterRandomly;
+
 //敵を一回倒したらその敵をエラーの場所以外のどこかへ飛ばしまた倒されたら別の場所にまた飛ばす
 public class Game implements Serializable {
     public Ship ship = new Ship();
     public Ladder ladder = new Ladder();
     public Map map =new Map();
     public Person2 p;
-    public String point;
-    public EnemeyMonster enemeyMonster;
-    public MissionDragonKing missionDragonKing =new MissionDragonKing();
-    public Game(Person2 person2, EnemeyMonster enemeyMonster) {
+    public EnemeyMonster enemey_monster;
+    public MissionDragonKing mission_dragon_king =new MissionDragonKing();
+    public Game(Person2 person2, EnemeyMonster enemey_monster) {
         this.p = person2;
-        this.enemeyMonster = enemeyMonster;
+        this.enemey_monster = enemey_monster;
     }
 
     public void gameTurn() throws Finish {
-        Store store = new Store(this.p.money,ship,ladder,missionDragonKing);
-        Event event =new Event(p,map,ladder,ship,missionDragonKing,enemeyMonster);
+        Store store = new Store(this.p.money,ship,ladder,mission_dragon_king);
+        Event event =new Event(p,map,ladder,ship,mission_dragon_king,enemey_monster);
         Random random = new Random();
-        RamdomMonster ramdomMonster = new RamdomMonster();
-        Monster2 enemeymonster = ramdomMonster.getMonsterRandomly();
-        System.out.println("人間がいる位置は"+p.area+"でⅹ座標" + p.x + "、Y座標" + p.y + "です");
-        System.out.println();
-        System.out.println("モンスターがいる位置は"+enemeyMonster.area+"でⅹ座標" + enemeyMonster.x + "、Y座標" + enemeyMonster.y + "です");
-        System.out.println();
+        Monster2 enemey_monster = getMonsterRandomly();
+        disPlayPlace();
         while (true) {
             int i = 0;
             while (i == 0) {
@@ -51,35 +47,37 @@ public class Game implements Serializable {
                 } else {
                     System.out.println("a,w,s,dのどれかを選んでください");
                 }
-                i = event.eventPerson(serve_get_map_code, i, p.servex, p.servey, store);
-                System.out.println(missionDragonKing.progress);
+                i = event.eventPerson(serve_get_map_code, i, p.serve_x, p.serve_y, store);
             }
-            p.servex = p.x;
-            p.servey = p.y;
+            p.serve_x = p.x;
+            p.serve_y = p.y;
             int monsteri = 0;
             while (monsteri == 0) {
                 if (random.nextBoolean()) {
-                    enemeyMonster.x = enemeyMonster.walk(enemeyMonster.x);
+                    this.enemey_monster.x = this.enemey_monster.walk(this.enemey_monster.x);
                     monsteri++;
                 } else {
-                    enemeyMonster.y = enemeyMonster.walk(enemeyMonster.y);
+                    this.enemey_monster.y = this.enemey_monster.walk(this.enemey_monster.y);
                     monsteri++;
                 }
-                monsteri = event.eventMonster(monsteri,enemeyMonster.monsterservex,enemeyMonster.monsterservey);
+                monsteri = event.eventMonster(monsteri,this.enemey_monster.monster_serve_x,this.enemey_monster.monster_serve_y);
             }
-            enemeyMonster.monsterservex = enemeyMonster.x;
-            enemeyMonster.monsterservey = enemeyMonster.y;
-            System.out.println("人間がいる位置は"+p.area+"でⅹ座標" + p.x + "、Y座標" + p.y + "です");
-            System.out.println();
-            System.out.println("モンスターがいる位置は"+enemeyMonster.area+"でⅹ座標" + enemeyMonster.x + "、Y座標" + enemeyMonster.y + "です");
-            System.out.println();
-            if (p.x == enemeyMonster.x && p.y == enemeyMonster.y && p.area.equals(enemeyMonster.area)) {
+            this.enemey_monster.monster_serve_x = this.enemey_monster.x;
+            this.enemey_monster.monster_serve_y = this.enemey_monster.y;
+            disPlayPlace();
+            if (p.x == this.enemey_monster.x && p.y == this.enemey_monster.y && p.area.equals(this.enemey_monster.area)) {
                 System.out.println("!");
                 System.out.println("モンスターと出会った！！");
-                p.battle(enemeymonster,missionDragonKing);
-                enemeymonster = ramdomMonster.getMonsterRandomly();
-                ramdomMonster.randomNewEnemeyMonster(enemeyMonster);
+                p.turnBattle(enemey_monster,mission_dragon_king);
+                enemey_monster = getMonsterRandomly();
+                this.enemey_monster.randomNewEnemeyMonster();
             }
         }
+    }
+    public void disPlayPlace(){
+        System.out.println("人間がいる位置は"+p.area+"でⅹ座標" + p.x + "、Y座標" + p.y + "です");
+        System.out.println();
+        System.out.println("モンスターがいる位置は"+enemey_monster.area+"でⅹ座標" + enemey_monster.x + "、Y座標" + enemey_monster.y + "です");
+        System.out.println();
     }
 }

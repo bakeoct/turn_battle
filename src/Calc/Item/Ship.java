@@ -5,10 +5,10 @@ import java.io.Serializable;
 public class Ship extends FieldItem implements Serializable {
     public Ship(){
         this.name="船";
-        this.buyprice=200;
-        this.sellprice=100;
+        this.buy_price=200;
+        this.sell_price=100;
         this.code="ship";
-        this.itemLV = 999999999;
-        this.itemgroup = "move";
+        this.item_lv = 999999999;
+        this.item_group = "move";
     }
 }

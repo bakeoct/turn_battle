@@ -5,13 +5,13 @@ import java.io.Serializable;
 public class PutiSlime extends Monster2 implements Serializable {
     public PutiSlime(){
         this.leberu = 1;
-        this.HP = 398;
-        this.Attack=50000000;
-        this.MP=7;
-        this.judgeSente=7000000;
+        this.hp = 398;
+        this.attack=50000000;
+        this.mp=7;
+        this.judge_sente=7000000;
         this.name="プチスライム";
         this.seibetu="?";
-        this.isalive=true;
+        this.is_alive=true;
         this.fellow=false;
         this.can_get_experince_point = 2000;
         this.need_experince_point = 50;

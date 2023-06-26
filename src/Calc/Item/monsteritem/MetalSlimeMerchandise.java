@@ -7,10 +7,10 @@ import java.io.Serializable;
 public class MetalSlimeMerchandise  extends MonsterItem implements Serializable {
     public MetalSlimeMerchandise(){
         this.name="メタルスライム";
-        this.buyprice=300;
-        this.sellprice=150;
+        this.buy_price=300;
+        this.sell_price=150;
         this.code="metalslime";
-        this.itemLV = 1;
-        this.itemgroup = "monster";
+        this.item_lv = 1;
+        this.item_group = "monster";
     }
 }

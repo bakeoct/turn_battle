@@ -3,8 +3,8 @@ package Calc;
 import Calc.Error.Finish;
 import Calc.Item.*;
 import Calc.Mission.MissionDragonKing;
-import Calc.map.Cave1;
-import Calc.map.Cave1_1;
+import Calc.map.cave.Cave1;
+import Calc.map.cave.Cave1_1;
 import Calc.map.Map;
 import Calc.map.PersonHome1;
 import Monsters.EnemeyMonster;
@@ -16,19 +16,19 @@ import static Calc.Sound.*;
 
 public class Event implements Serializable{
     public Person2 p;
-    public String itembox;
+    public String item_box;
     public Map map;
     public Ladder ladder;
     public Ship ship;
-    public MissionDragonKing missionDragonKing;
-    public EnemeyMonster enemeyMonster;
+    public MissionDragonKing mission_dragon_king;
+    public EnemeyMonster enemey_monster;
     public Event(Person2 p, Map map, Ladder ladder, Ship ship, MissionDragonKing missionDragonKing, EnemeyMonster enemeyMonster){
         this.p = p;
         this.map = map;
         this.ladder = ladder;
         this.ship = ship;
-        this.missionDragonKing = missionDragonKing;
-        this.enemeyMonster = enemeyMonster;
+        this.mission_dragon_king = missionDragonKing;
+        this.enemey_monster = enemeyMonster;
     }
     public int eventPerson(String serveget_map_code, int i, int servex, int servey, Store store) throws Finish {
         //これをmapに送って二つメソッド動かす
@@ -54,10 +54,10 @@ public class Event implements Serializable{
                 startAudio(IN_SEA_AUDIO);
             }
         } else if (get_map_code .equals("treasure_chest_ship")) {
-            itembox ="宝箱";
+            item_box ="宝箱";
             i = openTreasureChest(i, ship, servex, servey,OPEN_TREASURE_CHEST_AUDIO);
         } else if (get_map_code .equals("treasure_chest_ladder")) {
-            itembox ="宝箱";
+            item_box ="宝箱";
             i = openTreasureChest(i, ladder, servex, servey,OPEN_TREASURE_CHEST_AUDIO);
         } else if (get_map_code .equals("store")) {
             store.shoppingStore(p);
@@ -119,43 +119,43 @@ public class Event implements Serializable{
         return i;
     }
     public int eventMonster(int monsteri, int monsterservex, int monsterservey){
-        String monster_get_map_code = map.getMapCode(enemeyMonster.x, enemeyMonster.y,enemeyMonster.area);
+        String monster_get_map_code = map.getMapCode(enemey_monster.x, enemey_monster.y,enemey_monster.area);
         if (monster_get_map_code.equals("errer")) {
             monsteri--;
-            enemeyMonster.x = monsterservex;
-            enemeyMonster.y = monsterservey;
+            enemey_monster.x = monsterservex;
+            enemey_monster.y = monsterservey;
         }else if (monster_get_map_code.equals("back_world")){
-            if (enemeyMonster.area.equals("民家1")){
-                enemeyMonster.x = PersonHome1.BACK_MAIN_WORLD_INITIAL_X;
-                enemeyMonster.y = PersonHome1.BACK_MAIN_WORLD_INITIAL_Y;
-            }else if (enemeyMonster.area.equals("洞窟1")){
+            if (enemey_monster.area.equals("民家1")){
+                enemey_monster.x = PersonHome1.BACK_MAIN_WORLD_INITIAL_X;
+                enemey_monster.y = PersonHome1.BACK_MAIN_WORLD_INITIAL_Y;
+            }else if (enemey_monster.area.equals("洞窟1")){
                 p.x = Cave1.BACK_MAIN_WORLD_INITIAL_X;
                 p.y = Cave1.BACK_MAIN_WORLD_INITIAL_Y;
             }
-            System.out.println("モンスターは"+enemeyMonster.area+"から出て行った");
-            enemeyMonster.area = "メインマップ";
+            System.out.println("モンスターは"+enemey_monster.area+"から出て行った");
+            enemey_monster.area = "メインマップ";
         }else if (monster_get_map_code.equals("people_home_1")){
-            enemeyMonster.area = "民家1";
-            System.out.println("モンスターは"+enemeyMonster.area+"へ入った");
-            enemeyMonster.x = PersonHome1.INITIAL_X;
-            enemeyMonster.y = PersonHome1.INITIAL_Y;
+            enemey_monster.area = "民家1";
+            System.out.println("モンスターは"+enemey_monster.area+"へ入った");
+            enemey_monster.x = PersonHome1.INITIAL_X;
+            enemey_monster.y = PersonHome1.INITIAL_Y;
         }else if (monster_get_map_code.equals("cave1")) {
-            enemeyMonster.area = "洞窟1";
-            System.out.println("モンスターは"+enemeyMonster.area+"へ入った");
-            enemeyMonster.x = Cave1.INITIAL_X;
-            enemeyMonster.y = Cave1.INITIAL_Y;
+            enemey_monster.area = "洞窟1";
+            System.out.println("モンスターは"+enemey_monster.area+"へ入った");
+            enemey_monster.x = Cave1.INITIAL_X;
+            enemey_monster.y = Cave1.INITIAL_Y;
         } else if (monster_get_map_code.equals("cave1_1")) {
-            enemeyMonster.area = "洞窟1_1";
-            System.out.println("モンスターは"+enemeyMonster.area+"へ入った");
-            enemeyMonster.x = Cave1_1.INITIAL_X;
-            enemeyMonster.y = Cave1_1.INITIAL_Y;
+            enemey_monster.area = "洞窟1_1";
+            System.out.println("モンスターは"+enemey_monster.area+"へ入った");
+            enemey_monster.x = Cave1_1.INITIAL_X;
+            enemey_monster.y = Cave1_1.INITIAL_Y;
         } else if (monster_get_map_code.equals("back_cave_1")) {
-            if (enemeyMonster.area.equals("洞窟1_1")){
-                enemeyMonster.x = Cave1_1.BACK_CAVE1_INITIAL_X;
-                enemeyMonster.y = Cave1_1.BACK_CAVE1_INITIAL_Y;
+            if (enemey_monster.area.equals("洞窟1_1")){
+                enemey_monster.x = Cave1_1.BACK_CAVE1_INITIAL_X;
+                enemey_monster.y = Cave1_1.BACK_CAVE1_INITIAL_Y;
             }
-            System.out.println("モンスターは"+enemeyMonster.area+"から出て行った");
-            enemeyMonster.area = "洞窟1";
+            System.out.println("モンスターは"+enemey_monster.area+"から出て行った");
+            enemey_monster.area = "洞窟1";
         }
         return monsteri;
     }
@@ -195,15 +195,15 @@ public class Event implements Serializable{
         Scanner scanner = new Scanner(System.in);
         int endflg = 0;
         while (endflg == 0) {
-            System.out.println("これは" + itembox + "を開けますか？ 開ける「ture」 開けない「false」");
+            System.out.println("これは" + item_box + "を開けますか？ 開ける「ture」 開けない「false」");
             if (scanner.next().equals("ture")) {
-                if (item.havenumber >= 1) {
-                    System.out.println(itembox + "はすでに空っぽだ。再度選んでください");
+                if (item.have_number >= 1) {
+                    System.out.println(item_box + "はすでに空っぽだ。再度選んでください");
                     i--;
                     endflg++;
                 } else {
-                    System.out.println(itembox + "を開けた！," + item.name + "を手に入れた");
-                    item.havenumber++;
+                    System.out.println(item_box + "を開けた！," + item.name + "を手に入れた");
+                    item.have_number++;
                     item.have = true;
                     item.have_point++;
                     startAudio(audio_file);

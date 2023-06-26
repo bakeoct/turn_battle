@@ -7,10 +7,10 @@ import java.io.Serializable;
 public class GorlemMerchandise  extends MonsterItem implements Serializable {
     public GorlemMerchandise(){
         this.name="ゴーレム";
-        this.buyprice=200;
-        this.sellprice=100;
+        this.buy_price=200;
+        this.sell_price=100;
         this.code="gorlem";
-        this.itemLV = 1;
-        this.itemgroup = "monster";
+        this.item_lv = 1;
+        this.item_group = "monster";
     }
 }

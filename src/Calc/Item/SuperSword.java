@@ -5,11 +5,11 @@ import java.io.Serializable;
 public class SuperSword extends FightItem implements Serializable {
     public SuperSword(){
         this.name="すごい剣";
-        this.buyprice=50;
-        this.sellprice=25;
+        this.buy_price=50;
+        this.sell_price=25;
         this.code="supersword";
-        this.itemLV = 1;
-        this.upattack = 10000;
-        this.itemgroup = "attack";
+        this.item_lv = 1;
+        this.up_attack = 10000;
+        this.item_group = "attack";
     }
 }

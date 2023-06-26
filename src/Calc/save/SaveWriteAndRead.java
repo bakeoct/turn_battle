@@ -17,7 +17,6 @@ public class SaveWriteAndRead {
              ObjectOutputStream output = new ObjectOutputStream(buffered);){
             output.reset();
             output.writeObject(game);
-            //
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

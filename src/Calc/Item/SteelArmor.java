@@ -5,11 +5,11 @@ import java.io.Serializable;
 public class SteelArmor extends FightItem implements Serializable {
     public SteelArmor(){
         this.name="鋼の防具";
-        this.buyprice=50;
-        this.sellprice=25;
+        this.buy_price=50;
+        this.sell_price=25;
         this.code="steelarmor";
-        this.itemLV = 1;
-        this.uphp = 15000;
-        this.itemgroup = "armor";
+        this.item_lv = 1;
+        this.up_hp = 15000;
+        this.item_group = "armor";
     }
 }
