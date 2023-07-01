@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class MetalSlime extends Monster2  implements Serializable{
     public MetalSlime(){
+        this.limit_hp=50;
+        this.limit_mp=80000;
+        this.defence=0;
+        this.up_leberu=0;
         this.hp = 50;
         this.leberu = 1;
         this.attack=6000;

@@ -13,6 +13,7 @@ import Monsters.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Store implements Serializable {
@@ -87,6 +88,7 @@ public class Store implements Serializable {
     public void buy(Person2 p, Scanner scanner,ArrayList<Monster2> monster2s) throws Finish {
         int i = 0;
         int endflg = 0;
+        int buy_point;
         ArrayList<Item> buyitems =new ArrayList<>();
         System.out.println("買うんだな、この中から選びな");
         while (i == 0) {
@@ -102,8 +104,17 @@ public class Store implements Serializable {
             for (Item item : buyitems){
                 if (shoppingcode.equals(item.code)){
                     endflg=1;
+                    String buy_point_string;
                     System.out.println("何個買いたいんだ？");
-                    int buy_point = scanner.nextInt();
+                    while (true) {
+                        try {
+                            buy_point_string = scanner.next();
+                            buy_point = Integer.parseInt(buy_point_string);
+                            break;
+                        } catch (NumberFormatException e) {
+                            System.out.println("個数を選んでください");
+                        }
+                    }
                     buyMath(item,p,monster_items_all,monster2s,buy_point);
                     System.out.println("他はどうだ？");
                 }

@@ -16,6 +16,7 @@ public class Level implements Serializable {
             }
             for (Monster2 monster2 : p.monsters2) {
                 if (monster2.have_experince_point >= monster2.need_experince_point) {
+                    monster2.up_leberu++;
                     monster2.leberu++;
                     monster2.have_experince_point -= monster2.need_experince_point;
                     monster2.need_experince_point *= 2;
@@ -27,12 +28,14 @@ public class Level implements Serializable {
             }
         }
         for (Monster2 monster2 : p.monsters2) {
-            for (int i = 1; i < monster2.leberu; i++) {
+            for (int i = 0; i < monster2.up_leberu; i++) {
                 monster2.hp *= 1.5;
                 monster2.mp *= 1.5;
                 monster2.attack *= 1.3;
+                monster2.defence *= 1.3;
                 monster2.judge_sente *= 1.3;
             }
+            monster2.up_leberu = 0;
         }
     }
 }

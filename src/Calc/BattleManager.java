@@ -11,11 +11,15 @@ import java.util.Scanner;
 
 public class BattleManager implements Serializable {
     public static int attack(Monster2 hp_monster,Monster2 attack_moster) {
-        if (hp_monster.hp - attack_moster.attack <= 0) {
-            return 0;
+        if (attack_moster.attack - hp_monster.defence > 0) {
+            if (hp_monster.hp - (attack_moster.attack - hp_monster.defence) <= 0) {
+                return 0;
 
-        } else {
-            return hp_monster.hp - attack_moster.attack;
+            } else {
+                return hp_monster.hp - (attack_moster.attack - hp_monster.defence);
+            }
+        }else {
+            return hp_monster.hp;
         }
     }
 
@@ -24,7 +28,7 @@ public class BattleManager implements Serializable {
             if (monster.mp >= 10) {
                 monster2.hp = attack(monster2,monster);
                 monster.mp = monster.mp - 10;
-                System.out.println(monster.name + "の攻撃　　ドーン！！　" + monster2.name + "の体力が" + monster.hp + "になった。　　" + monster.name + "のmpが10下がって" + monster.mp + "になった");
+                System.out.println(monster.name + "の攻撃　　ドーン！！　" + monster2.name + "の体力が" + monster2.hp + "になった。　　" + monster.name + "のmpが10下がって" + monster.mp + "になった");
             } else {
                 System.out.println(monster.name + "の攻撃　　しかしmpが足りなかった");
             }
@@ -93,7 +97,7 @@ public class BattleManager implements Serializable {
             if (item.item_group.equals("attack")){
                 monster2.attack += item.up_attack;
             }else if (item.item_group.equals("armor")){
-                monster2.hp += item.up_hp;
+                monster2.defence += item.up_defence;
             }
         }
     }
@@ -102,7 +106,7 @@ public class BattleManager implements Serializable {
             if (item.item_group.equals("attack")){
                 monster2.attack -= item.up_attack;
             }else if (item.item_group.equals("armor")){
-                monster2.hp -= item.up_hp;
+                monster2.defence -= item.up_defence;
             }
         }
     }
@@ -172,7 +176,13 @@ public class BattleManager implements Serializable {
     }
     public static void useItemMath(FightItem fightItem,Monster2 monster2){
         if (fightItem.item_group.equals("heal")){
-            monster2.hp += fightItem.heal;
+            if (monster2.limit_hp > monster2.hp + fightItem.heal){
+                monster2.hp += fightItem.heal;
+            }else {
+                monster2.hp = monster2.limit_hp;
+            }
+            //あしたはぼうぎょちをせっていして、ダメージ軽減を行わせる。
+            //具体的にはここのバトルマネージャークラスの計算箇所で割合を使って軽減させる
         }
     }
 }

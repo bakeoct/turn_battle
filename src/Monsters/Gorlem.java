@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class Gorlem extends Monster2  implements Serializable {
     public Gorlem(){
+        this.limit_hp=9000;
+        this.limit_mp=300000;
+        this.defence=0;
+        this.up_leberu=0;
         this.leberu = 1;
         this.hp=9000;
         this.attack=70000;

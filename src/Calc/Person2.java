@@ -98,7 +98,6 @@ public class Person2 implements Serializable {
         return position;
     }
     public void turnBattle(Monster2 enemeymonster,  MissionDragonKing missionDragon_king) throws Finish {
-        System.out.println(missionDragon_king.progress);
         MissionSab missionSab =new MissionSab();
         String what_did = null;
         int win_flg =0;

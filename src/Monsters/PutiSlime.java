@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class PutiSlime extends Monster2 implements Serializable {
     public PutiSlime(){
+        this.limit_hp=398;
+        this.limit_mp=7;
+        this.defence=0;
+        this.up_leberu=0;
         this.leberu = 1;
         this.hp = 398;
         this.attack=50000000;

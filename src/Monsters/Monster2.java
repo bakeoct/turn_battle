@@ -11,8 +11,12 @@ import java.util.Scanner;
 
 public abstract class Monster2 implements Serializable {
     public int hp;
+    public int limit_hp;
     public int mp;
+    public int limit_mp;
     public int attack;
+    public int defence;
+    public int up_leberu;
     public String name;
     public String seibetu;
     public int leberu;
