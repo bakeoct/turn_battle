@@ -8,7 +8,7 @@ import Monsters.*;
 import java.io.Serializable;
 import java.util.Random;
 import java.util.Scanner;
-
+import static  Calc.Inventry.chooseItems;
 import static Monsters.Monster2.getMonsterRandomly;
 
 //敵を一回倒したらその敵をエラーの場所以外のどこかへ飛ばしまた倒されたら別の場所にまた飛ばす
@@ -25,7 +25,7 @@ public class Game implements Serializable {
     }
 
     public void gameTurn() throws Finish {
-        Store store = new Store(this.p.money,ship,ladder,mission_dragon_king);
+        Store store = new Store(p,ship,ladder,mission_dragon_king);
         Event event =new Event(p,map,ladder,ship,mission_dragon_king,enemey_monster);
         Random random = new Random();
         Monster2 enemey_monster = getMonsterRandomly();
@@ -36,18 +36,17 @@ public class Game implements Serializable {
                 String serve_get_map_code = map.getMapCode(p.x, p.y, p.area);
                 Scanner scanner = new Scanner(System.in);
                 String plice = scanner.next();
-                if (plice.equals("a") || plice.equals("d")) {
-                    p.x = p.walkX(p.x, plice);
-                    i++;
-                } else if (plice.equals("w") || plice.equals("s")) {
-                    p.y = p.walkY(p.y, plice);
+                if (plice.equals("a") || plice.equals("d") || plice.equals("w") || plice.equals("s")) {
+                    p.walk(p, plice);
                     i++;
                 } else if (plice.equals("finish")) {
                     throw new Finish();
+                } else if (plice.equals("inventry")) {
+                    chooseItems(p,scanner);
                 } else {
                     System.out.println("a,w,s,dのどれかを選んでください");
                 }
-                i = event.eventPerson(serve_get_map_code, i, p.serve_x, p.serve_y, store);
+                i = event.eventPerson(serve_get_map_code, i, store);
             }
             p.serve_x = p.x;
             p.serve_y = p.y;
@@ -60,7 +59,7 @@ public class Game implements Serializable {
                     this.enemey_monster.y = this.enemey_monster.walk(this.enemey_monster.y);
                     monsteri++;
                 }
-                monsteri = event.eventMonster(monsteri,this.enemey_monster.monster_serve_x,this.enemey_monster.monster_serve_y);
+                monsteri = event.eventMonster(monsteri);
             }
             this.enemey_monster.monster_serve_x = this.enemey_monster.x;
             this.enemey_monster.monster_serve_y = this.enemey_monster.y;

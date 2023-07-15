@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MissionSab implements Serializable {
-    public void receive(Person2 p, Scanner scanner, ArrayList<Mission> mission_all) throws Finish {
+    public void receive(Person2 p, ArrayList<Mission> mission_all) throws Finish {
+        Scanner scanner = new Scanner(System.in);
         int i = 0;
         ArrayList<Mission> missions = new ArrayList<>();
         while (i==0) {

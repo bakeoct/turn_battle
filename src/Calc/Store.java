@@ -18,7 +18,7 @@ import java.util.Scanner;
 
 public class Store implements Serializable {
     public int store_lv=1;
-    public int money;
+    public Person2 p;
     public ArrayList<Item> items_all =new ArrayList<>();
     public ArrayList<MonsterItem> monster_items_all =new ArrayList<>();
     public ArrayList<FightItem> fight_items_all = new ArrayList<FightItem>();
@@ -30,8 +30,8 @@ public class Store implements Serializable {
     public HealGlass heal_glass = new HealGlass();
     public SteelArmor steel_armor = new SteelArmor();
     public ArrayList<Mission> mission_all =new ArrayList<>();
-    public Store(int money,Ship ship,Ladder ladder,MissionDragonKing missionDragonKing) {
-        this.money = money;
+    public Store(Person2 p,Ship ship,Ladder ladder,MissionDragonKing missionDragonKing) {
+        this.p = p;
         this.items_all.add(ship);
         this.items_all.add(ladder);
         this.items_all.add(puti_slime_merchandise);
@@ -50,8 +50,7 @@ public class Store implements Serializable {
         this.monster_items_all.add(gorlem_merchandise);
         this.mission_all.add(missionDragonKing);
     }
-    public void shoppingStore(Person2 p) throws Finish {
-        System.out.println(p.monsters2.get(0).name);
+    public void shoppingStore() throws Finish {
         Scanner scanner = new Scanner(System.in);
         System.out.println("いらっしゃい、ここは雑貨屋だよアイテムからモンスターまで幅広く取り扱ってるよ");
         System.out.println("何の用かな？");
@@ -64,19 +63,19 @@ public class Store implements Serializable {
             System.out.println("出る[go]");
             String shoppingcode = scanner.next();
                 if (shoppingcode.equals("buy")) {
-                    buy(p,scanner,p.monsters2);
+                    buy();
                     System.out.println("ほかには何かあるか？");
                 } else if (shoppingcode.equals("sell")) {
-                    sell(p,scanner);
+                    sell();
                     System.out.println("ほかには何かあるか？");
                 } else if (shoppingcode.equals("mission")) {
-                    mission(p,scanner);
+                    mission();
                     System.out.println("ほかには何かあるか？");
                 } else if (shoppingcode.equals("talk")) {
                     talk();
                     System.out.println("ほかには何かあるか？");
                 } else if (shoppingcode.equals("go")) {
-                    go(p);
+                    go();
                     i++;
                 } else if (shoppingcode.equals("finish")) {
                     throw new Finish();
@@ -85,8 +84,9 @@ public class Store implements Serializable {
                 }
         }
     }
-    public void buy(Person2 p, Scanner scanner,ArrayList<Monster2> monster2s) throws Finish {
+    public void buy() throws Finish {
         int i = 0;
+        Scanner scanner =new Scanner(System.in);
         int endflg = 0;
         int buy_point;
         ArrayList<Item> buyitems =new ArrayList<>();
@@ -115,7 +115,7 @@ public class Store implements Serializable {
                             System.out.println("個数を選んでください");
                         }
                     }
-                    buyMath(item,p,monster_items_all,monster2s,buy_point);
+                    buyMath(item,monster_items_all,buy_point);
                     System.out.println("他はどうだ？");
                 }
             }
@@ -129,8 +129,9 @@ public class Store implements Serializable {
                 }
             }
         }
-    public void sell (Person2 p, Scanner scanner) throws Finish {
+    public void sell () throws Finish {
         int sell_point = 1;
+        Scanner scanner =new Scanner(System.in);
         System.out.println("売るんだな、何を売るんだ？");
         int i = 0;
         int endflg = 0;
@@ -169,7 +170,7 @@ public class Store implements Serializable {
                     }else {
                         sell_point = 1;
                     }
-                    sellMath(item,p,sell_point);
+                    sellMath(item,sell_point);
                     System.out.println("他はどうする？");
                     break;
                 }
@@ -184,7 +185,7 @@ public class Store implements Serializable {
             }
         }
     }
-    public void mission (Person2 p, Scanner scanner) throws Finish {
+    public void mission () throws Finish {
         Boolean endflg = false;
         MissionSab missionSab =new MissionSab();
         for (Mission mission : this.mission_all){
@@ -193,31 +194,30 @@ public class Store implements Serializable {
                 mission.get_reward = false;
                 System.out.println("お！、お前"+mission.name+"のミッションを達成しているな");
                 System.out.println("ほら報酬だ！");
-                 this.money+=mission.reward;
+                 p.money+=mission.reward;
             }
         }
         if (!endflg){
             System.out.println("ミッションを受けるんだな");
-            missionSab.receive(p,scanner,this.mission_all);
+            missionSab.receive(p,this.mission_all);
             System.out.println(this.mission_all.get(0).progress);
         }
     }
     public void talk (){
         System.out.println("いい天気ですね");
     }
-    public void go (Person2 p){
+    public void go (){
         System.out.println("じゃあな");
-        p.money = this.money;
     }
-    public void buyMath (Item item,Person2 p,ArrayList<MonsterItem> monster_items_all,ArrayList<Monster2> monster2s,int buy_point) {
-        if (this.money >= item.buy_price*buy_point) {
-            this.money -= item.buy_price*buy_point;
+    public void buyMath (Item item,ArrayList<MonsterItem> monster_items_all,int buy_point) {
+        if (p.money >= item.buy_price*buy_point) {
+            p.money -= item.buy_price*buy_point;
             System.out.println(p.name + "は" + item.name +"を" + buy_point + "個" + "買った");
             if (item.have_point == 0) {
                 item.have = true;
                 for (MonsterItem alive_item : monster_items_all) {
                     if (alive_item == item) {
-                        monster2s.add(inMonster(item));
+                        p.monsters2.add(inMonster(item));
                     }
                 }
                 if (item instanceof FightItem) {
@@ -235,8 +235,8 @@ public class Store implements Serializable {
             System.out.println("、、、出直して来な");
         }
     }
-    public void sellMath (Item item,Person2 p,int sell_point) {
-        this.money += item.sell_price * sell_point;
+    public void sellMath (Item item,int sell_point) {
+        p.money += item.sell_price * sell_point;
         item.have_point -= sell_point;
         System.out.println(p.name + "は" + item.name+ "を" + sell_point + "個" + "売った");
         if (item.have_point == 0) {

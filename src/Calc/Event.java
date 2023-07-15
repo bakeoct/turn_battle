@@ -30,18 +30,18 @@ public class Event implements Serializable{
         this.mission_dragon_king = missionDragonKing;
         this.enemey_monster = enemeyMonster;
     }
-    public int eventPerson(String serveget_map_code, int i, int servex, int servey, Store store) throws Finish {
+    public int eventPerson(String serveget_map_code, int i, Store store) throws Finish {
         //これをmapに送って二つメソッド動かす
         String get_map_code = map.getMapCode(p.x, p.y,p.area);
         if (get_map_code.equals("崖")) {
             if (!(get_map_code.equals(serveget_map_code))) {
-                i = notPoint(ladder, servex, servey, i, get_map_code,ON_GRAVEL_AUDIO);
+                i = notPoint(ladder, i, get_map_code,ON_GRAVEL_AUDIO);
             }else {
                 startAudio(ON_GRAVEL_AUDIO);
             }
         } else if (get_map_code.equals("山")) {
             if (!(get_map_code.equals(serveget_map_code))) {
-                i = notPoint(ladder, servex, servey, i, get_map_code,ON_FALLEN_LEAVES_AUDIO);
+                i = notPoint(ladder, i, get_map_code,ON_FALLEN_LEAVES_AUDIO);
             }else {
                 startAudio(ON_FALLEN_LEAVES_AUDIO);
             }
@@ -49,23 +49,23 @@ public class Event implements Serializable{
             if (!(get_map_code.equals(serveget_map_code))) {
                 //notPointにもしたのサウンドを出すのを入れる。
                 //notPointのtureをおすと、の場所で押すが選択されたときにの場所にサウンドを入れる。
-                i = notPoint(ship, servex, servey, i, get_map_code,IN_SEA_AUDIO);
+                i = notPoint(ship, i, get_map_code,IN_SEA_AUDIO);
             }else {
                 startAudio(IN_SEA_AUDIO);
             }
         } else if (get_map_code .equals("treasure_chest_ship")) {
             item_box ="宝箱";
-            i = openTreasureChest(i, ship, servex, servey,OPEN_TREASURE_CHEST_AUDIO);
+            i = openTreasureChest(i, ship,OPEN_TREASURE_CHEST_AUDIO);
         } else if (get_map_code .equals("treasure_chest_ladder")) {
             item_box ="宝箱";
-            i = openTreasureChest(i, ladder, servex, servey,OPEN_TREASURE_CHEST_AUDIO);
+            i = openTreasureChest(i, ladder,OPEN_TREASURE_CHEST_AUDIO);
         } else if (get_map_code .equals("store")) {
-            store.shoppingStore(p);
+            store.shoppingStore();
             for (Monster2 monster : p.monsters2) {
                 System.out.println(monster.name);
             }
-            p.x = servex;
-            p.y = servey;
+            p.x = p.serve_x;
+            p.y = p.serve_y;
         } else if (get_map_code.equals("back_world")) {
             if (p.area.equals("民家1")){
                 startAudio(OPEN_DOOR_AUDIO);
@@ -113,17 +113,17 @@ public class Event implements Serializable{
         }  else if (get_map_code .equals("errer")) {
             System.out.println("画面外なので、再度選んでください");
             i--;
-            p.x = servex;
-            p.y = servey;
+            p.x = p.serve_x;
+            p.y = p.serve_y;
         }
         return i;
     }
-    public int eventMonster(int monsteri, int monsterservex, int monsterservey){
+    public int eventMonster(int monsteri){
         String monster_get_map_code = map.getMapCode(enemey_monster.x, enemey_monster.y,enemey_monster.area);
         if (monster_get_map_code.equals("errer")) {
             monsteri--;
-            enemey_monster.x = monsterservex;
-            enemey_monster.y = monsterservey;
+            enemey_monster.x = enemey_monster.monster_serve_x;
+            enemey_monster.y = enemey_monster.monster_serve_y;
         }else if (monster_get_map_code.equals("back_world")){
             if (enemey_monster.area.equals("民家1")){
                 enemey_monster.x = PersonHome1.BACK_MAIN_WORLD_INITIAL_X;
@@ -159,39 +159,39 @@ public class Event implements Serializable{
         }
         return monsteri;
     }
-    public int notPoint(Item item, int servex, int servey, int i, String point,File audio_file) throws Finish {
+    public int notPoint(Item item, int i, String point,File audio_file) throws Finish {
         Scanner scanner = new Scanner(System.in);
         //map.oceanxそれかyの中の数字に該当する数字だった場合tureを返す
         System.out.print("ここには" + point + "があります。　");
-        int endflg = 0;
-        while (item.have && endflg == 0) {
-            System.out.println(item.name + "を使いますか？ 使う「ture」 使わない「false」");
-            if (scanner.next().equals("ture")) {
-                System.out.println(item.name + "を使った！");
-                startAudio(audio_file);
-                endflg++;
-            } else if (scanner.next().equals("false")) {
-                System.out.println("再度選んでください");
-                p.x = servex;
-                p.y = servey;
-                i--;
-                endflg++;
-            } else if (scanner.next().equals("finish")) {
-                throw new Finish();
-            } else {
-                System.out.println("tureかfalseを選んでください");
+            int endflg = 0;
+            while (item == p.have_item && endflg == 0) {
+                System.out.println(item.name + "を使いますか？ 使う「ture」 使わない「false」");
+                if (scanner.next().equals("ture")) {
+                    System.out.println(item.name + "を使った！");
+                    startAudio(audio_file);
+                    endflg++;
+                } else if (scanner.next().equals("false")) {
+                    System.out.println("再度選んでください");
+                    p.x = p.serve_x;
+                    p.y = p.serve_y;
+                    i--;
+                    endflg++;
+                } else if (scanner.next().equals("finish")) {
+                    throw new Finish();
+                } else {
+                    System.out.println("tureかfalseを選んでください");
+                }
             }
-        }
-        if (endflg == 0) {
-            System.out.println("再度選んでください");
-            p.x = servex;
-            p.y = servey;
-            i--;
-        }
+            if (endflg == 0) {
+                System.out.println("再度選んでください");
+                p.x = p.serve_x;
+                p.y = p.serve_y;
+                i--;
+            }
         return i;
     }
 
-    public int openTreasureChest(int i, Item item, int servex, int servey,File audio_file) throws Finish {
+    public int openTreasureChest(int i, Item item,File audio_file) throws Finish {
         Scanner scanner = new Scanner(System.in);
         int endflg = 0;
         while (endflg == 0) {
@@ -227,8 +227,8 @@ public class Event implements Serializable{
                 System.out.println("tureかfalseを選んでください");
             }
         }
-        p.x = servex;
-        p.y = servey;
+        p.x = p.serve_x;
+        p.y = p.serve_y;
         return i;
     }
 }

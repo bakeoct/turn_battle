@@ -22,6 +22,7 @@ public class Person2 implements Serializable {
     public String name;
     public String seibetu;
     public int money=100;
+    public Item have_item = null;
     public String area = "メインマップ";
     public int x=6;
     public int y=6;
@@ -33,15 +34,9 @@ public class Person2 implements Serializable {
         this.seibetu = seibetu2;
         this.monsters2.add(metal_slime);
         this.monsters2.add(gorlem);
-        for (Item item : field_items){
-            items.add(item);
-        }
-        for (Item item : fight_items){
-            items.add(item);
-        }
-        for (Item item : monster_items){
-            items.add(item);
-        }
+        items.addAll(field_items);
+        items.addAll(fight_items);
+        items.addAll(monster_items);
             if (this.seibetu.equals("dannsei")) {
                 System.out.print(namae + "くんが持っているはモンスターは(モンスター");
                 for (Monster2 mons : monsters2) {
@@ -81,21 +76,16 @@ public class Person2 implements Serializable {
                 System.out.println("(josei)または(dannsei)を入力してください。");
             }
     }
-    public int walkX(int position,String plice){
+    public void walk(Person2 p,String plice){
         if (plice.equals("d")){
-            position++;
+            p.x++;
         }else if (plice.equals("a")) {
-               position--;
-        }
-        return position;
-    }
-    public int walkY(int position,String plice){
-        if (plice.equals("w")){
-            position++;
+            p.x--;
+        }else if (plice.equals("w")){
+            p.y++;
         }else if (plice.equals("s")) {
-            position--;
+            p.y--;
         }
-        return position;
     }
     public void turnBattle(Monster2 enemeymonster,  MissionDragonKing missionDragon_king) throws Finish {
         MissionSab missionSab =new MissionSab();
