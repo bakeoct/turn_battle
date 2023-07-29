@@ -12,5 +12,6 @@ public class DragonKingMerchandise  extends MonsterItem implements Serializable 
         this.code="dragonking";
         this.item_lv = 1;
         this.item_group = "monster";
+        this.can_hold = false;
     }
 }

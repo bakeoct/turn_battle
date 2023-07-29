@@ -3,6 +3,7 @@ package Monsters;
 import Calc.Error.Finish;
 import Calc.Item.FightItem;
 import Calc.Person2;
+import Calc.skill.Skill;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ public abstract class Monster2 implements Serializable {
     public int can_get_experince_point;
     public int have_experince_point = 0;
     public int need_experince_point = 0;
+    public Skill use_skill;
+    public ArrayList<Skill> all_skill =new ArrayList<>();
 
     public String name() {
         return this.name;

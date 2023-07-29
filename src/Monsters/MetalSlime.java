@@ -1,5 +1,9 @@
 package Monsters;
 
+import Calc.skill.Hit;
+import Calc.skill.LittleFire;
+import Calc.skill.Throw;
+
 import java.io.Serializable;
 
 public class MetalSlime extends Monster2  implements Serializable{
@@ -19,6 +23,9 @@ public class MetalSlime extends Monster2  implements Serializable{
         this.fellow=true;
         this.can_get_experince_point = 500;
         this.need_experince_point = 100;
+        this.all_skill.add(new Hit());
+        this.all_skill.add(new Throw());
+        this.all_skill.add(new LittleFire());
     }
     public static String look(Monster2 monster){
         return monster.name;

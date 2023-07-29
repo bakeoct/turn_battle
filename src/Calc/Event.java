@@ -164,6 +164,7 @@ public class Event implements Serializable{
         //map.oceanxそれかyの中の数字に該当する数字だった場合tureを返す
         System.out.print("ここには" + point + "があります。　");
             int endflg = 0;
+            //アイテム（はしごや船など）をインベントリで手に持ったまま崖や海のマスに進む
             while (item == p.have_item && endflg == 0) {
                 System.out.println(item.name + "を使いますか？ 使う「ture」 使わない「false」");
                 if (scanner.next().equals("ture")) {

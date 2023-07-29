@@ -1,5 +1,8 @@
 package Monsters;
 
+import Calc.skill.Hit;
+import Calc.skill.Throw;
+
 import java.io.Serializable;
 
 public class Gorlem extends Monster2  implements Serializable {
@@ -19,6 +22,8 @@ public class Gorlem extends Monster2  implements Serializable {
         this.fellow=true;
         this.can_get_experince_point = 3000;
         this.need_experince_point = 300;
+        this.all_skill.add(new Hit());
+        this.all_skill.add(new Throw());
     }
     public static String look(Monster2 monster){
         return monster.name;

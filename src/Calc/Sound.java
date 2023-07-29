@@ -8,14 +8,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class Sound implements Serializable {
-    public static final File ON_STONE_AUDIO = new File("C:\\Users\\2009t\\IdeaProjects\\ex001\\src\\sound\\アスファルトの上を歩く1.wav");
-    public static final File ON_WOOD_AUDIO = new File("C:\\Users\\2009t\\IdeaProjects\\ex001\\src\\sound\\フローリングの上を歩く1.wav");
-    public static final File IN_SEA_AUDIO = new File("C:\\Users\\2009t\\IdeaProjects\\ex001\\src\\sound\\水に浸かりながら歩く.wav");
-    public static final File ON_GRAVEL_AUDIO = new File("C:\\Users\\2009t\\IdeaProjects\\ex001\\src\\sound\\砂利の上を歩く.wav");
-    public static final File ON_GLASS_AUDIO = new File("C:\\Users\\2009t\\IdeaProjects\\ex001\\src\\sound\\芝生の上を歩く.wav");
-    public static final File ON_FALLEN_LEAVES_AUDIO = new File("C:\\Users\\2009t\\IdeaProjects\\ex001\\src\\sound\\落ち葉の上を歩く.wav");
-    public static final File OPEN_DOOR_AUDIO = new File("C:\\Users\\2009t\\IdeaProjects\\ex001\\src\\sound\\ドアを開ける3.wav");
-    public static final File OPEN_TREASURE_CHEST_AUDIO = new File("C:\\Users\\2009t\\IdeaProjects\\ex001\\src\\sound\\ドアを開ける1_1.wav");
+    public static final File ON_STONE_AUDIO = new File("./src/sound/アスファルトの上を歩く1.wav");
+    public static final File ON_WOOD_AUDIO = new File("./src/sound/フローリングの上を歩く1.wav");
+    public static final File IN_SEA_AUDIO = new File("./src/sound/水に浸かりながら歩く.wav");
+    public static final File ON_GRAVEL_AUDIO = new File("./src/sound/砂利の上を歩く.wav");
+    public static final File ON_GLASS_AUDIO = new File("./src/sound/芝生の上を歩く.wav");
+    public static final File ON_FALLEN_LEAVES_AUDIO = new File("./src/sound/落ち葉の上を歩く.wav");
+    public static final File OPEN_DOOR_AUDIO = new File("./src/sound/ドアを開ける3.wav");
+    public static final File OPEN_TREASURE_CHEST_AUDIO = new File("./src/sound/ドアを開ける1_1.wav");
     public static void startAudio(File data_audio) {
         Clip clip = createClip(data_audio);
         //ここで再生メソッドの呼び出し

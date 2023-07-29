@@ -11,5 +11,6 @@ public class SuperSword extends FightItem implements Serializable {
         this.item_lv = 1;
         this.up_attack = 10000;
         this.item_group = "attack";
+        this.can_hold = false;
     }
 }

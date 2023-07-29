@@ -15,4 +15,5 @@ public abstract class Item implements Serializable {
     public int sell_price;
     public String code;
     public int have_point = 0;
+    public boolean can_hold;
 }

@@ -12,5 +12,6 @@ public class PutiSlimeMerchandise extends MonsterItem implements Serializable {
         this.code="putislime";
         this.item_lv = 1;
         this.item_group = "monster";
+        this.can_hold = false;
     }
 }

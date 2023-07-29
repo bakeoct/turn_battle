@@ -11,5 +11,6 @@ public class HealGlass extends FightItem implements Serializable  {
         this.item_lv = 1;
         this.heal = 500;
         this.item_group = "heal";
+        this.can_hold = false;
     }
 }

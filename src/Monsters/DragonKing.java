@@ -1,5 +1,8 @@
 package Monsters;
 
+import Calc.skill.Hit;
+import Calc.skill.LittleFire;
+
 import java.io.Serializable;
 
 public class DragonKing extends Monster2 implements Serializable {
@@ -19,6 +22,8 @@ public class DragonKing extends Monster2 implements Serializable {
         this.fellow=false;
         this.can_get_experince_point = 1000;
         this.need_experince_point = 300;
+        this.all_skill.add(new Hit());
+        this.all_skill.add(new LittleFire());
     }
     public static String look(Monster2 monster){
         return monster.name;
