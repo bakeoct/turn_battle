@@ -47,7 +47,7 @@ public class Inventry implements Serializable {
                                         monster.have_item = (FightItem) p.items.get(i);
                                     }else {
                                         if (monster.name.equals(use_items)){
-                                            System.out.println("そのアイテムはモンスタ－に持たせることはできません");
+                                            System.out.println("そのアイテムはモンスタ－に持たせることはできません。");
                                             end_flg_item_monster++;
                                         }
                                     }
