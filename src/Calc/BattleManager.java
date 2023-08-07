@@ -119,23 +119,23 @@ public class BattleManager implements Serializable {
             System.out.println(monster2.name + "を倒した");
         }
     }
-    public static void itemsStatus(ArrayList<FightItem> fight_items, Monster2 monster2){
-        for (FightItem item : fight_items){
-            if (item.item_group.equals("attack")){
-                monster2.attack += item.up_attack;
-            }else if (item.item_group.equals("armor")){
-                monster2.defence += item.up_defence;
+    public static void itemsStatus(Monster2 monster2){
+        try{
+            if (monster2.have_item.name.equals("attack")){
+                monster2.attack += monster2.have_item.up_attack;
+            }else if (monster2.have_item.name.equals("armor")){
+                monster2.defence += monster2.have_item.up_defence;
             }
-        }
+        }catch (NullPointerException e){}
     }
-    public static void goBackStatus(ArrayList<FightItem> fight_items,Monster2 monster2){
-        for (FightItem item : fight_items){
-            if (item.item_group.equals("attack")){
-                monster2.attack -= item.up_attack;
-            }else if (item.item_group.equals("armor")){
-                monster2.defence -= item.up_defence;
+    public static void goBackStatus(Monster2 monster2){
+        try {
+            if (monster2.have_item.name.equals("attack")) {
+                monster2.attack -= monster2.have_item.up_attack;
+            } else if (monster2.have_item.name.equals("armor")) {
+                monster2.defence -= monster2.have_item.up_defence;
             }
-        }
+        }catch (NullPointerException e){}
     }
     public static String chooseDo(String what_did,Person2 p,Monster2 monster2) throws Finish {
         Scanner scanner =new Scanner(System.in);

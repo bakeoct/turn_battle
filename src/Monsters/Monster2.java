@@ -2,6 +2,7 @@ package Monsters;
 
 import Calc.Error.Finish;
 import Calc.Item.FightItem;
+import Calc.Item.Item;
 import Calc.Person2;
 import Calc.skill.Skill;
 
@@ -29,6 +30,7 @@ public abstract class Monster2 implements Serializable {
     public int need_experince_point = 0;
     public Skill use_skill;
     public ArrayList<Skill> all_skill =new ArrayList<>();
+    public FightItem have_item =null;
 
     public String name() {
         return this.name;

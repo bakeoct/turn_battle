@@ -95,9 +95,9 @@ public class Person2 implements Serializable {
 
             //能力上昇で死ぬ、だから防御値を設定して割合でダメ－ジを軽減するのに変えるHP上限値を作る
 
-            itemsStatus(this.fight_items,mons);
+            itemsStatus(mons);
             what_did = battle(enemeymonster,mons,what_did,this);
-            goBackStatus(this.fight_items,mons);
+            goBackStatus(mons);
             if (what_did.equals("goback")){
                 System.out.println(this.name+"は逃げ出した");
                 win_flg++;
